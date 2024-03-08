@@ -1,0 +1,172 @@
+[
+    {
+        "Id": 1,
+        "Name": "Carlos Mauricio Sainz Vivanco",
+        "Department": "",
+        "Position": "",
+        "Manager": "",
+        "ManegerPosition": ""
+    },
+    {
+        "Id": 2,
+        "Name": "Bryan Joshiomar Reynoso Garcia",
+        "Department": "",
+        "Position": "",
+        "Manager": "",
+        "ManegerPosition": ""
+    },
+    {
+        "Id": 3,
+        "Name": "Manuel Salvador Bolaños Gaytan",
+        "Department": "",
+        "Position": "",
+        "Manager": "",
+        "ManegerPosition": ""
+    },
+    {
+        "Id": 4,
+        "Name": "Eduardo Ramirez Elizondo",
+        "Department": "",
+        "Position": "",
+        "Manager": "",
+        "ManegerPosition": ""
+    },
+    {
+        "Id": 5,
+        "Name": "Erika Itzel Cesar Aguilar",
+        "Department": "Validacion y Metrologia",
+        "Position": "",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 6,
+        "Name": "Litzy Fernanda Rodriguez Valdivia",
+        "Department": "Validacion",
+        "Position": "",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 7,
+        "Name": "Gerardo Mayorquin Ocampo",
+        "Department": "Validacion",
+        "Position": "",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 8,
+        "Name": "Chistopher Rafael Valerio Mariscal",
+        "Department": "Validacion",
+        "Position": "",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 9,
+        "Name": "Jose Antonio Gonzalez Gonzalez",
+        "Department": "Validacion",
+        "Position": "",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 10,
+        "Name": "Ivan Gamaliel Hernandez Rojas",
+        "Department": "Seguridad Industrial CSM",
+        "Position": "",
+        "Manager": "Franklin Daniel Gonzalez Rivera",
+        "ManegerPosition": "Gerente de Seguridad Industrial"
+    },
+    {
+        "Id": 11,
+        "Name": "Jose Rodrigo Jaime Tavarez",
+        "Department": "Validacion CSM",
+        "Position": "",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 12,
+        "Name": "Susana Rafaela Flores Garcia",
+        "Department": "Control de Calidad CSM",
+        "Position": "",
+        "Manager": "Giscela Jannete Avalos Rendon",
+        "ManegerPosition": "Gerente de Control de Calidad"
+    },
+    {
+        "Id": 13,
+        "Name": "Gabriel Alcaraz Guzman",
+        "Department": "Control de Calidad",
+        "Position": "",
+        "Manager": "Giscela Jannete Avalos Rendon",
+        "ManegerPosition": "Gerente de Control de Calidad"
+    },
+    {
+        "Id": 14,
+        "Name": "Yuliett Sandoval Marquez",
+        "Department": "Control de Calidad CSM",
+        "Position": "",
+        "Manager": "Giscela Jannete Avalos Rendon",
+        "ManegerPosition": "Gerente de Control de Calidad"
+    },
+    {
+        "Id": 15,
+        "Name": "Eunice Arana Figueroa",
+        "Department": "Aseguramiento de Calidad",
+        "Position": "Gerente de Aseguramiento de Calidad",
+        "Manager": "Cesar Alejandro Martinez Jimenez",
+        "ManegerPosition": "Director de Calidad"
+    },
+    {
+        "Id": 16,
+        "Name": "Jesus Orueta Aguirre",
+        "Department": "Ingenieria de Proyectos",
+        "Position": "",
+        "Manager": "Ramiro Robles Murguia",
+        "ManegerPosition": "Director Ingenieria de Proyectos"
+    },
+    {
+        "Id": 17,
+        "Name": "",
+        "Department": "",
+        "Position": "",
+        "Manager": "",
+        "ManegerPosition": ""
+    },
+    {
+        "Id": 18,
+        "Name": "Samanta Alejandra Luna Robles",
+        "Department": "Validacion",
+        "Position": "Analista de Validacion",
+        "Manager": "David Alejandro Sanchez Fuentes",
+        "ManegerPosition": "Gerente de Calidad"
+    },
+    {
+        "Id": 19,
+        "Name": "Elsa Maria Razo Juarez",
+        "Department": "Control de Calidad",
+        "Position": "Analista de laboratorio de producto",
+        "Manager": "Giscela Jannete Avalos Rendon",
+        "ManegerPosition": "Gerente de Control de Calidad"
+    },
+    {
+        "Id": 20,
+        "Name": "Luis Octavio Ramirez Armenta",
+        "Department": "Seguridad Industrial",
+        "Position": "Ingeniero de Seguridad Higiene y Medio Ambiente",
+        "Manager": "Franklin Daniel Gonzalez Rivera",
+        "ManegerPosition": "Gerente de Seguridad Industrial"
+    },
+    
+    {
+        "Id": 1,
+        "Name": "Andres Uriel Aguirre Ocampo",
+        "Department": "Tecnologias de la Informacion",
+        "Position": "Ingeniero de Soporte Tecnico",
+        "Manager": "Hector Javier Villafana Carrillo",
+        "ManagerPosition": "Gerente de Operaciones de TI"
+    }
+]
+

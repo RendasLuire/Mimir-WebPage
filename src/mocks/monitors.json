@@ -1,0 +1,213 @@
+[
+    {
+        "Id": 1,
+        "Brand": "HP",
+        "Model": "P24v G5 FHD ",
+        "SerialNumber": "CNC3140WH7",
+        "Warehouse": "Oficinas Administrativas: Dibujantes",
+        "User": "Carlos Mauricio Sainz Vivanco",
+        "Annexed": "",
+        "Computer": "MXL3403F8D",
+        "Status": "On Use"
+    },
+    {
+        "Id": 2,
+        "Brand": "HP",
+        "Model": "P24v G5 FHD ",
+        "SerialNumber": "CNC3140WTW",
+        "Warehouse": "Oficinas Administrativas: Dibujantes",
+        "User": "Bryan Joshiomar Reynoso Garcia",
+        "Annexed": "",
+        "Computer": "MXL3403F89",
+        "Status": "On Use"
+    },
+    {
+        "Id": 3,
+        "Brand": "HP",
+        "Model": "P24v G5 FHD ",
+        "SerialNumber": "CNC3270LN5",
+        "Warehouse": "Oficinas Administrativas: Dibujantes",
+        "User": "Manuel Salvador Bolaños Gaytan",
+        "Annexed": "",
+        "Computer": "MXL3403F8C",
+        "Status": "On Use"
+    },
+    {
+        "Id": 4,
+        "Brand": "HP",
+        "Model": "P24 G5 FHD ",
+        "SerialNumber": "CNC2281DNQ",
+        "Warehouse": "Oficinas Administrativas: Dibujantes",
+        "User": "Eduardo Ramirez Elizondo",
+        "Annexed": "4500007",
+        "Computer": "MXL3011V7M",
+        "Status": "On Use"
+    },
+    {
+        "Id": 5,
+        "Brand": "HP",
+        "Model": "P22va G4 FHD ",
+        "SerialNumber": "CN412612F3",
+        "Warehouse": "Oficinas Administrativas: Validacion",
+        "User": "Erika Itzel Cesar Aguilar",
+        "Annexed": "1",
+        "Computer": "8CC1334NWG",
+        "Status": "On Use"
+    },
+    {
+        "Id": 6,
+        "Brand": "HP",
+        "Model": "P24 G4 ",
+        "SerialNumber": "3CM14329NC",
+        "Warehouse": "Oficinas Administrativas: Validacion",
+        "User": "Litzy Fernanda Rodriguez Valdivia",
+        "Annexed": "4500005",
+        "Computer": "8CC2200ZXR",
+        "Status": "On Use"
+    },
+    {
+        "Id": 7,
+        "Brand": "HP",
+        "Model": "P24v G5 FHD ",
+        "SerialNumber": "CNC3140Y72",
+        "Warehouse": "Oficinas Administrativas: Validacion",
+        "User": "Gerardo Mayorquin Ocampo",
+        "Annexed": "",
+        "Computer": "8CC3290JDH",
+        "Status": "On Use"
+    },
+    {
+        "Id": 8,
+        "Brand": "HP",
+        "Model": "P24v G5 FHD ",
+        "SerialNumber": "CNC3140Y75",
+        "Warehouse": "Oficinas Administrativas: Validacion",
+        "User": "Chistopher Rafael Valerio Mariscal",
+        "Annexed": "",
+        "Computer": "8CC3290JHM",
+        "Status": "On Use"
+    },
+    {
+        "Id": 9,
+        "Brand": "HP",
+        "Model": "P24v G5 FHD ",
+        "SerialNumber": "CNC3140X98",
+        "Warehouse": "Metrologia",
+        "User": "Jose Antonio Gonzalez Gonzalez",
+        "Annexed": "",
+        "Computer": "8CC3290JC5",
+        "Status": "On Use"
+    },
+    {
+        "Id": 10,
+        "Brand": "HP",
+        "Model": "P24v G4 FHD ",
+        "SerialNumber": "1CR0420ZP7",
+        "Warehouse": "Oficinas Administrativas: Seguridad Industrial CSM",
+        "User": "Ivan Gamaliel Hernandez Rojas",
+        "Annexed": "260678",
+        "Computer": "8CC112453X",
+        "Status": "On Use"
+    },
+    {
+        "Id": 11,
+        "Brand": "HP",
+        "Model": "P24v G4 FHD ",
+        "SerialNumber": "CNC3140X9C",
+        "Warehouse": "Laboratorio",
+        "User": "Susana Rafaela Flores Garcia",
+        "Annexed": "",
+        "Computer": "8CC3290JCB",
+        "Status": "On Use"
+    },
+    {
+        "Id": 12,
+        "Brand": "HP",
+        "Model": "P24v G4 FHD ",
+        "SerialNumber": "CNC3270LMY",
+        "Warehouse": "Laboratorio",
+        "User": "Gabriel Alcaraz Guzman",
+        "Annexed": "",
+        "Computer": "8CC3290JD6",
+        "Status": "On Use"
+    },
+    {
+        "Id": 13,
+        "Brand": "HP",
+        "Model": "P24v G4 FHD ",
+        "SerialNumber": "CNC3140Y6K",
+        "Warehouse": "Laboratorio: Instrumentacion",
+        "User": "Yuliett Sandoval Marquez",
+        "Annexed": "",
+        "Computer": "8CC3290JBT",
+        "Status": "On Use"
+    },
+    {
+        "Id": 14,
+        "Brand": "HP",
+        "Model": "P24v G4 FHD ",
+        "SerialNumber": "CNC3140W37",
+        "Warehouse": "CEDIS",
+        "User": "Eunice Arana Figueroa",
+        "Annexed": "",
+        "Computer": "8CC3290JF0",
+        "Status": "On Use"
+    },
+    {
+        "Id": 15,
+        "Brand": "BenQ",
+        "Model": "GL-925",
+        "SerialNumber": "ETFCA0380SL0",
+        "Warehouse": "Oficinas Administrativas",
+        "User": "Jesus Orueta Aguirre",
+        "Annexed": "0",
+        "Computer": "5CG3325LZ3",
+        "Status": "On Use"
+    },
+    {
+        "Id": 16,
+        "Brand": "HP",
+        "Model": "P24 G5 FHD ",
+        "SerialNumber": "CNC2281DPR",
+        "Warehouse": "",
+        "User": "",
+        "Annexed": "",
+        "Computer": "MXL3011V78",
+        "Status": "On Use"
+    },
+    {
+        "Id": 17,
+        "Brand": "HP",
+        "Model": "P24v G4",
+        "SerialNumber": "1CR0470LYH",
+        "Warehouse": "Oficinas Administrativas: Validacion",
+        "User": "Samanta Alejandra Luna Robles",
+        "Annexed": "260678",
+        "Computer": "8CC11244WG",
+        "Status": "On Use"
+    },
+    {
+        "Id": 18,
+        "Brand": "HP",
+        "Model": "P24 G4",
+        "SerialNumber": "3CM1450CTX",
+        "Warehouse": "Laboratorio",
+        "User": "Elsa Maria Razo Juarez",
+        "Annexed": "4500005",
+        "Computer": "8CC2200ZWW",
+        "Status": "On Use"
+},
+
+    {
+        "Id": 19,
+        "Brand": "HP",
+        "Model": "Prueba",
+        "SerialNumber": "Prueba",
+        "Warehouse": 1,
+        "user": 1,
+        "Annexed": 1,
+        "Computer": 1,
+        "Status": 1
+    }
+]
+

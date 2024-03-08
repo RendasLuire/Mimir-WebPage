@@ -1,0 +1,12 @@
+[
+    {
+        "Id": 1,
+        "Brand": "HP",
+        "Model": "GK 400",
+        "SerialNumber": "prueba",
+        "Warehouse": 1,
+        "User": 1,
+        "Annexed": 1,
+        "Status": 1
+    }
+]

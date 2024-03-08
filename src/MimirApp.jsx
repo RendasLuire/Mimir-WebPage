@@ -17,7 +17,7 @@ const MimirApp = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/users" element={<UsersPage /> } />
           <Route path="/computers" element={<ComputersPage />} />
-          <Route path="/monitoris" element={<MonitorsPage />} />
+          <Route path="/monitors" element={<MonitorsPage />} />
           <Route path="/printers" element={<PrintersPage /> } />
           <Route path="/annexeds" element={<AnnexedsPage />} />
           <Route path="/settings" element={<SettingsPage />} />

@@ -1,0 +1,66 @@
+[
+    {
+        "Id": 1,
+        "Name": "StatusDevices",
+        "Options": [
+            {
+                "id": 1,
+                "Name":"In Use" 
+            },
+            {
+                "id": 2,
+                "Name":"In Stock" 
+            },
+            {
+                "id": 3,
+                "Name":"No Work" 
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "StatusChange",
+        "Options": [
+            {
+                "id": 1,
+                "Name": "Soon Change" 
+            },
+            {
+                "id": 2,
+                "Name":"Changed" 
+            },
+            {
+                "id": 3,
+                "Name":"Need Change" 
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "TypeChange",
+        "Options": [
+            {
+                "id": 1,
+                "Name": "Reasignation"
+            },
+            {
+                "id": 2,
+                "Name": "Asignation"
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "ObjectType",
+        "Options": [
+            {
+                "id": 1,
+                "Name": "Computer"
+            },
+            {
+                "id": 2,
+                "Name": "Printer"
+            }
+        ]
+    }
+]

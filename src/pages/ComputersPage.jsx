@@ -1,6 +1,11 @@
+import ComputersTable from "../Components/ComputersComponents/ComputersTable"
+import computers from "../mocks/computers.json"
+
 const ComputersPage = () => {
   return (
-    <h1>Computers Page</h1>
+    <>
+      <ComputersTable data = {computers}/>
+    </>
   )
 }
 

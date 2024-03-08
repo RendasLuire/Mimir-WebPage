@@ -1,0 +1,20 @@
+[
+    {
+        "Id": 1,
+        "Name": "Administrador",
+        "NickName": "Admin",
+        "Type": "Admin",
+        "Password": "sporte*1815",
+        "LastChangePass": "",
+        "Email": "andres.aguirre_o@hotmail.com"
+    },
+    {
+        "Id": 7923,
+        "Name": "Andres Uriel Aguirre Ocampo",
+        "NickName": "aaguirre",
+        "Type": "User",
+        "Password": "123456",
+        "LastChangePass": "",
+        "Email": "aaguirre@maver.com.mx"
+    }
+]

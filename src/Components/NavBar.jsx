@@ -30,7 +30,7 @@ const NavBar = () => {
               <NavLink to={"/computers"} className="nav-link"><DevicesOutlinedIcon className="d-inline-block align-text-top"/> Computers</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to={"/computers"} className="nav-link"><MonitorOutlinedIcon className="d-inline-block align-text-top"/> Monitors</NavLink>
+              <NavLink to={"/monitors"} className="nav-link"><MonitorOutlinedIcon className="d-inline-block align-text-top"/> Monitors</NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={"/printers"} className="nav-link"><LocalPrintshopOutlinedIcon className="d-inline-block align-text-top"/> Printers</NavLink>
