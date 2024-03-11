@@ -12,7 +12,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary shadow">
       <div className="container-fluid">
         <NavLink to={"/"} className="navbar-brand"><BookOutlinedIcon className="d-inline-block align-text-top" fontSize="large"/> MIMIR</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@ const NavBar = () => {
             </li>
           </ul>
           <div className="nav-item dropdown px-5">
-              <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><AccountCircleOutlinedIcon fontSize="large"/></a>
+              <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><AccountCircleOutlinedIcon fontSize="large"/> <label>Usuario</label></a>
               <ul className="dropdown-menu">
                 <li><NavLink to={"/settings"} className="dropdown-item"><SettingsOutlinedIcon /> Settings</NavLink></li>
                 <li><hr className="dropdown-divider"/></li>

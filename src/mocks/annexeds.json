@@ -3,6 +3,12 @@
         "Id": 1,
         "Name": "Propio",
         "DateInit": "",
-        "DateEnd": ""
+        "DateEnd": "",
+        "Computers": [
+            {
+                "id": 1,
+                "SerialNumber": "prueba"
+            }
+        ]
     }
 ]

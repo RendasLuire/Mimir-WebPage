@@ -1,7 +1,7 @@
 const CardItemList = ({title, imagen, paragraph1a, paragraph1b, title2, paragraph2a, paragraph2b}) => {
 
   return (
-    <div className="card mb-3" >
+    <div className="card mb-3 shadow" >
         <div className="row g-0">
             <div className="col-md-2 pt-2 ps-2">
                 {imagen}

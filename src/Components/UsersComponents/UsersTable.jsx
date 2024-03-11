@@ -15,7 +15,7 @@ const UsersTable = ({data}) => {
         fetchUsers()
     }, [])
     return (
-        <div>
+        <div className="container">
             <h1>Users List</h1>
             <div>
                 {usersData ? 
