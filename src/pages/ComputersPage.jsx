@@ -1,3 +1,4 @@
+import ButtonAddComputer from "../Components/ComputersComponents/ButtonAddComputer"
 import ComputersTable from "../Components/ComputersComponents/ComputersTable"
 import InputSearch from "../Components/InputSearch"
 import computers from "../mocks/computers.json"
@@ -11,7 +12,7 @@ const ComputersPage = () => {
             <InputSearch />
           </div>
           <div className="col-md-auto">
-            
+            <ButtonAddComputer />
           </div>
         </div>
       </div>
