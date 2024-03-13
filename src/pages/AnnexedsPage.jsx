@@ -1,4 +1,5 @@
-import AnnexedsTable from "../Components/AnnxedsComponents/AnnexedsTable"
+import ButtonAddAnnexed from "../Components/AnnexedsComponents/ButtonAddAnnexed"
+import AnnexedsTable from "../Components/AnnexedsComponents/AnnexedsTable"
 import InputSearch from "../Components/InputSearch"
 import Annexed from "../mocks/annexeds.json"
 
@@ -11,7 +12,7 @@ const AnnexedsPage = () => {
             <InputSearch />
           </div>
           <div className="col-md-auto">
-            
+            <ButtonAddAnnexed />
           </div>
         </div>
       </div>
