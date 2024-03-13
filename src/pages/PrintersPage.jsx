@@ -1,5 +1,5 @@
-import AddButton from "../Components/AddButton"
 import InputSearch from "../Components/InputSearch"
+import ButtonAddPrinter from "../Components/PrintersComponents/ButtonAddPrinter"
 import PrintersTable from "../Components/PrintersComponents/PrintersTable"
 import printers from "../mocks/printers.json"
 
@@ -12,7 +12,7 @@ const PrintersPage = () => {
             <InputSearch />
           </div>
           <div className="col-md-auto">
-            <AddButton title={"Printer"}/>
+            <ButtonAddPrinter />
           </div>
         </div>
       </div>

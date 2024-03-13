@@ -1,5 +1,5 @@
-import AddButton from "../Components/AddButton"
 import InputSearch from "../Components/InputSearch"
+import ButtonAddMonitor from "../Components/MonitorsComponents/ButtonAddMonitor"
 import MonitorsTable from "../Components/MonitorsComponents/MonitorsTable"
 import monitors from "../mocks/monitors.json"
 
@@ -12,7 +12,7 @@ const MonitorsPage = () => {
             <InputSearch />
           </div>
           <div className="col-md-auto">
-            <AddButton title={"Monitor"}/>
+            <ButtonAddMonitor />
           </div>
         </div>
       </div>

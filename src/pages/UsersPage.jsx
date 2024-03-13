@@ -1,7 +1,7 @@
 import usersData from "../mocks/users.json"
 import UsersTable from "../Components/UsersComponents/UsersTable"
-import AddButton from "../Components/AddButton"
 import InputSearch from "../Components/InputSearch"
+import ButtonAddUser from "../Components/UsersComponents/ButtonAddUser"
 
 const UsersPage = () => {
 
@@ -14,7 +14,7 @@ const UsersPage = () => {
             <InputSearch />
           </div>
           <div className="col-md-auto">
-            <AddButton title={"User"}/>
+            <ButtonAddUser />
           </div>
         </div>
       </div>
