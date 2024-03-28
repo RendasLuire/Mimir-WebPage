@@ -1,9 +1,27 @@
-import usersData from "../mocks/users.json"
+/* import usersData from "../mocks/users.json" */
 import UsersTable from "../Components/UsersComponents/UsersTable"
 import InputSearch from "../Components/InputSearch"
 import ButtonAddUser from "../Components/UsersComponents/ButtonAddUser"
+import { useEffect, useState } from "react"
+import Global from "../helpers/Global"
 
 const UsersPage = () => {
+
+  const [usersData, setUsersData] =  useState([])
+
+  const fetchUsers = async () => {
+    const response = await fetch(Global.url + "persons", {
+      method: "GET",
+      headers: { 'Content-Type': 'application/json' }
+    })
+    const data = await response.json()
+    console.log(data)
+    setUsersData(data)
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  },[])
 
   return (
     <>

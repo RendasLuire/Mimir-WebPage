@@ -18,14 +18,14 @@ const UsersTable = ({data}) => {
         <div className="container">
             <h1>Users List</h1>
             <div>
-                {usersData ? 
+                {(usersData.length > 0) ? 
                 usersData.map(user => 
                         <CardItemList 
-                        key={user.Id} 
+                        key={user._id} 
                         imagen={<Avatar sx={{ width: 100, height: 100 }}><PortraitOutlinedIcon sx={{ fontSize: 80 }} /></Avatar>} 
-                        title={user.Name} 
-                        paragraph1a={user.Position} 
-                        paragraph1b={user.Department}
+                        title={user.name} 
+                        paragraph1a={user.position} 
+                        paragraph1b={user.department}
                         />
                     )
                 :
