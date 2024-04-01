@@ -1,10 +1,5 @@
 const UserForm = () => {
 
-  const [ form, setForm] = 
-
-  const saveUser = async (e) => {
-
-  }
 
   return (
     <div className='modal fade' id="UserModal" aria-labelledby="ModalLabel" aria-hidden="true">
