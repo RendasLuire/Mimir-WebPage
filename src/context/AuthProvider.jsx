@@ -27,8 +27,12 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await request.json();
-
-    setAuth(data.user);
+    const infoUser = JSON.stringify(data.user);
+    console.log("infoUser: " + infoUser);
+    console.log("data: " + data);
+    setAuth(data);
+    console.log("auth: " + auth);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={(auth, setAuth)}>
+    <AuthContext.Provider value={{ auth, setAuth, loading }}>
       {children}
     </AuthContext.Provider>
   );

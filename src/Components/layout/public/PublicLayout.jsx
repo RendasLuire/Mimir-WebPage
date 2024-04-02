@@ -1,12 +1,15 @@
 import Header from "./Header";
-import Outlet from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const PublicLayout = () => {
+  const { auth } = useAuth();
+
   return (
     <>
       {<Header />}
       <section className="layout_content">
-        <Outlet />
+        {!auth.id ? <Outlet /> : <Navigate to="/inventory" />}
       </section>
     </>
   );
