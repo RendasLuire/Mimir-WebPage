@@ -9,7 +9,7 @@ const PrivateLayout = () => {
     <>
       <Navbar />
       <section className="layout_content">
-        {auth.id ? <Outlet /> : <Navigate to="/login" />}
+        {auth._id ? <Outlet /> : <Navigate to="/login" />}
       </section>
     </>
   );

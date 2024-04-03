@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const userObj = JSON.parse(user);
-    const userId = userObj.id;
+    const userId = userObj._id;
 
     const request = await fetch(Global.url + "users/" + userId, {
       method: "GET",
@@ -27,11 +27,8 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await request.json();
-    const infoUser = JSON.stringify(data.user);
-    console.log("infoUser: " + infoUser);
-    console.log("data: " + data);
+
     setAuth(data);
-    console.log("auth: " + auth);
     setLoading(false);
   };
 

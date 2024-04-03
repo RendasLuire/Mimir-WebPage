@@ -7,9 +7,9 @@ const PublicLayout = () => {
 
   return (
     <>
-      {<Header />}
+      <Header />
       <section className="layout_content">
-        {!auth.id ? <Outlet /> : <Navigate to="/inventory" />}
+        {!auth._id ? <Outlet /> : <Navigate to="/inventory" />}
       </section>
     </>
   );
