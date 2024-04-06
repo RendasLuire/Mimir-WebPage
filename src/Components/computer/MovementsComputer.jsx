@@ -21,6 +21,12 @@ const MovementsComputer = ({ id }) => {
 
     const data = await request.json();
 
+    data.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
+
     setMovements(data);
   };
 

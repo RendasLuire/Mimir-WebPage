@@ -13,8 +13,6 @@ const ButtonAddComputer = () => {
     let itemToSave = formState;
     itemToSave.user = auth._id;
 
-    console.log("mensaje: " + JSON.stringify(itemToSave));
-
     const request = await fetch(Global.url + "computers/register", {
       method: "POST",
       body: JSON.stringify(itemToSave),
@@ -25,8 +23,6 @@ const ButtonAddComputer = () => {
     });
 
     const response = await request.json();
-
-    console.log(response);
   };
 
   return (

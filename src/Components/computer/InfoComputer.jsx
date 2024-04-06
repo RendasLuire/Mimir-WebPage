@@ -1,5 +1,43 @@
+import { useState } from "react";
+import useForm from "../../hooks/useForm";
+import useAuth from "../../hooks/useAuth";
+import Global from "../../helpers/Global";
+
 const InfoComputer = ({ computer }) => {
-  const { hostname, model, user, brand, serialNumber, status, type } = computer;
+  const [isEditing, setIsEditing] = useState(false);
+  const { formState, onInputChange } = useForm(computer);
+  const { auth } = useAuth();
+  const { hostname, model, user, brand, serialNumber, status, type } =
+    formState;
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = async () => {
+    const token = localStorage.getItem("token");
+
+    let itemToSave = formState;
+    itemToSave.userTI = auth._id;
+
+    const request = await fetch(
+      Global.url + "computers/update/" + itemToSave._id,
+      {
+        method: "PUT",
+        body: JSON.stringify(itemToSave),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+
+    await request.json();
+
+    setIsEditing(false);
+    window.location.reload();
+  };
+
   return (
     <div className="countainer m-2">
       <form>
@@ -13,7 +51,8 @@ const InfoComputer = ({ computer }) => {
             name="hostname"
             id="hostname"
             value={hostname}
-            disabled
+            disabled={!isEditing}
+            onChange={onInputChange}
           />
         </div>
         <div className="mb-1">
@@ -26,7 +65,8 @@ const InfoComputer = ({ computer }) => {
             name="brand"
             id="brand"
             value={brand}
-            disabled
+            disabled={!isEditing}
+            onChange={onInputChange}
           />
         </div>
         <div className="mb-1">
@@ -39,7 +79,8 @@ const InfoComputer = ({ computer }) => {
             name="model"
             id="model"
             value={model}
-            disabled
+            disabled={!isEditing}
+            onChange={onInputChange}
           />
         </div>
         <div className="mb-1">
@@ -52,7 +93,8 @@ const InfoComputer = ({ computer }) => {
             name="serialNumber"
             id="serialNumber"
             value={serialNumber}
-            disabled
+            disabled={!isEditing}
+            onChange={onInputChange}
           />
         </div>
         <div className="mb-1">
@@ -65,7 +107,8 @@ const InfoComputer = ({ computer }) => {
             name="status"
             id="status"
             value={status}
-            disabled
+            disabled={!isEditing}
+            onChange={onInputChange}
           />
         </div>
         <div className="mb-1">
@@ -82,6 +125,17 @@ const InfoComputer = ({ computer }) => {
           />
         </div>
       </form>
+      <div>
+        {isEditing ? (
+          <button className="btn btn-primary" onClick={handleSaveClick}>
+            Save
+          </button>
+        ) : (
+          <button className="btn btn-primary" onClick={handleEditClick}>
+            Edit
+          </button>
+        )}
+      </div>
     </div>
   );
 };
