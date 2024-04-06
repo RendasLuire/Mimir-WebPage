@@ -22,7 +22,7 @@ const ButtonAddComputer = () => {
       },
     });
 
-    const response = await request.json();
+    await request.json();
   };
 
   return (
