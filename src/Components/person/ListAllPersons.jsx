@@ -12,7 +12,7 @@ const ListAllPersons = () => {
       return false;
     }
 
-    const request = await fetch(Global.url + "users/listall", {
+    const request = await fetch(Global.url + "persons/listall", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
