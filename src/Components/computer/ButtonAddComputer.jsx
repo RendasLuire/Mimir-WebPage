@@ -1,9 +1,12 @@
+import { useState } from "react";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import useForm from "../../hooks/useForm";
+import Alert from "@mui/material/Alert";
 
 const ButtonAddComputer = () => {
   const { formState, onInputChange } = useForm({});
+  const [message, setMessage] = useState();
   const { auth } = useAuth();
 
   const saveData = async (e) => {
@@ -11,7 +14,7 @@ const ButtonAddComputer = () => {
     const token = localStorage.getItem("token");
 
     let itemToSave = formState;
-    itemToSave.user = auth._id;
+    itemToSave.userTI = auth._id;
 
     const request = await fetch(Global.url + "computers/register", {
       method: "POST",
@@ -22,7 +25,14 @@ const ButtonAddComputer = () => {
       },
     });
 
-    await request.json();
+    const response = await request.json();
+
+    if (!(response.status == 201)) {
+      setMessage(response.message);
+    }
+    if (response.status == 201) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -60,6 +70,9 @@ const ButtonAddComputer = () => {
             <form onSubmit={saveData}>
               <div className="modal-body">
                 <div className="mb-1">
+                  <div>
+                    {message ? <Alert severity="error">{message}</Alert> : ""}
+                  </div>
                   <label htmlFor="brand" className="form-label">
                     Brand:
                   </label>
@@ -99,13 +112,17 @@ const ButtonAddComputer = () => {
                   <label htmlFor="type" className="form-label">
                     Type:
                   </label>
-                  <input
+                  <select
                     id="type"
                     name="type"
-                    className="form-control"
-                    type="text"
                     onChange={onInputChange}
-                  />
+                    className="form-select"
+                  >
+                    <option selected value={""}>
+                      Select type
+                    </option>
+                    <option value={"computer"}>Computadora</option>
+                  </select>
                 </div>
               </div>
               <div className="modal-footer">

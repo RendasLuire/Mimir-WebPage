@@ -7,8 +7,7 @@ const InfoComputer = ({ computer }) => {
   const [isEditing, setIsEditing] = useState(false);
   const { formState, onInputChange } = useForm(computer);
   const { auth } = useAuth();
-  const { hostname, model, user, brand, serialNumber, status, type } =
-    formState;
+  const { hostname, model, user, brand, serialNumber, status } = formState;
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -101,15 +100,17 @@ const InfoComputer = ({ computer }) => {
           <label htmlFor="status" className="form-label">
             Status:
           </label>
-          <input
-            className="form-control"
-            type="text"
+          <select
             name="status"
             id="status"
+            className="form-select"
             value={status}
             disabled={!isEditing}
             onChange={onInputChange}
-          />
+          >
+            <option value={"available"}>Activo</option>
+            <option value={"in storage"}>Guardado</option>
+          </select>
         </div>
         <div className="mb-1">
           <label htmlFor="user" className="form-label">
