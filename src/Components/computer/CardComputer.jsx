@@ -3,6 +3,7 @@ import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
 import InfoComputer from "./InfoComputer";
 import MovementsComputer from "./MovementsComputer";
+import AssignmentComputer from "./AssignmentComputer";
 
 const CardComputer = ({ computer }) => {
   const { _id, hostname, model, user, brand, status, type } = computer;
@@ -82,6 +83,16 @@ const CardComputer = ({ computer }) => {
                           History
                         </button>
                       </li>
+                      <li className="nav-item">
+                        <button
+                          className={`nav-link ${
+                            activeTab === "Assignament" && "active"
+                          }`}
+                          onClick={() => handleTabChange("Assignament")}
+                        >
+                          Assignament
+                        </button>
+                      </li>
                     </ul>
                     <div className="tab-content">
                       <div
@@ -97,6 +108,13 @@ const CardComputer = ({ computer }) => {
                         }`}
                       >
                         <MovementsComputer id={_id} />
+                      </div>
+                      <div
+                        className={`tab-pane fade ${
+                          activeTab === "Assignament" && "show active"
+                        }`}
+                      >
+                        <AssignmentComputer />
                       </div>
                     </div>
                   </div>

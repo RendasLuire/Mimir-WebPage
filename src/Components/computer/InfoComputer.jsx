@@ -38,7 +38,7 @@ const InfoComputer = ({ computer }) => {
   };
 
   return (
-    <div className="countainer m-2">
+    <div className="container glass m-2">
       <form>
         <div className="mb-1">
           <label className="form-label" htmlFor="hostname">
