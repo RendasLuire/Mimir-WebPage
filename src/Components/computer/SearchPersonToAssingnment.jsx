@@ -45,7 +45,10 @@ const SearchPersonToAssingnment = () => {
       return false;
     }
     const messageUpdate = {
-      user: item._id,
+      user: {
+        _id: item._id,
+        name: item.name,
+      },
       userTI: auth._id,
     };
 

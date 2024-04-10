@@ -1,6 +1,7 @@
 import SearchPersonToAssingnment from "./SearchPersonToAssingnment";
 import useComputer from "../../hooks/useComputer";
 import { useEffect } from "react";
+import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentComputer = () => {
   const { computerInfo } = useComputer();
@@ -9,7 +10,11 @@ const AssignmentComputer = () => {
 
   return (
     <div className="container glass">
-      {!computerInfo.user ? <SearchPersonToAssingnment /> : <h5>Asignado</h5>}
+      {!computerInfo.user ? (
+        <SearchPersonToAssingnment />
+      ) : (
+        <ShowAssignmentInfo />
+      )}
     </div>
   );
 };
