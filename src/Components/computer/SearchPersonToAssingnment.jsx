@@ -35,20 +35,18 @@ const SearchPersonToAssingnment = () => {
 
   useEffect(() => {
     getPersons();
-    console.log(computerInfo);
   }, []);
 
   const handleSelectClick = async (item) => {
     const token = localStorage.getItem("token");
+    console.log("click");
 
     if (!token) {
       return false;
     }
     const messageUpdate = {
-      user: {
-        _id: item._id,
-        name: item.name,
-      },
+      userId: item._id,
+      userName: item.name,
       userTI: auth._id,
     };
 
@@ -63,7 +61,7 @@ const SearchPersonToAssingnment = () => {
         },
       }
     );
-    console.log(await request.json());
+    await request.json();
     const updatedComputerInfo = { ...computerInfo, user: item._id };
     setComputerInfo(updatedComputerInfo);
   };

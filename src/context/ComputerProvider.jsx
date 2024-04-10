@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import Global from "../helpers/Global";
 
 const ComputerContext = createContext();
 

@@ -1,13 +1,9 @@
-import { useState } from "react";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
-import InfoComputer from "./InfoComputer";
-import MovementsComputer from "./MovementsComputer";
-import AssignmentComputer from "./AssignmentComputer";
 import { Link } from "react-router-dom";
 
 const CardComputer = ({ computer }) => {
-  const { _id, hostname, model, user, brand, status, type } = computer;
+  const { _id, hostname, model, userName, brand, status, type } = computer;
 
   const iconMap = {
     computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
@@ -34,7 +30,7 @@ const CardComputer = ({ computer }) => {
         <div className="card-body text-center">
           <h5 className="card-title">{hostname}</h5>
           <p className="card-text">{`${brand} ${model}`}</p>
-          <p className="card-text">{`User: ${user.name}`}</p>
+          <p className="card-text">{`User: ${userName}`}</p>
         </div>
       </Link>
     </>
