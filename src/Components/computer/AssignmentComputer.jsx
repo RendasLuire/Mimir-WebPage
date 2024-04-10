@@ -1,20 +1,15 @@
-import { useState } from "react";
 import SearchPersonToAssingnment from "./SearchPersonToAssingnment";
+import useComputer from "../../hooks/useComputer";
+import { useEffect } from "react";
 
-const AssignmentComputer = ({ user }) => {
-  const [userId, setUserId] = useState(user);
+const AssignmentComputer = () => {
+  const { computerInfo } = useComputer();
 
-  const handleSelectUser = (id) => {
-    setUserId(id);
-  };
+  useEffect(() => {}, [computerInfo]);
 
   return (
     <div className="container glass">
-      {!userId ? (
-        <SearchPersonToAssingnment handleSelectUser={handleSelectUser} />
-      ) : (
-        <h5>Asignado</h5>
-      )}
+      {!computerInfo.user ? <SearchPersonToAssingnment /> : <h5>Asignado</h5>}
     </div>
   );
 };

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
+import useComputer from "../../hooks/useComputer";
 
-const MovementsComputer = ({ id }) => {
+const MovementsComputer = () => {
   const [movements, setMovements] = useState([]);
+  const { computerInfo } = useComputer();
 
   const getMovements = async () => {
     const token = localStorage.getItem("token");
@@ -11,13 +13,16 @@ const MovementsComputer = ({ id }) => {
       return false;
     }
 
-    const request = await fetch(Global.url + "movements/listall/" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+    const request = await fetch(
+      Global.url + "movements/listall/" + computerInfo._id,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
 
     const data = await request.json();
 
@@ -32,7 +37,7 @@ const MovementsComputer = ({ id }) => {
 
   useEffect(() => {
     getMovements();
-  }, []);
+  }, [computerInfo]);
 
   return (
     <div className="container glass">

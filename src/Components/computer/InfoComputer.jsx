@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
+import useComputer from "../../hooks/useComputer";
 
-const InfoComputer = ({ computer }) => {
+const InfoComputer = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { formState, onInputChange, setFormState } = useForm(computer);
+  const { computerInfo } = useComputer();
+  const { formState, onInputChange, setFormState } = useForm(computerInfo);
   const { auth } = useAuth();
 
   const { hostname, brand, model, serialNumber, status, user } = formState;
 
   useEffect(() => {
-    setFormState(computer);
-  }, [computer]);
+    setFormState(computerInfo);
+  }, [computerInfo]);
 
   const handleEditClick = (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const InfoComputer = ({ computer }) => {
     computerToSave.userTI = auth._id;
 
     const request = await fetch(
-      Global.url + "computers/update/" + computer._id,
+      Global.url + "computers/update/" + computerInfo._id,
       {
         method: "PUT",
         body: JSON.stringify(computerToSave),

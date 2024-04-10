@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
+import useComputer from "../../hooks/useComputer";
+import useAuth from "../../hooks/useAuth";
 
-const SearchPersonToAssingnment = (handleSelectUser) => {
+const SearchPersonToAssingnment = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState(users);
+  const { computerInfo, setComputerInfo } = useComputer();
+  const { auth } = useAuth();
 
   const handleInputChange = (event) => {
     setSearch(event.target.value);
@@ -31,10 +35,34 @@ const SearchPersonToAssingnment = (handleSelectUser) => {
 
   useEffect(() => {
     getPersons();
+    console.log(computerInfo);
   }, []);
 
-  const handleSelectClick = () => {
-    console.log();
+  const handleSelectClick = async (item) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return false;
+    }
+    const messageUpdate = {
+      user: item._id,
+      userTI: auth._id,
+    };
+
+    const request = await fetch(
+      Global.url + "computers/update/" + computerInfo._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+    console.log(await request.json());
+    const updatedComputerInfo = { ...computerInfo, user: item._id };
+    setComputerInfo(updatedComputerInfo);
   };
 
   return (
@@ -50,11 +78,22 @@ const SearchPersonToAssingnment = (handleSelectUser) => {
       </div>
       <div className="m-3">
         <h5>Usuarios</h5>
-        {users.map((item) => (
-          <div key={item._id}>
-            <button onClick={handleSelectClick}>{item.name}</button>
-          </div>
-        ))}
+        <table className="table">
+          <thead>
+            <th className="col">Name</th>
+            <th className="col">Position</th>
+            <th className="col">Department</th>
+          </thead>
+          <tbody>
+            {users.map((item) => (
+              <tr key={item._id} onClick={() => handleSelectClick(item)}>
+                <td>{item.name}</td>
+                <td>{item.position}</td>
+                <td>{item.department}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

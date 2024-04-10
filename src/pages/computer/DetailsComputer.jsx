@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import MovementsComputer from "../../Components/computer/MovementsComputer";
 import InfoComputer from "../../Components/computer/InfoComputer";
+import AssignmentComputer from "../../Components/computer/AssignmentComputer";
+import useComputer from "../../hooks/useComputer";
 
 const DetailsComputer = () => {
-  const [computer, setComputer] = useState({});
   const [activeTab, setActiveTab] = useState("info");
   const { id } = useParams();
+  const { setComputerInfo, computerInfo } = useComputer();
 
   const getComputer = async () => {
     const token = localStorage.getItem("token");
@@ -27,7 +29,7 @@ const DetailsComputer = () => {
 
     const data = await request.json();
 
-    setComputer(data);
+    setComputerInfo(data);
   };
 
   useEffect(() => {
@@ -53,11 +55,11 @@ const DetailsComputer = () => {
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">{computer.hostname}</h5>
+              <h5 className="card-title">{computerInfo.hostname}</h5>
               <p className="card-text">
-                {computer.brand + " " + computer.model}
+                {computerInfo.brand + " " + computerInfo.model}
               </p>
-              <p className="card-text">{computer.status}</p>
+              <p className="card-text">{computerInfo.status}</p>
             </div>
           </div>
         </div>
@@ -93,21 +95,21 @@ const DetailsComputer = () => {
           <div
             className={`tab-pane fade ${activeTab === "info" && "show active"}`}
           >
-            <InfoComputer computer={computer} />
+            <InfoComputer />
           </div>
           <div
             className={`tab-pane fade ${
               activeTab === "History" && "show active"
             }`}
           >
-            <MovementsComputer id={id} />
+            <MovementsComputer />
           </div>
           <div
             className={`tab-pane fade ${
               activeTab === "Assignament" && "show active"
             }`}
           >
-            <h1>Assignament</h1>
+            <AssignmentComputer />
           </div>
         </div>
       </div>
