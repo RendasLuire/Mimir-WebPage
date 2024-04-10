@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import CardPersons from "./CardPersons";
+import CardPersons from "../../Components/person/CardPersons";
 
 const ListAllPersons = () => {
   const [users, setUsers] = useState([]);

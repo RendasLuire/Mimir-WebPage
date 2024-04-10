@@ -1,10 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import CardComputer from "./CardComputer";
-import SearchComputer from "./SearchComputer";
-import ButtonAddComputer from "./ButtonAddComputer";
+import SearchComputer from "../../Components/computer/SearchComputer";
+import ButtonAddComputer from "../../Components/computer/ButtonAddComputer";
+import CardComputer from "../../Components/computer/CardComputer";
 
-const ListAllComputers = () => {
+const InventoryComputers = () => {
   const [computers, setComputers] = useState([]);
   const [filter, setFilter] = useState(computers);
 
@@ -60,4 +60,4 @@ const ListAllComputers = () => {
   );
 };
 
-export default ListAllComputers;
+export default InventoryComputers;

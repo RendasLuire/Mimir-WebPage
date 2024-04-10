@@ -117,10 +117,8 @@ const ButtonAddComputer = () => {
                     name="type"
                     onChange={onInputChange}
                     className="form-select"
+                    defaultValue={""}
                   >
-                    <option selected value={""}>
-                      Select type
-                    </option>
                     <option value={"computer"}>Computadora</option>
                   </select>
                 </div>

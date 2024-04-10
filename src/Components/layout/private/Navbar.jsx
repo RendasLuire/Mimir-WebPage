@@ -9,7 +9,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink to="/inventory" className={"nav-link"}>
+                <NavLink to="/inventory/computers" className={"nav-link"}>
                   Inventory
                 </NavLink>
               </li>
