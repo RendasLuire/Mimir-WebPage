@@ -7,14 +7,28 @@ import useComputer from "../../hooks/useComputer";
 const InfoComputer = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { computerInfo } = useComputer();
-  const { formState, onInputChange, setFormState } = useForm(computerInfo);
+  const { formState, onInputChange, setFormState } = useForm({
+    hostname: computerInfo?.hostname || "",
+    brand: computerInfo?.brand || "",
+    model: computerInfo?.model || "",
+    serialNumber: computerInfo?.serialNumber || "",
+    status: computerInfo?.status || "",
+    userName: computerInfo?.userName || "",
+  });
   const { auth } = useAuth();
 
   const { hostname, brand, model, serialNumber, status, userName } = formState;
 
   useEffect(() => {
-    setFormState(computerInfo);
-  }, [computerInfo]);
+    setFormState({
+      hostname: computerInfo?.hostname || "",
+      brand: computerInfo?.brand || "",
+      model: computerInfo?.model || "",
+      serialNumber: computerInfo?.serialNumber || "",
+      status: computerInfo?.status || "",
+      userName: computerInfo?.userName || "",
+    });
+  }, [computerInfo, setFormState]);
 
   const handleEditClick = (e) => {
     e.preventDefault();

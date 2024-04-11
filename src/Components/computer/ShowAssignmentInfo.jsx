@@ -4,13 +4,13 @@ import useComputer from "../../hooks/useComputer";
 
 const ShowAssignmentInfo = () => {
   const { computerInfo } = useComputer();
-  const [personInfo, setPersonInfo] = useState({});
+  const [personInfo, setPersonInfo] = useState(null);
 
   const getPerson = async () => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      return false;
+    if (!token || !computerInfo || !computerInfo.userId) {
+      return;
     }
 
     const request = await fetch(Global.url + "persons/" + computerInfo.userId, {
@@ -28,14 +28,18 @@ const ShowAssignmentInfo = () => {
 
   useEffect(() => {
     getPerson();
-  }, []);
+  }, [computerInfo]);
 
   return (
     <div className="container glass">
       <div className="card glass">
         <div className="">
           <label>Name:</label>
-          <h5>{personInfo.name}</h5>
+          {personInfo && personInfo.name ? (
+            <h5>{personInfo.name}</h5>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
     </div>

@@ -39,6 +39,7 @@ const SearchPersonToAssingnment = () => {
 
   const handleSelectClick = async (item) => {
     const token = localStorage.getItem("token");
+
     console.log("click");
 
     if (!token) {
@@ -81,9 +82,11 @@ const SearchPersonToAssingnment = () => {
         <h5>Usuarios</h5>
         <table className="table">
           <thead>
-            <th className="col">Name</th>
-            <th className="col">Position</th>
-            <th className="col">Department</th>
+            <tr>
+              <th className="col">Name</th>
+              <th className="col">Position</th>
+              <th className="col">Department</th>
+            </tr>
           </thead>
           <tbody>
             {users.map((item) => (

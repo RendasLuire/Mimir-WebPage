@@ -7,11 +7,17 @@ const AssignmentComputer = () => {
   const { computerInfo } = useComputer();
   const { userId } = computerInfo;
 
-  useEffect(() => {}, [computerInfo]);
+  useEffect(() => {
+    console.log("Computer Info changed:", computerInfo);
+  }, [computerInfo]);
 
   return (
     <div className="container glass">
-      {userId === "unassigned" ? <SearchPersonToAssingnment /> : ""}
+      {computerInfo.userId !== "unassigned" ? (
+        <ShowAssignmentInfo />
+      ) : (
+        <SearchPersonToAssingnment />
+      )}
     </div>
   );
 };

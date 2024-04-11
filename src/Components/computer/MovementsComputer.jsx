@@ -9,30 +9,39 @@ const MovementsComputer = () => {
   const getMovements = async () => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      return false;
+    if (!token || !computerInfo || !computerInfo._id) {
+      return;
     }
+    try {
+      const response = await fetch(
+        Global.url + "movements/listall/" + computerInfo._id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
-    const request = await fetch(
-      Global.url + "movements/listall/" + computerInfo._id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
+      if (!response.ok) {
+        throw new Error("Failed to fetch movements");
       }
-    );
 
-    const data = await request.json();
+      const data = await response.json();
 
-    data.sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return dateB - dateA;
-    });
-
-    setMovements(data);
+      if (data && Array.isArray(data)) {
+        data.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        setMovements(data);
+      } else {
+        setMovements([]);
+      }
+    } catch (error) {
+      console.error("Error fetching movements:", error);
+      setMovements([]);
+    }
   };
 
   useEffect(() => {
