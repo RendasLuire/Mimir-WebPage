@@ -7,9 +7,7 @@ const AssignmentComputer = () => {
   const { computerInfo } = useComputer();
   const { userId } = computerInfo;
 
-  useEffect(() => {
-    console.log("Computer Info changed:", computerInfo);
-  }, [computerInfo]);
+  useEffect(() => {}, [computerInfo]);
 
   return (
     <div className="container glass">

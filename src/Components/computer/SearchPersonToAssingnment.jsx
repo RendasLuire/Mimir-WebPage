@@ -40,8 +40,6 @@ const SearchPersonToAssingnment = () => {
   const handleSelectClick = async (item) => {
     const token = localStorage.getItem("token");
 
-    console.log("click");
-
     if (!token) {
       return false;
     }
@@ -63,7 +61,12 @@ const SearchPersonToAssingnment = () => {
       }
     );
     await request.json();
-    const updatedComputerInfo = { ...computerInfo, user: item._id };
+    const updatedComputerInfo = {
+      ...computerInfo,
+      userId: item._id,
+      userName: item.name,
+    };
+
     setComputerInfo(updatedComputerInfo);
   };
 
@@ -80,7 +83,7 @@ const SearchPersonToAssingnment = () => {
       </div>
       <div className="m-3">
         <h5>Usuarios</h5>
-        <table className="table">
+        <table className="table table-striped glass">
           <thead>
             <tr>
               <th className="col">Name</th>
@@ -90,7 +93,11 @@ const SearchPersonToAssingnment = () => {
           </thead>
           <tbody>
             {users.map((item) => (
-              <tr key={item._id} onClick={() => handleSelectClick(item)}>
+              <tr
+                className="glass"
+                key={item._id}
+                onClick={() => handleSelectClick(item)}
+              >
                 <td>{item.name}</td>
                 <td>{item.position}</td>
                 <td>{item.department}</td>
