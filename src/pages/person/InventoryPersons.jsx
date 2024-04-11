@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import CardPersons from "../../Components/person/CardPersons";
 import SearchPerson from "../../Components/person/SearchPerson";
+import ButtonAddPerson from "../../Components/person/ButtonAddPerson";
 
 const ListAllPersons = () => {
   const [users, setUsers] = useState([]);
@@ -42,7 +43,7 @@ const ListAllPersons = () => {
           <SearchPerson setFilter={updateFilter} persons={users} />
         </div>
         <div className="m-3">
-          <button>imagina un boton para agregar</button>
+          <ButtonAddPerson />
         </div>
       </div>
       <div className="constainer glass mt-3 mb-3">
