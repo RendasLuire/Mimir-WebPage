@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Global from "../../helpers/Global";
 import MovementsComputer from "../../Components/computer/MovementsComputer";
 import InfoComputer from "../../Components/computer/InfoComputer";
@@ -8,7 +8,6 @@ import AssignmentComputer from "../../Components/computer/AssignmentComputer";
 import useComputer from "../../hooks/useComputer";
 
 const DetailsComputer = () => {
-  const [activeTab, setActiveTab] = useState("info");
   const { id } = useParams();
   const { setComputerInfo, computerInfo } = useComputer();
 
@@ -36,10 +35,6 @@ const DetailsComputer = () => {
     getComputer();
   }, []);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
   const iconMap = {
     computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
@@ -64,53 +59,26 @@ const DetailsComputer = () => {
           </div>
         </div>
       </div>
-      <div className="container glass m-1">
-        <ul className="nav nav-tabs">
-          <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === "info" && "active"}`}
-              onClick={() => handleTabChange("info")}
-            >
-              Info
-            </button>
-          </li>
-          <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === "History" && "active"}`}
-              onClick={() => handleTabChange("History")}
-            >
-              History
-            </button>
-          </li>
-          <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === "Assignament" && "active"}`}
-              onClick={() => handleTabChange("Assignament")}
-            >
-              Assignament
-            </button>
-          </li>
-        </ul>
-        <div className="tab-content">
-          <div
-            className={`tab-pane fade ${activeTab === "info" && "show active"}`}
-          >
-            <InfoComputer />
+      <div className="glass m-3">
+        <div className="row g-0">
+          <div className="col-md-5 m-1">
+            <div className="glass p-3">
+              <p>Info</p>
+              <InfoComputer />
+            </div>
           </div>
-          <div
-            className={`tab-pane fade ${
-              activeTab === "History" && "show active"
-            }`}
-          >
-            <MovementsComputer />
+          <div className="col-md-6 m-1">
+            <div className="glass p-3">
+              <p>User</p>
+              <AssignmentComputer />
+            </div>
           </div>
-          <div
-            className={`tab-pane fade ${
-              activeTab === "Assignament" && "show active"
-            }`}
-          >
-            <AssignmentComputer />
-          </div>
+        </div>
+      </div>
+      <div className="glass m-3">
+        <div className="glass">
+          <p>History</p>
+          <MovementsComputer />
         </div>
       </div>
     </div>
