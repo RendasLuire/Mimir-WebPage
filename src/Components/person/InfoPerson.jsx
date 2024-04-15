@@ -2,10 +2,17 @@ import { useState } from "react";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
+import usePerson from "../../hooks/usePerson";
 
-const InfoPerson = ({ person }) => {
-  const { formState, onInputChange } = useForm(person);
+const InfoPerson = () => {
+  const { personInfo } = usePerson();
   const [isEditing, setIsEditing] = useState(false);
+  const { formState, onInputChange } = useForm({
+    name: personInfo?.name || "",
+    department: personInfo?.department || "",
+    position: personInfo?.position || "",
+    manager: personInfo?.manager || "",
+  });
   const { auth } = useAuth();
   const { name, department, position, manager } = formState;
 

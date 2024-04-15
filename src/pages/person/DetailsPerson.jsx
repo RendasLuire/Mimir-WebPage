@@ -1,7 +1,70 @@
+import PersonIcon from "@mui/icons-material/Person";
+import usePerson from "../../hooks/usePerson";
+import { useEffect } from "react";
+import Global from "../../helpers/Global";
+import { useParams } from "react-router-dom";
+import InfoPerson from "../../Components/person/InfoPerson";
+
 const DetailsPerson = () => {
+  const { personInfo, setPersonInfo } = usePerson();
+  const { id } = useParams();
+
+  const getPerson = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return false;
+    }
+
+    const request = await fetch(Global.url + "persons/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    const data = await request.json();
+
+    setPersonInfo(data.person);
+  };
+
+  useEffect(() => {
+    getPerson();
+  }, []);
   return (
-    <div>
-      <h6>DetailPerson</h6>
+    <div className="content glass m-1">
+      <div className="card glass m-3">
+        <div className="row g-0">
+          <div className="col-md-1 m-1">
+            <div className="img-fluid rounded-start">
+              <PersonIcon sx={{ width: 150, height: 150 }} />
+            </div>
+          </div>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h5 className="card-title">{personInfo.name}</h5>
+              <p className="card-text">{personInfo.position}</p>
+              <p className="card-text">{personInfo.department}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="glass m-3">
+        <div className="row g-0">
+          <div className="col-md-3 m-1">
+            <div className="glass p-3">
+              <p>Info</p>
+              <InfoPerson />
+            </div>
+          </div>
+          <div className="col-md-8 m-1">
+            <div className="glass p-3">
+              <p>Manager</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
