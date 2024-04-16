@@ -82,8 +82,6 @@ const ShowAssignmentInfo = () => {
               <p>{personInfo.position}</p>
               <h5 className="card-title">Department:</h5>
               <p>{personInfo.department}</p>
-              <h5 className="card-title">Manager:</h5>
-              <p>{personInfo.manager}</p>
             </div>
           ) : (
             <p>Loading...</p>

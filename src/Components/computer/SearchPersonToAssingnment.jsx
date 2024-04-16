@@ -59,7 +59,7 @@ const SearchPersonToAssingnment = () => {
   const handleSelectClick = async (item) => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
+    if (!token || !computerInfo || !computerInfo._id) {
       return false;
     }
     const messageUpdate = {
@@ -79,7 +79,10 @@ const SearchPersonToAssingnment = () => {
         },
       }
     );
-    await request.json();
+    const data = await request.json();
+
+    console.log(data);
+
     const updatedComputerInfo = {
       ...computerInfo,
       userId: item._id,
