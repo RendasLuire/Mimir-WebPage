@@ -14,7 +14,7 @@ const InfoPerson = () => {
     manager: personInfo?.manager || "",
   });
   const { auth } = useAuth();
-  const { name, department, position, managerName } = formState;
+  const { name, department, position, manager } = formState;
 
   useEffect(() => {
     setFormState({
@@ -105,7 +105,7 @@ const InfoPerson = () => {
             className="form-control"
             type="text"
             name="position"
-            value={managerName}
+            value={manager.managerName}
             disabled
           />
         </div>

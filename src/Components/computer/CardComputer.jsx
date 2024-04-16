@@ -1,5 +1,7 @@
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
-import CircleIcon from "@mui/icons-material/Circle";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import { Link } from "react-router-dom";
 
 const CardComputer = ({ computer }) => {
@@ -7,6 +9,8 @@ const CardComputer = ({ computer }) => {
 
   const iconMap = {
     computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
 
   const colorMap = {
@@ -25,7 +29,7 @@ const CardComputer = ({ computer }) => {
       >
         <div className="glass m-2">{icon}</div>
         <div className="position-absolute top-0 start-0">
-          <CircleIcon color={color} />
+          <CircleOutlinedIcon color={color} />
         </div>
         <div className="card-body text-center">
           <h5 className="card-title">{hostname}</h5>

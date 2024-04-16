@@ -120,6 +120,8 @@ const ButtonAddComputer = () => {
                     defaultValue={""}
                   >
                     <option value={"computer"}>Computadora</option>
+                    <option value={"printer"}>Impresora</option>
+                    <option value={"monitor"}>Monitor</option>
                   </select>
                 </div>
               </div>

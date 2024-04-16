@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import InfoPerson from "../../Components/person/InfoPerson";
 import MovementsPerson from "../../Components/person/MovementsPerson";
 import AssignmentPersonManager from "../../Components/person/AssignmentPersonManager";
+import ShowComputersAssignment from "../../Components/person/ShowComputersAssignment";
 
 const DetailsPerson = () => {
   const { personInfo, setPersonInfo } = usePerson();
@@ -71,6 +72,7 @@ const DetailsPerson = () => {
       <div className="glass m-3">
         <div className="glass">
           <p>Computers</p>
+          <ShowComputersAssignment />
         </div>
       </div>
       <div className="glass m-3">

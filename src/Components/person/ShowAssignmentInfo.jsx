@@ -11,12 +11,13 @@ const ShowAssignmentInfo = () => {
 
   const getManagerInfo = async () => {
     const token = localStorage.getItem("token");
+    const { manager } = personInfo;
 
     if (!token) {
       return false;
     }
 
-    const request = await fetch(Global.url + "persons/" + personInfo._id, {
+    const request = await fetch(Global.url + "persons/" + manager.managerId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
