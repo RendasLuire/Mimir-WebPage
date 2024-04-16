@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
@@ -7,14 +7,23 @@ import usePerson from "../../hooks/usePerson";
 const InfoPerson = () => {
   const { personInfo } = usePerson();
   const [isEditing, setIsEditing] = useState(false);
-  const { formState, onInputChange } = useForm({
+  const { formState, onInputChange, setFormState } = useForm({
     name: personInfo?.name || "",
     department: personInfo?.department || "",
     position: personInfo?.position || "",
     manager: personInfo?.manager || "",
   });
   const { auth } = useAuth();
-  const { name, department, position, manager } = formState;
+  const { name, department, position, managerName } = formState;
+
+  useEffect(() => {
+    setFormState({
+      name: personInfo?.name || "",
+      department: personInfo?.department || "",
+      position: personInfo?.position || "",
+      manager: personInfo?.manager || "",
+    });
+  }, [personInfo, setFormState]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -96,7 +105,7 @@ const InfoPerson = () => {
             className="form-control"
             type="text"
             name="position"
-            value={manager}
+            value={managerName}
             disabled
           />
         </div>

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import Global from "../../helpers/Global";
 import { useParams } from "react-router-dom";
 import InfoPerson from "../../Components/person/InfoPerson";
+import MovementsPerson from "../../Components/person/MovementsPerson";
+import AssignmentPersonManager from "../../Components/person/AssignmentPersonManager";
 
 const DetailsPerson = () => {
   const { personInfo, setPersonInfo } = usePerson();
@@ -61,8 +63,15 @@ const DetailsPerson = () => {
           <div className="col-md-8 m-1">
             <div className="glass p-3">
               <p>Manager</p>
+              <AssignmentPersonManager />
             </div>
           </div>
+        </div>
+      </div>
+      <div className="glass m-3">
+        <div className="glass">
+          <p>History</p>
+          <MovementsPerson />
         </div>
       </div>
     </div>

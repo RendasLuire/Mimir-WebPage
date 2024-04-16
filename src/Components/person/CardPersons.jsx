@@ -3,7 +3,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { Link } from "react-router-dom";
 
 const CardPersons = ({ user }) => {
-  const { _id, name, position, department } = user;
+  const { _id, name, position, department, managerName } = user;
 
   return (
     <>
@@ -21,6 +21,7 @@ const CardPersons = ({ user }) => {
           <h5 className="card-title">{name}</h5>
           <p className="card-text">{position}</p>
           <p className="card-text">{department}</p>
+          <p className="card-text">{managerName}</p>
         </div>
       </Link>
     </>

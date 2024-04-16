@@ -5,7 +5,6 @@ import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentComputer = () => {
   const { computerInfo } = useComputer();
-  const { userId } = computerInfo;
 
   useEffect(() => {}, [computerInfo]);
 

@@ -1,25 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import useComputer from "../../hooks/useComputer";
 import useAuth from "../../hooks/useAuth";
+import usePerson from "../../hooks/usePerson";
 
 const SearchPersonToAssingnment = () => {
+  const { personInfo, setPersonInfo } = usePerson();
   const [users, setUsers] = useState([]);
-  const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(users);
-  const { computerInfo, setComputerInfo } = useComputer();
+  const [search, setSearch] = useState("");
   const { auth } = useAuth();
-
-  const updateFilter = useCallback(
-    (data) => {
-      setFilter(data);
-    },
-    [setFilter]
-  );
-
-  const handleInputChange = (event) => {
-    setSearch(event.target.value);
-  };
 
   const getPersons = async () => {
     const token = localStorage.getItem("token");
@@ -41,6 +30,17 @@ const SearchPersonToAssingnment = () => {
     setUsers(data);
   };
 
+  const updateFilter = useCallback(
+    (data) => {
+      setFilter(data);
+    },
+    [setFilter]
+  );
+
+  const handleInputChange = (event) => {
+    setSearch(event.target.value);
+  };
+
   useEffect(() => {
     getPersons();
     if (!search) {
@@ -50,11 +50,11 @@ const SearchPersonToAssingnment = () => {
 
     const filteredUsers = users.filter((user) =>
       Object.values(user).some((value) =>
-        String(value).toLowerCase().includes(search.toLocaleLowerCase())
+        String(value).toLowerCase().includes(search.toLowerCase())
       )
     );
     updateFilter(filteredUsers);
-  }, [search, users, updateFilter]);
+  }, [updateFilter, users, search]);
 
   const handleSelectClick = async (item) => {
     const token = localStorage.getItem("token");
@@ -62,14 +62,19 @@ const SearchPersonToAssingnment = () => {
     if (!token) {
       return false;
     }
+
     const messageUpdate = {
-      userId: item._id,
-      userName: item.name,
+      manager: {
+        managerId: item._id,
+        managerName: item.name,
+      },
       userTI: auth._id,
     };
 
+    console.log(messageUpdate);
+
     const request = await fetch(
-      Global.url + "computers/update/" + computerInfo._id,
+      Global.url + "persons/update/" + personInfo._id,
       {
         method: "PATCH",
         body: JSON.stringify(messageUpdate),
@@ -79,14 +84,18 @@ const SearchPersonToAssingnment = () => {
         },
       }
     );
+
     await request.json();
-    const updatedComputerInfo = {
-      ...computerInfo,
-      userId: item._id,
-      userName: item.name,
+
+    const updatedPersonInfo = {
+      ...personInfo,
+      manager: {
+        managerId: item._id,
+        managerName: item.name,
+      },
     };
 
-    setComputerInfo(updatedComputerInfo);
+    setPersonInfo(updatedPersonInfo);
   };
 
   return (
@@ -94,6 +103,7 @@ const SearchPersonToAssingnment = () => {
       <h5>Asigna el equipo</h5>
       <div className="m-3">
         <input
+          type="text"
           className="form-control"
           placeholder="Buscar usuario"
           value={search}

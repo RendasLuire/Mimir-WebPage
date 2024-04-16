@@ -1,56 +1,70 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
+import usePerson from "../../hooks/usePerson";
 
-const MovementsPerson = ({ id }) => {
+const MovementsPerson = () => {
   const [movements, setMovements] = useState([]);
+  const { personInfo } = usePerson();
 
   const getMovements = async () => {
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      return false;
+    if (!token || !personInfo) {
+      return;
     }
 
-    const request = await fetch(Global.url + "movements/listall/" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+    try {
+      const response = await fetch(
+        Global.url + "movements/listall/" + personInfo._id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
-    const data = await request.json();
+      if (!response.ok) {
+        throw new Error(`Error ${response.status} - ${response.statusText}`);
+      }
 
-    data.sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return dateB - dateA;
-    });
+      const responseData = await response.json();
 
-    setMovements(data);
+      if (!Array.isArray(responseData)) {
+        throw new Error("Movements data is not an array");
+      }
+
+      responseData.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+
+      setMovements(responseData);
+    } catch (error) {
+      console.error("Error fetching movements:", error.message);
+      setMovements([]);
+    }
   };
 
   useEffect(() => {
     getMovements();
-  }, []);
+  }, [personInfo]);
 
   return (
     <div className="container glass">
-      <ol>
-        {movements ? (
-          <div className="container">
-            {movements.map((item) => (
-              <div className="card glass m-3" key={item._id}>
-                <div className="card-body">
-                  <h6 className="card-text">{item.description}</h6>
-                </div>
+      {movements.length > 0 ? (
+        <ul>
+          {movements.map((item) => (
+            <li key={item._id} className="card glass m-3">
+              <div className="card-body">
+                <h6 className="card-text">{item.description}</h6>
               </div>
-            ))}
-          </div>
-        ) : (
-          <h3>No hay Informacion</h3>
-        )}
-      </ol>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No hay movimientos disponibles.</p>
+      )}
     </div>
   );
 };
