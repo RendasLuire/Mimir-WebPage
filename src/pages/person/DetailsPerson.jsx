@@ -70,6 +70,11 @@ const DetailsPerson = () => {
       </div>
       <div className="glass m-3">
         <div className="glass">
+          <p>Computers</p>
+        </div>
+      </div>
+      <div className="glass m-3">
+        <div className="glass">
           <p>History</p>
           <MovementsPerson />
         </div>

@@ -1,16 +1,22 @@
 import { useEffect } from "react";
 import usePerson from "../../hooks/usePerson";
 import SearchPersonToAssing from "./SearchPersonToAssing";
+import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentPersonManager = () => {
   const { personInfo } = usePerson();
 
   useEffect(() => {}, [personInfo]);
 
+  const managerId =
+    personInfo && personInfo.manager
+      ? personInfo.manager.managerId
+      : "unassigned";
+
   return (
     <div className="container glass">
-      {personInfo?.manager !== "" ? (
-        <p>tiene manager</p>
+      {managerId !== "unassigned" ? (
+        <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssing />
       )}
