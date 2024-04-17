@@ -58,7 +58,7 @@ const ButtonAddComputer = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="titleAddComputer">
-                Add Item
+                Agregar Item
               </h1>
               <button
                 type="button"
@@ -74,7 +74,7 @@ const ButtonAddComputer = () => {
                     {message ? <Alert severity="error">{message}</Alert> : ""}
                   </div>
                   <label htmlFor="brand" className="form-label">
-                    Brand:
+                    Marca:
                   </label>
                   <input
                     id="brand"
@@ -86,7 +86,7 @@ const ButtonAddComputer = () => {
                 </div>
                 <div className="mb-1">
                   <label htmlFor="model" className="form-label">
-                    Model:
+                    Modelo:
                   </label>
                   <input
                     id="model"
@@ -98,7 +98,7 @@ const ButtonAddComputer = () => {
                 </div>
                 <div className="mb-1">
                   <label htmlFor="serialNumber" className="form-label">
-                    Serial Number:
+                    Numero de Serie:
                   </label>
                   <input
                     id="serialNumber"
@@ -110,7 +110,7 @@ const ButtonAddComputer = () => {
                 </div>
                 <div className="mb-1">
                   <label htmlFor="type" className="form-label">
-                    Type:
+                    Tipo:
                   </label>
                   <select
                     id="type"
@@ -131,10 +131,10 @@ const ButtonAddComputer = () => {
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
-                  Close
+                  Cerrar
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  Save
+                  Guardar
                 </button>
               </div>
             </form>

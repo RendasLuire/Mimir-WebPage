@@ -45,10 +45,10 @@ const DetailsComputer = () => {
     <div className="content glass m-1">
       <div className="card glass m-3">
         <div className="row g-0">
-          <div className="col-md-2 m-1">
+          <div className="glass col-md-1 m-1">
             <div className="img-fluid rounded-start">{icon}</div>
           </div>
-          <div className="col-md-8">
+          <div className="col glass m-1">
             <div className="card-body">
               <h5 className="card-title">{computerInfo.hostname}</h5>
               <p className="card-text">
@@ -57,27 +57,36 @@ const DetailsComputer = () => {
               <p className="card-text">{computerInfo.status}</p>
             </div>
           </div>
+          <div className="col glass m-1">
+            <p>Monitor</p>
+          </div>
         </div>
       </div>
       <div className="glass m-3">
         <div className="row g-0">
-          <div className="col-md-5 m-1">
+          <div className="col m-1">
             <div className="glass p-3">
-              <p>Info</p>
+              <p>Informacion</p>
               <InfoComputer />
             </div>
           </div>
-          <div className="col-md-6 m-1">
+          <div className="col m-1">
             <div className="glass p-3">
-              <p>User</p>
+              <p>Usuario</p>
               <AssignmentComputer />
+            </div>
+          </div>
+          <div className="col m-1">
+            <div className="glass p-3">
+              <p>Monitor</p>
+              <label>Imaginate la informacion del monitor aqui</label>
             </div>
           </div>
         </div>
       </div>
       <div className="glass m-3">
         <div className="glass">
-          <p>History</p>
+          <p>Historial</p>
           <MovementsComputer />
         </div>
       </div>

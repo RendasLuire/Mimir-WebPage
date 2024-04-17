@@ -44,7 +44,7 @@ const DetailsPerson = () => {
               <PersonIcon sx={{ width: 150, height: 150 }} />
             </div>
           </div>
-          <div className="col-md-8">
+          <div className="col">
             <div className="card-body">
               <h5 className="card-title">{personInfo.name}</h5>
               <p className="card-text">{personInfo.position}</p>
@@ -55,13 +55,13 @@ const DetailsPerson = () => {
       </div>
       <div className="glass m-3">
         <div className="row g-0">
-          <div className="col-md-3 m-1">
+          <div className="col m-1">
             <div className="glass p-3">
-              <p>Info</p>
+              <p>Informacion</p>
               <InfoPerson />
             </div>
           </div>
-          <div className="col-md-8 m-1">
+          <div className="col m-1">
             <div className="glass p-3">
               <p>Manager</p>
               <AssignmentPersonManager />
@@ -71,13 +71,13 @@ const DetailsPerson = () => {
       </div>
       <div className="glass m-3">
         <div className="glass">
-          <p>Computers</p>
+          <p>Computadoras</p>
           <ShowComputersAssignment />
         </div>
       </div>
       <div className="glass m-3">
         <div className="glass">
-          <p>History</p>
+          <p>Historial</p>
           <MovementsPerson />
         </div>
       </div>

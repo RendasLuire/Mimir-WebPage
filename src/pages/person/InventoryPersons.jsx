@@ -47,7 +47,7 @@ const ListAllPersons = () => {
         </div>
       </div>
       <div className="constainer glass mt-3 mb-3">
-        <h1>Persons</h1>
+        <h1>Usuarios</h1>
         <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           {filter.map((item) => (
             <div className="col" key={item._id}>

@@ -47,7 +47,7 @@ const InventoryComputers = () => {
         </div>
       </div>
       <div className="container glass mt-3 mb-3">
-        <h3>Inventary</h3>
+        <h3>Inventario</h3>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
           {filter.map((item) => (
             <div key={item._id} className="col">

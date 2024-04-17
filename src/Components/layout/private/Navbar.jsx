@@ -10,13 +10,19 @@ const Navbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink to="/inventory/computers" className={"nav-link"}>
-                  Inventory
+                  Inventario
                 </NavLink>
               </li>
               <li>
                 <NavLink to={"/inventory/users"} className={"nav-link"}>
-                  Users
+                  Usuarios
                 </NavLink>
+              </li>
+              <li>
+                <NavLink className={"nav-link"}>Almacenes</NavLink>
+              </li>
+              <li>
+                <NavLink className={"nav-link"}>Anexos</NavLink>
               </li>
             </ul>
           </div>

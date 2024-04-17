@@ -55,7 +55,7 @@ const ButtonAddPerson = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="titleAssPerson">
-                Add Person
+                Agregar Usuario
               </h1>
               <button
                 className="btn-close"
@@ -70,7 +70,7 @@ const ButtonAddPerson = () => {
                   {message ? <Alert severity="error">{message}</Alert> : ""}
                 </div>
                 <label className="form-label" htmlFor="name">
-                  Name:
+                  Nombre:
                 </label>
                 <input
                   id="name"
@@ -82,7 +82,7 @@ const ButtonAddPerson = () => {
               </div>
               <div className="mb-1">
                 <label className="form-label" htmlFor="department">
-                  Department:
+                  Departamento:
                 </label>
                 <input
                   id="department"
@@ -94,7 +94,7 @@ const ButtonAddPerson = () => {
               </div>
               <div className="mb-1">
                 <label className="form-label" htmlFor="position">
-                  Position:
+                  Posicion:
                 </label>
                 <input
                   id="position"
@@ -110,10 +110,10 @@ const ButtonAddPerson = () => {
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
-                  Close
+                  Cerrar
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  Save
+                  Guardar
                 </button>
               </div>
             </form>

@@ -60,102 +60,98 @@ const InfoComputer = () => {
 
   return (
     <div className="container mt-3">
-      <div className="row">
-        <div className="col-md-6">
-          <div className="glass p-3">
-            <div className="mb-1">
-              <label className="form-label" htmlFor="hostname">
-                Hostname:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="hostname"
-                id="hostname"
-                value={hostname}
-                disabled={!isEditing}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-1">
-              <label className="form-label" htmlFor="brand">
-                Brand:
-              </label>
-              <input
-                className="form-control"
-                name="brand"
-                id="brand"
-                value={brand}
-                disabled={!isEditing}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-1">
-              <label className="form-label" htmlFor="model">
-                Model:
-              </label>
-              <input
-                className="form-control"
-                name="model"
-                id="model"
-                value={model}
-                disabled={!isEditing}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-1">
-              <label className="form-label" htmlFor="serialNumber">
-                Serial Number:
-              </label>
-              <input
-                className="form-control"
-                name="serialNumber"
-                id="serialNumber"
-                value={serialNumber}
-                disabled={!isEditing}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-1">
-              <label className="form-label" htmlFor="status">
-                status:
-              </label>
-              <select
-                className="form-control"
-                name="status"
-                id="status"
-                value={status}
-                disabled={!isEditing}
-                onChange={onInputChange}
-              >
-                <option value={"available"}>Activo</option>
-                <option value={"in storage"}>Guardado</option>
-              </select>
-            </div>
-            <div className="mb-1">
-              <label className="form-label" htmlFor="user">
-                User:
-              </label>
-              <input
-                className="form-control"
-                name="user"
-                id="user"
-                value={userName}
-                disabled
-              />
-            </div>
-            <div>
-              {isEditing ? (
-                <button className="btn btn-primary" onClick={handleSaveClick}>
-                  Save
-                </button>
-              ) : (
-                <button className="btn btn-primary" onClick={handleEditClick}>
-                  Edit
-                </button>
-              )}
-            </div>
-          </div>
+      <div className="glass p-3">
+        <div className="mb-1">
+          <label className="form-label" htmlFor="hostname">
+            Hostname:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            name="hostname"
+            id="hostname"
+            value={hostname}
+            disabled={!isEditing}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className="mb-1">
+          <label className="form-label" htmlFor="brand">
+            Marca:
+          </label>
+          <input
+            className="form-control"
+            name="brand"
+            id="brand"
+            value={brand}
+            disabled={!isEditing}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className="mb-1">
+          <label className="form-label" htmlFor="model">
+            Modelo:
+          </label>
+          <input
+            className="form-control"
+            name="model"
+            id="model"
+            value={model}
+            disabled={!isEditing}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className="mb-1">
+          <label className="form-label" htmlFor="serialNumber">
+            Numero de Serie:
+          </label>
+          <input
+            className="form-control"
+            name="serialNumber"
+            id="serialNumber"
+            value={serialNumber}
+            disabled={!isEditing}
+            onChange={onInputChange}
+          />
+        </div>
+        <div className="mb-1">
+          <label className="form-label" htmlFor="status">
+            status:
+          </label>
+          <select
+            className="form-control"
+            name="status"
+            id="status"
+            value={status}
+            disabled={!isEditing}
+            onChange={onInputChange}
+          >
+            <option value={"available"}>Activo</option>
+            <option value={"in storage"}>Guardado</option>
+          </select>
+        </div>
+        <div className="mb-1">
+          <label className="form-label" htmlFor="user">
+            Usuario:
+          </label>
+          <input
+            className="form-control"
+            name="user"
+            id="user"
+            value={userName}
+            disabled
+          />
+        </div>
+        <div>
+          {isEditing ? (
+            <button className="btn btn-primary" onClick={handleSaveClick}>
+              Guardar
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={handleEditClick}>
+              Editar
+            </button>
+          )}
         </div>
       </div>
     </div>

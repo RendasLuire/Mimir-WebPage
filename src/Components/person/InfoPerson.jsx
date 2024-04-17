@@ -53,11 +53,11 @@ const InfoPerson = () => {
     window.location.reload();
   };
   return (
-    <div className="container m-2">
+    <div className="container glass m-2">
       <form>
         <div className="mb-1">
           <label className="form-label" htmlFor="name">
-            Name:
+            Nombre:
           </label>
           <input
             className="form-control"
@@ -71,7 +71,7 @@ const InfoPerson = () => {
         </div>
         <div className="mb-1">
           <label className="form-label" htmlFor="demartment">
-            Department:
+            Departamento:
           </label>
           <input
             className="form-control"
@@ -85,7 +85,7 @@ const InfoPerson = () => {
         </div>
         <div className="mb-1">
           <label className="form-label" htmlFor="position">
-            Position:
+            Posicion:
           </label>
           <input
             className="form-control"
@@ -113,11 +113,11 @@ const InfoPerson = () => {
       <div>
         {isEditing ? (
           <button className="btn btn-primary" onClick={handleSaveClick}>
-            Save
+            Guardar
           </button>
         ) : (
           <button className="btn btn-primary" onClick={handleEditClick}>
-            Edit
+            Editar
           </button>
         )}
       </div>

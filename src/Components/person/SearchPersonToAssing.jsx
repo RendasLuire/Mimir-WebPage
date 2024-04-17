@@ -115,9 +115,9 @@ const SearchPersonToAssingnment = () => {
         <table className="table table-striped glass">
           <thead>
             <tr>
-              <th className="col">Name</th>
-              <th className="col">Position</th>
-              <th className="col">Department</th>
+              <th className="col">Nombre</th>
+              <th className="col">Posicion</th>
+              <th className="col">Departamento</th>
             </tr>
           </thead>
           <tbody>
