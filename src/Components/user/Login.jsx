@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const { formState, onInputChange } = useForm({});
-  const [login, setLogin] = useState();
+  const [login, setLogin] = useState({ code: null, message: "" });
   const { setAuth } = useAuth();
 
   const loginUser = async (e) => {
@@ -14,40 +14,48 @@ const Login = () => {
 
     let userToLogin = formState;
 
-    const request = await fetch(Global.url + "users/login", {
-      method: "POST",
-      body: JSON.stringify(userToLogin),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const request = await fetch(Global.url + "users/login", {
+        method: "POST",
+        body: JSON.stringify(userToLogin),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    const data = await request.json();
+      const code = request.status;
 
-    if (data.message == "Login correcto.") {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setLogin("login");
-      setAuth(data.user);
-    } else {
-      setLogin("error");
+      const response = await request.json();
+      const { user, token, message } = response.data;
+
+      if (code == 200) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setLogin({ code, message });
+        setAuth(user);
+      } else {
+        setLogin({ code, message });
+      }
+    } catch (error) {
+      console.error("Error al procesar la solicitud:", error);
+      setLogin({
+        code: 500,
+        message:
+          "Error al intentar iniciar sesión. Por favor, intenta nuevamente.",
+      });
     }
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card glass" style={{ maxWidth: "400px" }}>
+    <div className="container d-flex mt-5 justify-content-center">
+      <div className="card glass">
         <div className="card-body">
           <h5 className="card-title text-center">Login</h5>
-          {login == "login" ? (
-            <Alert severity="success">Credenciales correctas</Alert>
-          ) : (
-            ""
+          {login.code === 200 && (
+            <Alert severity="success">{login.message}</Alert>
           )}
-          {login == "error" ? (
-            <Alert severity="error">Credenciales invalidas</Alert>
-          ) : (
-            ""
+          {login.code && login.code !== 200 && (
+            <Alert severity="error">{login.message}</Alert>
           )}
           <form onSubmit={loginUser}>
             <div className="mb-3">

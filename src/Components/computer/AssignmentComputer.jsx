@@ -10,7 +10,7 @@ const AssignmentComputer = () => {
 
   return (
     <div className="container glass">
-      {computerInfo.userId !== "unassigned" ? (
+      {computerInfo.userId !== "Sin asignar" ? (
         <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssingnment />

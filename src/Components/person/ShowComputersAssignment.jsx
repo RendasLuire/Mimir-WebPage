@@ -26,16 +26,14 @@ const ShowComputersAssignment = () => {
     );
 
     const response = await request.json();
+    const { computers } = response.data;
 
-    const { data } = response;
-    if (!data.computers) {
-      setComputers(data.computers);
-    }
+    setComputers(computers);
   };
 
   useEffect(() => {
     getComputers();
-  }, []);
+  }, [computers]);
 
   return (
     <div className="container glass mt-3">

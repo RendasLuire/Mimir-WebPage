@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import useComputer from "../../hooks/useComputer";
+import { CircularProgress } from "@mui/material";
 
 const MovementsComputer = () => {
   const [movements, setMovements] = useState([]);
   const { computerInfo } = useComputer();
+  const [login, setLogin] = useState(true);
 
   const getMovements = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token || !computerInfo || !computerInfo._id) {
-      return;
-    }
     try {
-      const response = await fetch(
+      const token = localStorage.getItem("token");
+
+      if (!token || !computerInfo || !computerInfo._id) {
+        return;
+      }
+      const request = await fetch(
         Global.url + "movements/listall/" + computerInfo._id,
         {
           method: "GET",
@@ -24,23 +26,22 @@ const MovementsComputer = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch movements");
-      }
+      const response = await request.json();
 
-      const data = await response.json();
+      const { movements } = response.data;
 
-      if (data && Array.isArray(data)) {
-        data.sort(
+      if (movements && Array.isArray(movements)) {
+        movements.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         );
-        setMovements(data);
+        setMovements(movements);
+        setLogin(false);
       } else {
         setMovements([]);
       }
     } catch (error) {
-      console.error("Error fetching movements:", error);
       setMovements([]);
+      setLogin(false);
     }
   };
 
@@ -50,21 +51,29 @@ const MovementsComputer = () => {
 
   return (
     <div className="container glass">
-      <ol>
-        {movements ? (
-          <div className="container">
-            {movements.map((item) => (
-              <div className="card glass m-3" key={item._id}>
-                <div className="card-body">
-                  <h6 className="card-text">{item.description}</h6>
-                </div>
+      {login ? (
+        <div className="d-flex justify-content-center">
+          <CircularProgress />
+        </div>
+      ) : (
+        <>
+          <ol>
+            {movements ? (
+              <div className="container">
+                {movements.map((item) => (
+                  <div className="card glass m-3" key={item._id}>
+                    <div className="card-body">
+                      <h6 className="card-text">{item.description}</h6>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        ) : (
-          <h3>No hay Informacion</h3>
-        )}
-      </ol>
+            ) : (
+              <h3>No hay Informacion</h3>
+            )}
+          </ol>
+        </>
+      )}
     </div>
   );
 };

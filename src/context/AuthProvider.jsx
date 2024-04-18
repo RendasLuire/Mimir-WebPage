@@ -8,28 +8,41 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const authUser = async () => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
+    try {
+      const tokenLocal = localStorage.getItem("token");
+      const userLocal = localStorage.getItem("user");
 
-    if (!token || !user) {
-      return false;
+      if (!tokenLocal || !userLocal) {
+        throw new Error(
+          "Token o usuario no encontrados en el almacenamiento local"
+        );
+      }
+
+      const userObj = JSON.parse(userLocal);
+      const userId = userObj._id;
+
+      const request = await fetch(Global.url + "users/" + userId, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: tokenLocal,
+        },
+      });
+
+      if (!request.ok) {
+        throw new Error("Error al obtener detalles del usuario");
+      }
+
+      const response = await request.json();
+
+      const { user } = response.data;
+
+      setAuth(user);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error de autenticación:", error.message);
+      setLoading(false);
     }
-
-    const userObj = JSON.parse(user);
-    const userId = userObj._id;
-
-    const request = await fetch(Global.url + "users/" + userId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
-
-    const data = await request.json();
-
-    setAuth(data);
-    setLoading(false);
   };
 
   useEffect(() => {

@@ -14,7 +14,7 @@ const MovementsPerson = () => {
     }
 
     try {
-      const response = await fetch(
+      const request = await fetch(
         Global.url + "movements/listall/" + personInfo._id,
         {
           method: "GET",
@@ -25,21 +25,14 @@ const MovementsPerson = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Error ${response.status} - ${response.statusText}`);
-      }
+      const response = await request.json();
+      const { movements } = response.data;
 
-      const responseData = await response.json();
-
-      if (!Array.isArray(responseData)) {
-        throw new Error("Movements data is not an array");
-      }
-
-      responseData.sort(
+      movements.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
 
-      setMovements(responseData);
+      setMovements(movements);
     } catch (error) {
       console.error("Error fetching movements:", error.message);
       setMovements([]);

@@ -25,9 +25,11 @@ const ShowAssignmentInfo = () => {
       },
     });
 
-    const data = await request.json();
+    const response = await request.json();
 
-    setManager(data.person);
+    const { person } = response.data;
+
+    setManager(person);
   };
 
   useEffect(() => {
@@ -43,8 +45,8 @@ const ShowAssignmentInfo = () => {
 
     const messageUpdate = {
       manager: {
-        managerId: "unassigned",
-        managerName: "unassigned",
+        managerId: "Sin asignar",
+        managerName: "Sin asignar",
       },
       userTI: auth._id,
     };
@@ -61,11 +63,13 @@ const ShowAssignmentInfo = () => {
         },
       }
     );
-    const data = await request.json();
-    console.log(data);
+    await request.json();
     const updatedPersonInfo = {
       ...personInfo,
-      manager: "",
+      manager: {
+        managerId: "Sin asignar",
+        managerName: "Sin asignar",
+      },
     };
 
     setPersonInfo(updatedPersonInfo);

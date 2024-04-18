@@ -25,9 +25,11 @@ const SearchPersonToAssingnment = () => {
       },
     });
 
-    const data = await request.json();
+    const response = await request.json();
 
-    setUsers(data);
+    const { persons } = response.data;
+
+    setUsers(persons);
   };
 
   const updateFilter = useCallback(
