@@ -5,7 +5,7 @@ import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import { Link } from "react-router-dom";
 
 const CardComputer = ({ computer }) => {
-  const { _id, hostname, model, userName, brand, status, type } = computer;
+  const { _id, hostname, model, user, brand, status, type } = computer;
 
   const iconMap = {
     computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
@@ -34,7 +34,7 @@ const CardComputer = ({ computer }) => {
         <div className="card-body text-center">
           <h5 className="card-title">{hostname}</h5>
           <p className="card-text">{`${brand} ${model}`}</p>
-          <p className="card-text">{`User: ${userName}`}</p>
+          <p className="card-text">{`User: ${user.name}`}</p>
         </div>
       </Link>
     </>

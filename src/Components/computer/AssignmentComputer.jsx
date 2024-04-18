@@ -5,12 +5,13 @@ import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentComputer = () => {
   const { computerInfo } = useComputer();
+  const { user } = computerInfo;
 
   useEffect(() => {}, [computerInfo]);
 
   return (
     <div className="container glass">
-      {computerInfo.userId !== "Sin asignar" ? (
+      {user.id !== "Sin asignar" ? (
         <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssingnment />

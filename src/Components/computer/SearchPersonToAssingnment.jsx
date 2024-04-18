@@ -75,8 +75,10 @@ const SearchPersonToAssingnment = () => {
         return false;
       }
       const messageUpdate = {
-        userId: item._id,
-        userName: item.name,
+        user: {
+          id: item._id,
+          name: item.name,
+        },
         userTI: auth._id,
       };
 
@@ -92,12 +94,15 @@ const SearchPersonToAssingnment = () => {
         }
       );
 
-      await request.json();
+      const response = await request.json();
+
+      const { message } = response.data;
+
+      console.log(response);
 
       const updatedComputerInfo = {
         ...computerInfo,
-        userId: item._id,
-        userName: item.name,
+        user: { userId: item._id, userName: item.name },
       };
 
       setComputerInfo(updatedComputerInfo);

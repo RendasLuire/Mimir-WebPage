@@ -14,21 +14,19 @@ const ShowAssignmentInfo = () => {
   const getPerson = async () => {
     try {
       const token = localStorage.getItem("token");
+      const { user } = computerInfo;
 
-      if (!token || !computerInfo || !computerInfo.userId) {
+      if (!token || !computerInfo || !user.id) {
         return;
       }
 
-      const request = await fetch(
-        Global.url + "persons/" + computerInfo.userId,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const request = await fetch(Global.url + "persons/" + user.id, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       const response = await request.json();
 
@@ -55,8 +53,10 @@ const ShowAssignmentInfo = () => {
       }
 
       const messageUpdate = {
-        userId: "Sin asignar",
-        userName: "Sin asignar",
+        user: {
+          id: "Sin asignar",
+          name: "Sin asignar",
+        },
         userTI: auth._id,
       };
 
@@ -76,8 +76,10 @@ const ShowAssignmentInfo = () => {
 
       const updatedComputerInfo = {
         ...computerInfo,
-        userId: "Sin asignar",
-        userName: "Sin asignar",
+        user: {
+          id: "Sin asignar",
+          name: "Sin asignar",
+        },
       };
 
       setComputerInfo(updatedComputerInfo);
