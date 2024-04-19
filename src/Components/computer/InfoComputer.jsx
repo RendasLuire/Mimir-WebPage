@@ -6,7 +6,7 @@ import useComputer from "../../hooks/useComputer";
 
 const InfoComputer = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { computerInfo, setComputerInfo } = useComputer();
+  const { computerInfo } = useComputer();
   const { formState, onInputChange, setFormState } = useForm({
     hostname: computerInfo?.hostname || "",
     brand: computerInfo?.brand || "",
@@ -84,8 +84,6 @@ const InfoComputer = () => {
 
     const token = localStorage.getItem("token");
     const computerToSave = { ...formState, userTI: auth._id };
-
-    console.log(JSON.stringify(computerToSave));
 
     const request = await fetch(
       Global.url + "computers/update/" + computerInfo._id,
@@ -202,7 +200,7 @@ const InfoComputer = () => {
               className="form-control"
               name="annexed"
               id="annexed"
-              value={annexed}
+              value={annexed.number}
               disabled={!isEditing}
             />
           </div>
@@ -218,8 +216,8 @@ const InfoComputer = () => {
               disabled={!isEditing}
               onChange={onInputChange}
             >
-              <option value={"available"}>Activo</option>
-              <option value={"in storage"}>Guardado</option>
+              <option value={"activo"}>Activo</option>
+              <option value={"guardado"}>Guardado</option>
             </select>
           </div>
         </div>

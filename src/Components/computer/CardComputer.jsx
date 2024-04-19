@@ -14,8 +14,8 @@ const CardComputer = ({ computer }) => {
   };
 
   const colorMap = {
-    available: "success",
-    "in storage": "secondary",
+    activo: "success",
+    guardado: "secondary",
   };
 
   const icon = iconMap[type] || null;

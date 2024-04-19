@@ -3,35 +3,58 @@ import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import useForm from "../../hooks/useForm";
 import Alert from "@mui/material/Alert";
+import { CircularProgress } from "@mui/material";
 
 const ButtonAddComputer = () => {
-  const { formState, onInputChange } = useForm({});
+  const { formState, onInputChange, setFormState } = useForm({
+    brand: "",
+    model: "",
+    serialNumber: "",
+    type: "",
+  });
   const [message, setMessage] = useState();
+  const [loading, setLoading] = useState(false);
   const { auth } = useAuth();
 
   const saveData = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
 
-    let itemToSave = formState;
-    itemToSave.userTI = auth._id;
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("token");
 
-    const request = await fetch(Global.url + "computers/register", {
-      method: "POST",
-      body: JSON.stringify(itemToSave),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+      let itemToSave = { ...formState, userTI: auth._id };
 
-    const response = await request.json();
+      const request = await fetch(Global.url + "computers/register", {
+        method: "POST",
+        body: JSON.stringify(itemToSave),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
-    if (!(response.status == 201)) {
-      setMessage(response.message);
-    }
-    if (response.status == 201) {
-      window.location.reload();
+      const response = await request.json();
+
+      setLoading(false);
+      if (!response.ok) {
+        const errorData = response;
+        setMessage(errorData.message);
+        setLoading(false);
+      } else {
+        setMessage("");
+        setFormState({
+          brand: "",
+          model: "",
+          serialNumber: "",
+          type: "",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
+      setMessage("Error al guardar los datos");
+      setLoading(false);
     }
   };
 
@@ -81,6 +104,7 @@ const ButtonAddComputer = () => {
                     name="brand"
                     className="form-control"
                     type="text"
+                    value={formState.brand}
                     onChange={onInputChange}
                   />
                 </div>
@@ -93,6 +117,7 @@ const ButtonAddComputer = () => {
                     name="model"
                     className="form-control"
                     type="text"
+                    value={formState.model}
                     onChange={onInputChange}
                   />
                 </div>
@@ -105,6 +130,7 @@ const ButtonAddComputer = () => {
                     name="serialNumber"
                     className="form-control"
                     type="text"
+                    value={formState.serialNumber}
                     onChange={onInputChange}
                   />
                 </div>
@@ -119,6 +145,7 @@ const ButtonAddComputer = () => {
                     className="form-select"
                     defaultValue={""}
                   >
+                    <option value={""}>Selecciona un tipo</option>
                     <option value={"computer"}>Computadora</option>
                     <option value={"printer"}>Impresora</option>
                     <option value={"monitor"}>Monitor</option>
@@ -133,8 +160,12 @@ const ButtonAddComputer = () => {
                 >
                   Cerrar
                 </button>
-                <button type="submit" className="btn btn-primary">
-                  Guardar
+                <button
+                  type="submit"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
+                  {loading ? <CircularProgress /> : "Guardar"}
                 </button>
               </div>
             </form>

@@ -7,6 +7,9 @@ import InfoComputer from "../../Components/computer/InfoComputer";
 import AssignmentComputer from "../../Components/computer/AssignmentComputer";
 import useComputer from "../../hooks/useComputer";
 import { CircularProgress } from "@mui/material";
+import MGMTMonitor from "../../Components/computer/MGMTMonitor";
+import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 
 const DetailsComputer = () => {
   const { id } = useParams();
@@ -46,8 +49,10 @@ const DetailsComputer = () => {
 
   const iconMap = {
     computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
-  const type = "computer";
+  const type = computerInfo.type;
   const icon = iconMap[type] || null;
 
   return (
@@ -70,9 +75,11 @@ const DetailsComputer = () => {
                   <p className="card-text">{computerInfo.status}</p>
                 </div>
               </div>
-              <div className="col glass m-1">
-                <p>Monitor</p>
-              </div>
+              {computerInfo.type !== "monitor" && (
+                <div className="col glass m-1">
+                  <p>Monitor</p>
+                </div>
+              )}
             </div>
           </div>
           <div className="glass m-3">
@@ -89,12 +96,14 @@ const DetailsComputer = () => {
                   <AssignmentComputer />
                 </div>
               </div>
-              <div className="col m-1">
-                <div className="glass p-3">
-                  <p>Monitor</p>
-                  <label>Imaginate la informacion del monitor aqui</label>
+              {computerInfo.type !== "monitor" && (
+                <div className="col m-1">
+                  <div className="glass p-3">
+                    <p>Monitor</p>
+                    <MGMTMonitor />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <div className="glass m-3">

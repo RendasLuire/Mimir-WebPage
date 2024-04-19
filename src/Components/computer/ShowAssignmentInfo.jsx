@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material";
 const ShowAssignmentInfo = () => {
   const { computerInfo, setComputerInfo } = useComputer();
   const [personInfo, setPersonInfo] = useState(null);
-  const [loging, setLogin] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
   const getPerson = async () => {
@@ -17,6 +17,10 @@ const ShowAssignmentInfo = () => {
       const { user } = computerInfo;
 
       if (!token || !computerInfo || !user.id) {
+        console.log("algo falto");
+        console.log("token: " + token);
+        console.log("computerInfo: " + computerInfo);
+        console.log("user: " + JSON.stringify(computerInfo.user));
         return;
       }
 
@@ -32,10 +36,10 @@ const ShowAssignmentInfo = () => {
 
       const { person } = response.data;
 
+      setLoading(false);
       setPersonInfo(person);
-      setLogin(false);
     } catch (error) {
-      setLogin(false);
+      setLoading(false);
     }
   };
 
@@ -44,7 +48,7 @@ const ShowAssignmentInfo = () => {
   }, [computerInfo]);
 
   const handleUnassignClick = async () => {
-    setLogin(true);
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
 
@@ -83,15 +87,15 @@ const ShowAssignmentInfo = () => {
       };
 
       setComputerInfo(updatedComputerInfo);
-      setLogin(false);
+      setLoading(false);
     } catch (error) {
-      setLogin(false);
+      setLoading(false);
     }
   };
 
   return (
     <div className="container">
-      {loging ? (
+      {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
@@ -102,7 +106,7 @@ const ShowAssignmentInfo = () => {
               <PersonIcon sx={{ width: 150, height: 150 }} />
             </div>
             <div className="card-body text-center">
-              {personInfo && personInfo.name ? (
+              {personInfo && personInfo._id ? (
                 <div>
                   <h5 className="card-title">Nombre:</h5>
                   <p className="card-text">{personInfo.name}</p>

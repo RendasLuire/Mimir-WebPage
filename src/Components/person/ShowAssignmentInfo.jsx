@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import usePerson from "../../hooks/usePerson";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
+import { CircularProgress } from "@mui/material";
 
 const ShowAssignmentInfo = () => {
   const { personInfo, setPersonInfo } = usePerson();
@@ -50,8 +51,6 @@ const ShowAssignmentInfo = () => {
       },
       userTI: auth._id,
     };
-    console.log(messageUpdate);
-
     const request = await fetch(
       Global.url + "persons/update/" + personInfo._id,
       {
@@ -92,7 +91,9 @@ const ShowAssignmentInfo = () => {
               <p className="card-text">{manager.department}</p>
             </div>
           ) : (
-            <p>Cargando...</p>
+            <div className="d-flex justify-content-center">
+              <CircularProgress />
+            </div>
           )}
         </div>
       </div>

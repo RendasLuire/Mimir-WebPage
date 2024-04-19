@@ -9,7 +9,7 @@ const SearchPersonToAssingnment = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(users);
   const { computerInfo, setComputerInfo } = useComputer();
-  const [login, setLogin] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
   const updateFilter = useCallback(
@@ -44,9 +44,9 @@ const SearchPersonToAssingnment = () => {
       const { persons } = response.data;
 
       setUsers(persons);
-      setLogin(false);
+      setLoading(false);
     } catch (error) {
-      setLogin(false);
+      setLoading(false);
     }
   };
 
@@ -66,7 +66,7 @@ const SearchPersonToAssingnment = () => {
   }, [search, users, updateFilter]);
 
   const handleSelectClick = async (item) => {
-    setLogin(true);
+    setLoading(true);
 
     try {
       const token = localStorage.getItem("token");
@@ -93,28 +93,23 @@ const SearchPersonToAssingnment = () => {
           },
         }
       );
-
-      const response = await request.json();
-
-      const { message } = response.data;
-
-      console.log(response);
+      await request.json();
 
       const updatedComputerInfo = {
         ...computerInfo,
-        user: { userId: item._id, userName: item.name },
+        user: { id: item._id, name: item.name },
       };
 
       setComputerInfo(updatedComputerInfo);
-      setLogin(false);
+      setLoading(false);
     } catch (error) {
-      setLogin(false);
+      setLoading(false);
     }
   };
 
   return (
     <div className="m-3">
-      {login ? (
+      {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
