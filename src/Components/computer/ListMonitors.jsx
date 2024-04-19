@@ -68,8 +68,6 @@ const ListMonitors = () => {
         userTI: auth._id,
       };
 
-      console.log(JSON.stringify(messageUpdateComputer));
-
       const requestComputer = await fetch(
         Global.url + "computers/update/" + computerInfo._id,
         {
@@ -81,8 +79,6 @@ const ListMonitors = () => {
           },
         }
       );
-
-      console.log(JSON.stringify(messageUpdateMonitor));
 
       const requestMonitor = await fetch(
         Global.url + "computers/update/" + item._id,
@@ -97,9 +93,7 @@ const ListMonitors = () => {
       );
 
       await requestComputer.json();
-      const response = await requestMonitor.json();
-
-      console.log(response);
+      await requestMonitor.json();
 
       const updatedComputerInfo = {
         ...computerInfo,

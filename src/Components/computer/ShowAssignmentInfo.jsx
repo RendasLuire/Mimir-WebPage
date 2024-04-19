@@ -56,6 +56,29 @@ const ShowAssignmentInfo = () => {
         return false;
       }
 
+      if (computerInfo.monitor.id !== "Sin asignar") {
+        const messageUpdateMonitor = {
+          user: {
+            id: "Sin asignar",
+            name: "Sin asignar",
+          },
+          userTI: auth._id,
+        };
+
+        const requestMonitor = await fetch(
+          Global.url + "computers/update/" + computerInfo.monitor.id,
+          {
+            method: "PATCH",
+            body: JSON.stringify(messageUpdateMonitor),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        );
+        await requestMonitor.json();
+      }
+
       const messageUpdate = {
         user: {
           id: "Sin asignar",

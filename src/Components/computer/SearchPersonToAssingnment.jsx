@@ -74,6 +74,30 @@ const SearchPersonToAssingnment = () => {
       if (!token || !computerInfo || !computerInfo._id) {
         return false;
       }
+
+      if (computerInfo.monitor.id !== "Sin asignar") {
+        const messageUpdateMonitor = {
+          user: {
+            id: item._id,
+            name: item.name,
+          },
+          userTI: auth._id,
+        };
+
+        const requestMonitor = await fetch(
+          Global.url + "computers/update/" + computerInfo.monitor.id,
+          {
+            method: "PATCH",
+            body: JSON.stringify(messageUpdateMonitor),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        );
+        await requestMonitor.json();
+      }
+
       const messageUpdate = {
         user: {
           id: item._id,
