@@ -9,7 +9,7 @@ const PublicLayout = () => {
     <>
       <Header />
       <section className="layout_content">
-        {!auth._id ? <Outlet /> : <Navigate to="/inventory/computers" />}
+        {!auth._id ? <Outlet /> : <Navigate to="/inventory/devices" />}
       </section>
     </>
   );

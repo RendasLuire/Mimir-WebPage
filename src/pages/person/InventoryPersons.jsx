@@ -18,7 +18,7 @@ const ListAllPersons = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "persons/listall", {
+      const request = await fetch(Global.url + "persons/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -32,9 +32,9 @@ const ListAllPersons = () => {
 
       const response = await request.json();
 
-      const { persons } = response.data;
+      const { data } = response;
 
-      setUsers(persons);
+      setUsers(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);

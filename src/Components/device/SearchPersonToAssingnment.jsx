@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import useAuth from "../../hooks/useAuth";
 import { CircularProgress } from "@mui/material";
 
@@ -8,7 +8,7 @@ const SearchPersonToAssingnment = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(users);
-  const { computerInfo, setComputerInfo } = useComputer();
+  const { deviceInfo, setDeviceInfo } = useDevice();
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
@@ -31,7 +31,7 @@ const SearchPersonToAssingnment = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "persons/listall", {
+      const request = await fetch(Global.url + "persons/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -41,9 +41,9 @@ const SearchPersonToAssingnment = () => {
 
       const response = await request.json();
 
-      const { persons } = response.data;
+      const { data } = response;
 
-      setUsers(persons);
+      setUsers(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -71,11 +71,11 @@ const SearchPersonToAssingnment = () => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !computerInfo || !computerInfo._id) {
+      if (!token || !deviceInfo || !deviceInfo._id) {
         return false;
       }
 
-      if (computerInfo.monitor.id !== "Sin asignar") {
+      if (deviceInfo.monitor.id !== "Sin asignar") {
         const messageUpdateMonitor = {
           user: {
             id: item._id,
@@ -85,7 +85,7 @@ const SearchPersonToAssingnment = () => {
         };
 
         const requestMonitor = await fetch(
-          Global.url + "computers/update/" + computerInfo.monitor.id,
+          Global.url + "device/" + deviceInfo.monitor.id,
           {
             method: "PATCH",
             body: JSON.stringify(messageUpdateMonitor),
@@ -106,25 +106,22 @@ const SearchPersonToAssingnment = () => {
         userTI: auth._id,
       };
 
-      const request = await fetch(
-        Global.url + "computers/update/" + computerInfo._id,
-        {
-          method: "PATCH",
-          body: JSON.stringify(messageUpdate),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const request = await fetch(Global.url + "device/" + deviceInfo._id, {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
       await request.json();
 
       const updatedComputerInfo = {
-        ...computerInfo,
+        ...deviceInfo,
         user: { id: item._id, name: item.name },
       };
 
-      setComputerInfo(updatedComputerInfo);
+      setDeviceInfo(updatedComputerInfo);
       setLoading(false);
     } catch (error) {
       setLoading(false);

@@ -1,18 +1,18 @@
 import MonitorOutlined from "@mui/icons-material/MonitorOutlined";
 import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 
 const ShowInfoMonitor = () => {
   const [loading, setLoading] = useState(true);
   const [monitorInfo, setMonitorInfo] = useState({});
-  const { computerInfo, setComputerInfo } = useComputer();
+  const { deviceInfo, setDeviceInfo } = useDevice();
   const { auth } = useAuth();
 
   const getMonitor = async () => {
-    const { monitor } = computerInfo;
+    const { monitor } = deviceInfo;
 
     try {
       const token = localStorage.getItem("token");
@@ -83,7 +83,7 @@ const ShowInfoMonitor = () => {
       );
 
       const requestComputer = await fetch(
-        Global.url + "computers/update/" + computerInfo._id,
+        Global.url + "computers/update/" + deviceInfo._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdatComputer),
@@ -98,7 +98,7 @@ const ShowInfoMonitor = () => {
       await requestComputer.json();
 
       const updatedComputerInfo = {
-        ...computerInfo,
+        ...deviceInfo,
         monitor: {
           id: "Sin asignar",
           serialNumber: "Sin asignar",
@@ -113,7 +113,7 @@ const ShowInfoMonitor = () => {
         },
       };
 
-      setComputerInfo(updatedComputerInfo);
+      setDeviceInfo(updatedComputerInfo);
       setMonitorInfo(updatedMonitorInfo);
       setLoading(false);
     } catch (error) {

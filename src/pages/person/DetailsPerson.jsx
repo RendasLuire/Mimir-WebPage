@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import InfoPerson from "../../Components/person/InfoPerson";
 import MovementsPerson from "../../Components/person/MovementsPerson";
 import AssignmentPersonManager from "../../Components/person/AssignmentPersonManager";
-import ShowComputersAssignment from "../../Components/person/ShowComputersAssignment";
+import ShowDevicesAssignment from "../../Components/person/ShowDevicesAssignment";
 import { CircularProgress } from "@mui/material";
 
 const DetailsPerson = () => {
@@ -32,9 +32,9 @@ const DetailsPerson = () => {
 
       const response = await request.json();
 
-      const { person } = response.data;
+      const { data } = response;
 
-      setPersonInfo(person);
+      setPersonInfo(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -71,13 +71,11 @@ const DetailsPerson = () => {
             <div className="row g-0">
               <div className="col m-1">
                 <div className="glass p-3">
-                  <p>Informacion</p>
                   <InfoPerson />
                 </div>
               </div>
               <div className="col m-1">
                 <div className="glass p-3">
-                  <p>Manager</p>
                   <AssignmentPersonManager />
                 </div>
               </div>
@@ -85,13 +83,11 @@ const DetailsPerson = () => {
           </div>
           <div className="glass m-3">
             <div className="glass">
-              <p>Computadoras</p>
-              <ShowComputersAssignment />
+              <ShowDevicesAssignment />
             </div>
           </div>
           <div className="glass m-3">
             <div className="glass">
-              <p>Historial</p>
               <MovementsPerson />
             </div>
           </div>

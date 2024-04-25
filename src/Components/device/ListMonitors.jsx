@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { CircularProgress } from "@mui/material";
 
 const ListMonitors = () => {
   const [listMonitors, setListMonitors] = useState([]);
-  const { computerInfo, setComputerInfo } = useComputer();
+  const { deviceInfo, setDeviceInfo } = useDevice();
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
@@ -18,7 +18,7 @@ const ListMonitors = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "computers/filter/monitor", {
+      const request = await fetch(Global.url + "device?type=monitor", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const ListMonitors = () => {
 
       const filteredMonitors = computers.filter(
         (monitor) =>
-          monitor.status == "activo" && monitor.user.id == "Sin asignar"
+          monitor.status == "Activo" && monitor.user.id == "Sin asignar"
       );
 
       setListMonitors(filteredMonitors);
@@ -46,7 +46,7 @@ const ListMonitors = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const { user } = computerInfo;
+      const { user } = deviceInfo;
 
       if (!token) {
         return false;
@@ -69,7 +69,7 @@ const ListMonitors = () => {
       };
 
       const requestComputer = await fetch(
-        Global.url + "computers/update/" + computerInfo._id,
+        Global.url + "device/" + deviceInfo._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdateComputer),
@@ -80,27 +80,24 @@ const ListMonitors = () => {
         }
       );
 
-      const requestMonitor = await fetch(
-        Global.url + "computers/update/" + item._id,
-        {
-          method: "PATCH",
-          body: JSON.stringify(messageUpdateMonitor),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const requestMonitor = await fetch(Global.url + "device/" + item._id, {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdateMonitor),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       await requestComputer.json();
       await requestMonitor.json();
 
       const updatedComputerInfo = {
-        ...computerInfo,
+        ...deviceInfo,
         monitor: { id: item._id, serialNumber: item.serialNumber },
       };
 
-      setComputerInfo(updatedComputerInfo);
+      setDeviceInfo(updatedComputerInfo);
       setLoading(false);
     } catch (error) {
       setLoading(false);

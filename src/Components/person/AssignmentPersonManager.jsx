@@ -9,13 +9,11 @@ const AssignmentPersonManager = () => {
   useEffect(() => {}, [personInfo]);
 
   const managerId =
-    personInfo && personInfo.manager
-      ? personInfo.manager.managerId
-      : "unassigned";
+    personInfo && personInfo.manager ? personInfo.manager.id : "Sin asignar";
 
   return (
     <div className="container glass">
-      {managerId !== "unassigned" ? (
+      {managerId !== "Sin asignar" ? (
         <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssing />

@@ -1,43 +1,41 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import { CircularProgress } from "@mui/material";
 
-const MovementsComputer = () => {
+const MovementsDevice = () => {
   const [movements, setMovements] = useState([]);
-  const { computerInfo } = useComputer();
+  const { deviceInfo } = useDevice();
   const [login, setLogin] = useState(true);
 
   const getMovements = async () => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !computerInfo || !computerInfo._id) {
+      if (!token || !deviceInfo || !deviceInfo._id) {
         return;
       }
-      const request = await fetch(
-        Global.url + "movements/listall/" + computerInfo._id,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const request = await fetch(Global.url + "movements/" + deviceInfo._id, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       const response = await request.json();
 
-      const { movements } = response.data;
+      const { data } = response;
 
-      if (movements && Array.isArray(movements)) {
-        movements.sort(
+      if (data && Array.isArray(data)) {
+        data.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         );
-        setMovements(movements);
+        setMovements(data);
         setLogin(false);
       } else {
         setMovements([]);
+        setLogin(false);
       }
     } catch (error) {
       setMovements([]);
@@ -47,7 +45,7 @@ const MovementsComputer = () => {
 
   useEffect(() => {
     getMovements();
-  }, [computerInfo]);
+  }, [deviceInfo]);
 
   return (
     <div className="container glass">
@@ -78,4 +76,4 @@ const MovementsComputer = () => {
   );
 };
 
-export default MovementsComputer;
+export default MovementsDevice;

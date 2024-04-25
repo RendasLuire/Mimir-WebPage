@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import { CircularProgress } from "@mui/material";
 import ListMonitors from "./ListMonitors";
 import ShowInfoMonitor from "./ShowInfoMonitor";
 
 const MGMTMonitor = () => {
-  const { computerInfo } = useComputer();
-  const { monitor } = computerInfo;
+  const { deviceInfo } = useDevice();
+  const { monitor } = deviceInfo;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (computerInfo) {
+    if (deviceInfo) {
       setLoading(false);
     }
-  }, [computerInfo]);
+  }, [deviceInfo]);
 
   return (
     <div>

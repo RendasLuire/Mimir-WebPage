@@ -14,25 +14,24 @@ const MovementsPerson = () => {
     }
 
     try {
-      const request = await fetch(
-        Global.url + "movements/listall/" + personInfo._id,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const request = await fetch(Global.url + "movements/" + personInfo._id, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+      console.log("request: " + JSON.stringify(request));
 
       const response = await request.json();
-      const { movements } = response.data;
+      console.log("response: " + response);
+      const { data } = response;
 
-      movements.sort(
+      data.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
 
-      setMovements(movements);
+      setMovements(data);
     } catch (error) {
       console.error("Error fetching movements:", error.message);
       setMovements([]);

@@ -17,7 +17,7 @@ const SearchPersonToAssingnment = () => {
       return false;
     }
 
-    const request = await fetch(Global.url + "persons/listall", {
+    const request = await fetch(Global.url + "persons/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -27,9 +27,9 @@ const SearchPersonToAssingnment = () => {
 
     const response = await request.json();
 
-    const { persons } = response.data;
+    const { data } = response;
 
-    setUsers(persons);
+    setUsers(data);
   };
 
   const updateFilter = useCallback(
@@ -67,33 +67,28 @@ const SearchPersonToAssingnment = () => {
 
     const messageUpdate = {
       manager: {
-        managerId: item._id,
-        managerName: item.name,
+        id: item._id,
+        name: item.name,
       },
       userTI: auth._id,
     };
 
-    console.log(messageUpdate);
-
-    const request = await fetch(
-      Global.url + "persons/update/" + personInfo._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(messageUpdate),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
-    );
+    const request = await fetch(Global.url + "persons/" + personInfo._id, {
+      method: "PATCH",
+      body: JSON.stringify(messageUpdate),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
 
     await request.json();
 
     const updatedPersonInfo = {
       ...personInfo,
       manager: {
-        managerId: item._id,
-        managerName: item.name,
+        id: item._id,
+        name: item.name,
       },
     };
 

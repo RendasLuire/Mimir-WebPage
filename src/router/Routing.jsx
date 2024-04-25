@@ -4,7 +4,7 @@ import Logout from "../Components/user/Logout";
 import { AuthProvider } from "../context/AuthProvider";
 import PublicLayout from "../Components/layout/public/PublicLayout";
 import PrivateLayout from "../Components/layout/private/PrivateLayout";
-import ComputersRoutes from "./ComputersRoutes";
+import DevicesRoutes from "./DevicesRoutes";
 import UsersRoutes from "./UsersRoutes";
 import InventoryWarehouse from "../pages/warehouse/InventoryWarehouse";
 import InventoryAnnexeds from "../pages/annexed/InventoryAnnexeds";
@@ -22,10 +22,7 @@ const Routing = () => {
 
           <Route path="/inventory" element={<PrivateLayout />}>
             <Route path="/inventory/dashboard/*" element={<ShowDashBoard />} />
-            <Route
-              path="/inventory/computers/*"
-              element={<ComputersRoutes />}
-            />
+            <Route path="/inventory/devices/*" element={<DevicesRoutes />} />
             <Route path="/inventory/users/*" element={<UsersRoutes />} />
             <Route
               path="/inventory/warehouses/*"

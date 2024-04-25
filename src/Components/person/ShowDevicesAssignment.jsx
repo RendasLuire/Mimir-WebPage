@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import usePerson from "../../hooks/usePerson";
-import CardComputer from "../computer/CardComputer";
+import CardDevice from "../device/CardDevice";
 import { CircularProgress } from "@mui/material";
 
-const ShowComputersAssignment = () => {
-  const [computers, setComputers] = useState([]);
+const ShowDevicesAssignment = () => {
+  const [devices, setDevices] = useState([]);
   const { personInfo } = usePerson();
   const [loading, setLoading] = useState(true);
 
-  const getComputers = async () => {
+  const getDevices = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -29,9 +29,9 @@ const ShowComputersAssignment = () => {
       );
 
       const response = await request.json();
-      const { computers } = response.data;
+      const { devices } = response.data;
 
-      setComputers(computers);
+      setDevices(devices);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -39,8 +39,8 @@ const ShowComputersAssignment = () => {
   };
 
   useEffect(() => {
-    getComputers();
-  }, [computers]);
+    getDevices();
+  }, [devices]);
 
   return (
     <div className="container glass mt-3">
@@ -51,15 +51,15 @@ const ShowComputersAssignment = () => {
           </div>
         ) : (
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            {computers.length > 1 ? (
-              computers.map((item) => (
+            {devices.length > 1 ? (
+              devices.map((item) => (
                 <div key={item._id} className="col">
-                  <CardComputer computer={item} />
+                  <CardDevice device={item} />
                 </div>
               ))
             ) : (
               <div className="d-flex text-center">
-                <p>No abemus computers</p>
+                <p>No abemus devices</p>
               </div>
             )}
           </div>
@@ -69,4 +69,4 @@ const ShowComputersAssignment = () => {
   );
 };
 
-export default ShowComputersAssignment;
+export default ShowDevicesAssignment;

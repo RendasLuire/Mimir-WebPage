@@ -1,13 +1,13 @@
 import SearchPersonToAssingnment from "./SearchPersonToAssingnment";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import { useEffect } from "react";
 import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
-const AssignmentComputer = () => {
-  const { computerInfo } = useComputer();
-  const { user } = computerInfo;
+const AssignmentDevice = () => {
+  const { deviceInfo } = useDevice();
+  const { user } = deviceInfo;
 
-  useEffect(() => {}, [computerInfo]);
+  useEffect(() => {}, [deviceInfo]);
 
   return (
     <div className="container glass">
@@ -20,4 +20,4 @@ const AssignmentComputer = () => {
   );
 };
 
-export default AssignmentComputer;
+export default AssignmentDevice;

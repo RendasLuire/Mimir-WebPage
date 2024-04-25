@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       const userObj = JSON.parse(userLocal);
       const userId = userObj._id;
 
-      const request = await fetch(Global.url + "users/" + userId, {
+      const request = await fetch(Global.url + "user/" + userId, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -35,9 +35,9 @@ export const AuthProvider = ({ children }) => {
 
       const response = await request.json();
 
-      const { user } = response.data;
+      const { data } = response;
 
-      setAuth(user);
+      setAuth(data);
       setLoading(false);
     } catch (error) {
       console.error("Error de autenticación:", error.message);

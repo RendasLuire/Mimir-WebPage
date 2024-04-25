@@ -15,7 +15,7 @@ const Login = () => {
     let userToLogin = formState;
 
     try {
-      const request = await fetch(Global.url + "users/login", {
+      const request = await fetch(Global.url + "user/login", {
         method: "POST",
         body: JSON.stringify(userToLogin),
         headers: {
@@ -26,13 +26,15 @@ const Login = () => {
       const code = request.status;
 
       const response = await request.json();
-      const { user, token, message } = response.data;
+      const { data, token, message } = response;
+
+      console.log();
 
       if (code == 200) {
         localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(data));
         setLogin({ code, message });
-        setAuth(user);
+        setAuth(data);
       } else {
         setLogin({ code, message });
       }

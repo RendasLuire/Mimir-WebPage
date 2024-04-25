@@ -2,21 +2,21 @@ import { useParams } from "react-router-dom";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import MovementsComputer from "../../Components/computer/MovementsComputer";
-import InfoComputer from "../../Components/computer/InfoComputer";
-import AssignmentComputer from "../../Components/computer/AssignmentComputer";
-import useComputer from "../../hooks/useComputer";
+import MovementsDevice from "../../Components/device/MovementsDevice";
+import InfoDevice from "../../Components/device/InfoDevice";
+import AssignmentDevice from "../../Components/device/AssignmentDevice";
+import useDevice from "../../hooks/useDevice";
 import { CircularProgress } from "@mui/material";
-import MGMTMonitor from "../../Components/computer/MGMTMonitor";
+import MGMTMonitor from "../../Components/device/MGMTMonitor";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 
-const DetailsComputer = () => {
+const DetailsDevice = () => {
   const { id } = useParams();
-  const { setComputerInfo, computerInfo } = useComputer();
+  const { setDeviceInfo, deviceInfo } = useDevice();
   const [loading, setLoading] = useState(true);
 
-  const getComputer = async () => {
+  const getDevice = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -24,7 +24,7 @@ const DetailsComputer = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "computers/" + id, {
+      const request = await fetch(Global.url + "device/" + id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -34,9 +34,9 @@ const DetailsComputer = () => {
 
       const response = await request.json();
 
-      const { computer } = response.data;
+      const { data } = response;
 
-      setComputerInfo(computer);
+      setDeviceInfo(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -44,15 +44,15 @@ const DetailsComputer = () => {
   };
 
   useEffect(() => {
-    getComputer();
+    getDevice();
   }, []);
 
   const iconMap = {
-    computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
-  const type = computerInfo.type;
+  const type = deviceInfo.type;
   const icon = iconMap[type] || null;
 
   return (
@@ -68,38 +68,33 @@ const DetailsComputer = () => {
               </div>
               <div className="col glass m-1">
                 <div className="card-body">
-                  <h5 className="card-title">{computerInfo.hostname}</h5>
+                  <h5 className="card-title">{deviceInfo.hostname}</h5>
                   <p className="card-text">
-                    {computerInfo.brand + " " + computerInfo.model}
+                    {deviceInfo.brand + " " + deviceInfo.model}
                   </p>
-                  <p className="card-text">{computerInfo.status}</p>
+                  <p className="card-text">{deviceInfo.status}</p>
                 </div>
               </div>
-              {computerInfo.type !== "monitor" && (
-                <div className="col glass m-1">
-                  <p>Monitor</p>
-                </div>
-              )}
+              <div className="col col-md-1 glass m-1 align-content-center text-center">
+                <button className="btn btn-info">Crear responsiva</button>
+              </div>
             </div>
           </div>
           <div className="glass m-3">
             <div className="row g-0">
               <div className="col m-1">
                 <div className="glass p-3">
-                  <p>Informacion</p>
-                  <InfoComputer />
+                  <InfoDevice />
                 </div>
               </div>
               <div className="col m-1">
                 <div className="glass p-3">
-                  <p>Usuario</p>
-                  <AssignmentComputer />
+                  <AssignmentDevice />
                 </div>
               </div>
-              {computerInfo.type !== "monitor" && (
+              {deviceInfo.type !== "Monitor" && (
                 <div className="col m-1">
                   <div className="glass p-3">
-                    <p>Monitor</p>
                     <MGMTMonitor />
                   </div>
                 </div>
@@ -108,8 +103,7 @@ const DetailsComputer = () => {
           </div>
           <div className="glass m-3">
             <div className="glass">
-              <p>Historial</p>
-              <MovementsComputer />
+              <MovementsDevice />
             </div>
           </div>
         </>
@@ -118,4 +112,4 @@ const DetailsComputer = () => {
   );
 };
 
-export default DetailsComputer;
+export default DetailsDevice;

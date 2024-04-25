@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import Global from "../../helpers/Global";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 import useAuth from "../../hooks/useAuth";
 import { CircularProgress } from "@mui/material";
 
 const ShowAssignmentInfo = () => {
-  const { computerInfo, setComputerInfo } = useComputer();
+  const { deviceInfo, setDeviceInfo } = useDevice();
   const [personInfo, setPersonInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
@@ -14,13 +14,13 @@ const ShowAssignmentInfo = () => {
   const getPerson = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { user } = computerInfo;
+      const { user } = deviceInfo;
 
-      if (!token || !computerInfo || !user.id) {
+      if (!token || !deviceInfo || !user.id) {
         console.log("algo falto");
         console.log("token: " + token);
-        console.log("computerInfo: " + computerInfo);
-        console.log("user: " + JSON.stringify(computerInfo.user));
+        console.log("deviceInfo: " + deviceInfo);
+        console.log("user: " + JSON.stringify(deviceInfo.user));
         return;
       }
 
@@ -34,10 +34,10 @@ const ShowAssignmentInfo = () => {
 
       const response = await request.json();
 
-      const { person } = response.data;
+      const { data } = response;
 
       setLoading(false);
-      setPersonInfo(person);
+      setPersonInfo(data);
     } catch (error) {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ const ShowAssignmentInfo = () => {
 
   useEffect(() => {
     getPerson();
-  }, [computerInfo]);
+  }, [deviceInfo]);
 
   const handleUnassignClick = async () => {
     setLoading(true);
@@ -56,7 +56,7 @@ const ShowAssignmentInfo = () => {
         return false;
       }
 
-      if (computerInfo.monitor.id !== "Sin asignar") {
+      if (deviceInfo.monitor.id !== "Sin asignar") {
         const messageUpdateMonitor = {
           user: {
             id: "Sin asignar",
@@ -66,7 +66,7 @@ const ShowAssignmentInfo = () => {
         };
 
         const requestMonitor = await fetch(
-          Global.url + "computers/update/" + computerInfo.monitor.id,
+          Global.url + "device/" + deviceInfo.monitor.id,
           {
             method: "PATCH",
             body: JSON.stringify(messageUpdateMonitor),
@@ -87,29 +87,26 @@ const ShowAssignmentInfo = () => {
         userTI: auth._id,
       };
 
-      const request = await fetch(
-        Global.url + "computers/update/" + computerInfo._id,
-        {
-          method: "PATCH",
-          body: JSON.stringify(messageUpdate),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const request = await fetch(Global.url + "device/" + deviceInfo._id, {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       await request.json();
 
       const updatedComputerInfo = {
-        ...computerInfo,
+        ...deviceInfo,
         user: {
           id: "Sin asignar",
           name: "Sin asignar",
         },
       };
 
-      setComputerInfo(updatedComputerInfo);
+      setDeviceInfo(updatedComputerInfo);
       setLoading(false);
     } catch (error) {
       setLoading(false);

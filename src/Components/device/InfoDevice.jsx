@@ -2,26 +2,26 @@ import { useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
-import useComputer from "../../hooks/useComputer";
+import useDevice from "../../hooks/useDevice";
 
-const InfoComputer = () => {
+const InfoDevice = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { computerInfo } = useComputer();
+  const { deviceInfo } = useDevice();
   const { formState, onInputChange, setFormState } = useForm({
-    hostname: computerInfo?.hostname || "",
-    brand: computerInfo?.brand || "",
-    model: computerInfo?.model || "",
-    serialNumber: computerInfo?.serialNumber || "",
-    status: computerInfo?.status || "",
-    annexed: computerInfo?.annexed || "",
-    ubication: computerInfo?.ubication || "",
-    ip: computerInfo?.ip || "",
-    bussinesUnit: computerInfo?.bussinesUnit || "",
-    custom: computerInfo?.custom || "",
-    headphones: computerInfo?.headphones || "",
-    adaptVGA: computerInfo?.adaptVGA || "",
-    mouse: computerInfo?.mouse || "",
-    user: computerInfo?.user || "",
+    hostname: deviceInfo?.hostname || "",
+    brand: deviceInfo?.brand || "",
+    model: deviceInfo?.model || "",
+    serialNumber: deviceInfo?.serialNumber || "",
+    status: deviceInfo?.status || "",
+    annexed: deviceInfo?.annexed || "",
+    ubication: deviceInfo?.ubication || "",
+    ip: deviceInfo?.ip || "",
+    bussinesUnit: deviceInfo?.bussinesUnit || "",
+    custom: deviceInfo?.custom || "",
+    headphones: deviceInfo?.headphones || "",
+    adaptVGA: deviceInfo?.adaptVGA || "",
+    mouse: deviceInfo?.mouse || "",
+    user: deviceInfo?.user || "",
   });
   const { auth } = useAuth();
 
@@ -44,26 +44,26 @@ const InfoComputer = () => {
   } = formState;
 
   useEffect(() => {
-    if (computerInfo) {
+    if (deviceInfo) {
       setFormState((prevState) => ({
         ...prevState,
-        hostname: computerInfo.hostname || "",
-        brand: computerInfo.brand || "",
-        model: computerInfo.model || "",
-        serialNumber: computerInfo.serialNumber || "",
-        status: computerInfo.status || "",
-        annexed: computerInfo.annexed || "",
-        ubication: computerInfo.ubication || "",
-        ip: computerInfo.ip || "",
-        bussinesUnit: computerInfo.bussinesUnit || "",
-        custom: computerInfo.custom || "",
-        headphones: computerInfo.headphones || "",
-        adaptVGA: computerInfo.adaptVGA || "",
-        mouse: computerInfo.mouse || "",
-        user: computerInfo.user || "",
+        hostname: deviceInfo.hostname || "",
+        brand: deviceInfo.brand || "",
+        model: deviceInfo.model || "",
+        serialNumber: deviceInfo.serialNumber || "",
+        status: deviceInfo.status || "",
+        annexed: deviceInfo.annexed || "",
+        ubication: deviceInfo.ubication || "",
+        ip: deviceInfo.ip || "",
+        bussinesUnit: deviceInfo.bussinesUnit || "",
+        custom: deviceInfo.custom || "",
+        headphones: deviceInfo.headphones || "",
+        adaptVGA: deviceInfo.adaptVGA || "",
+        mouse: deviceInfo.mouse || "",
+        user: deviceInfo.user || "",
       }));
     }
-  }, [computerInfo, setFormState]);
+  }, [deviceInfo, setFormState]);
 
   const handleEditClick = (e) => {
     e.preventDefault();
@@ -74,7 +74,7 @@ const InfoComputer = () => {
     e.preventDefault();
 
     const changesMade = Object.keys(formState).some(
-      (key) => formState[key] !== computerInfo[key]
+      (key) => formState[key] !== deviceInfo[key]
     );
 
     if (!changesMade) {
@@ -86,7 +86,7 @@ const InfoComputer = () => {
     const computerToSave = { ...formState, userTI: auth._id };
 
     const request = await fetch(
-      Global.url + "computers/update/" + computerInfo._id,
+      Global.url + "computers/update/" + deviceInfo._id,
       {
         method: "PUT",
         body: JSON.stringify(computerToSave),
@@ -380,4 +380,4 @@ const InfoComputer = () => {
   );
 };
 
-export default InfoComputer;
+export default InfoDevice;

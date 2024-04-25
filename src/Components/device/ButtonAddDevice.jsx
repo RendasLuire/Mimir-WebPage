@@ -5,7 +5,7 @@ import useForm from "../../hooks/useForm";
 import Alert from "@mui/material/Alert";
 import { CircularProgress } from "@mui/material";
 
-const ButtonAddComputer = () => {
+const ButtonAddDevice = ({ setUpdate }) => {
   const { formState, onInputChange, setFormState } = useForm({
     brand: "",
     model: "",
@@ -23,9 +23,20 @@ const ButtonAddComputer = () => {
     try {
       const token = localStorage.getItem("token");
 
-      let itemToSave = { ...formState, userTI: auth._id };
+      const capitalizeField = (value) => {
+        return value.replace(/\b\w/g, (char) => char.toUpperCase());
+      };
 
-      const request = await fetch(Global.url + "computers/register", {
+      const capitalizedFormState = Object.fromEntries(
+        Object.entries(formState).map(([key, value]) => [
+          key,
+          typeof value === "string" ? capitalizeField(value) : value,
+        ])
+      );
+
+      let itemToSave = { ...capitalizedFormState, userTI: auth._id };
+
+      const request = await fetch(Global.url + "device/", {
         method: "POST",
         body: JSON.stringify(itemToSave),
         headers: {
@@ -36,12 +47,7 @@ const ButtonAddComputer = () => {
 
       const response = await request.json();
 
-      setLoading(false);
-      if (!response.ok) {
-        const errorData = response;
-        setMessage(errorData.message);
-        setLoading(false);
-      } else {
+      if (request.status == 201) {
         setMessage("");
         setFormState({
           brand: "",
@@ -49,6 +55,12 @@ const ButtonAddComputer = () => {
           serialNumber: "",
           type: "",
         });
+        setLoading(false);
+        console.log("Voy a cambiar el estado a true");
+        setUpdate(true);
+      } else {
+        const errorData = response;
+        setMessage(errorData.message);
         setLoading(false);
       }
     } catch (error) {
@@ -143,12 +155,12 @@ const ButtonAddComputer = () => {
                     name="type"
                     onChange={onInputChange}
                     className="form-select"
-                    defaultValue={""}
+                    value={formState.type}
                   >
                     <option value={""}>Selecciona un tipo</option>
-                    <option value={"computer"}>Computadora</option>
-                    <option value={"printer"}>Impresora</option>
-                    <option value={"monitor"}>Monitor</option>
+                    <option value={"Computadora"}>Computadora</option>
+                    <option value={"Impresora"}>Impresora</option>
+                    <option value={"Monitor"}>Monitor</option>
                   </select>
                 </div>
               </div>
@@ -176,4 +188,4 @@ const ButtonAddComputer = () => {
   );
 };
 
-export default ButtonAddComputer;
+export default ButtonAddDevice;

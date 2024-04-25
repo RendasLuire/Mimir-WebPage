@@ -4,18 +4,18 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import { Link } from "react-router-dom";
 
-const CardComputer = ({ computer }) => {
-  const { _id, hostname, model, user, brand, status, type } = computer;
+const CardDevice = ({ device }) => {
+  const { _id, hostname, model, user, brand, status, type } = device;
 
   const iconMap = {
-    computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
 
   const colorMap = {
-    activo: "success",
-    guardado: "secondary",
+    Activo: "success",
+    Guardado: "secondary",
   };
 
   const icon = iconMap[type] || null;
@@ -24,7 +24,7 @@ const CardComputer = ({ computer }) => {
   return (
     <>
       <Link
-        to={`/inventory/computers/details/${_id}`}
+        to={`/inventory/devices/details/${_id}`}
         className="card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative"
       >
         <div className="glass m-2">{icon}</div>
@@ -41,4 +41,4 @@ const CardComputer = ({ computer }) => {
   );
 };
 
-export default CardComputer;
+export default CardDevice;
