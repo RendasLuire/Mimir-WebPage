@@ -26,9 +26,6 @@ const ListMonitors = () => {
         },
       });
 
-      console.log("hola: " + JSON.stringify(request));
-      console.log(request.status);
-
       const response = await request.json();
       const { data } = response;
 

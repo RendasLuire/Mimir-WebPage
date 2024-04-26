@@ -21,7 +21,7 @@ const ShowInfoMonitor = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "computers/" + monitor.id, {
+      const request = await fetch(Global.url + "device/" + monitor.id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -30,9 +30,9 @@ const ShowInfoMonitor = () => {
       });
 
       const response = await request.json();
-      const { computer } = response.data;
+      const { data } = response;
 
-      setMonitorInfo(computer);
+      setMonitorInfo(data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -71,7 +71,7 @@ const ShowInfoMonitor = () => {
       };
 
       const requestMonitor = await fetch(
-        Global.url + "computers/update/" + monitorInfo._id,
+        Global.url + "device/" + monitorInfo._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdatMonitor),
@@ -83,7 +83,7 @@ const ShowInfoMonitor = () => {
       );
 
       const requestComputer = await fetch(
-        Global.url + "computers/update/" + deviceInfo._id,
+        Global.url + "device/" + deviceInfo._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdatComputer),
