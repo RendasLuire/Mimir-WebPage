@@ -18,7 +18,7 @@ const ListMonitors = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "device?type=monitor", {
+      const request = await fetch(Global.url + "device?type=Monitor", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -26,10 +26,15 @@ const ListMonitors = () => {
         },
       });
 
-      const response = await request.json();
-      const { computers } = response.data;
+      console.log("hola: " + JSON.stringify(request));
+      console.log(request.status);
 
-      const filteredMonitors = computers.filter(
+      const response = await request.json();
+      const { data } = response;
+
+      console.log(request);
+
+      const filteredMonitors = data.filter(
         (monitor) =>
           monitor.status == "Activo" && monitor.user.id == "Sin asignar"
       );
