@@ -52,18 +52,7 @@ const SearchPersonToAssingnment = () => {
 
   useEffect(() => {
     getPersons();
-    if (!search) {
-      updateFilter(users);
-      return;
-    }
-
-    const filteredUsers = users.filter((user) =>
-      Object.values(user).some((value) =>
-        String(value).toLowerCase().includes(search.toLocaleLowerCase())
-      )
-    );
-    updateFilter(filteredUsers);
-  }, [search, users, updateFilter]);
+  }, [deviceInfo, updateFilter]);
 
   const handleSelectClick = async (item) => {
     setLoading(true);
@@ -75,52 +64,29 @@ const SearchPersonToAssingnment = () => {
         return false;
       }
 
-      if (deviceInfo.monitor.id !== "Sin asignar") {
-        const messageUpdateMonitor = {
-          user: {
-            id: item._id,
-            name: item.name,
-          },
-          userTI: auth._id,
-        };
-
-        const requestMonitor = await fetch(
-          Global.url + "device/" + deviceInfo.monitor.id,
-          {
-            method: "PATCH",
-            body: JSON.stringify(messageUpdateMonitor),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
-        await requestMonitor.json();
-      }
-
       const messageUpdate = {
-        user: {
-          id: item._id,
-          name: item.name,
-        },
+        user: item._id,
         userTI: auth._id,
       };
 
-      const request = await fetch(Global.url + "device/" + deviceInfo._id, {
-        method: "PATCH",
-        body: JSON.stringify(messageUpdate),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const request = await fetch(
+        Global.url + "device/assing/" + deviceInfo._id,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdate),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
       await request.json();
 
       const updatedComputerInfo = {
         ...deviceInfo,
         user: { id: item._id, name: item.name },
+        department: { id: item.department.id, name: item.department.name },
       };
-
       setDeviceInfo(updatedComputerInfo);
       setLoading(false);
     } catch (error) {
@@ -156,7 +122,7 @@ const SearchPersonToAssingnment = () => {
                 </tr>
               </thead>
               <tbody>
-                {filter.map((item) => (
+                {users.map((item) => (
                   <tr
                     className="glass"
                     key={item._id}

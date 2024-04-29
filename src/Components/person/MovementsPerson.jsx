@@ -21,10 +21,8 @@ const MovementsPerson = () => {
           Authorization: token,
         },
       });
-      console.log("request: " + JSON.stringify(request));
 
       const response = await request.json();
-      console.log("response: " + response);
       const { data } = response;
 
       data.sort(

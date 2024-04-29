@@ -14,6 +14,7 @@ const InfoDevice = () => {
     serialNumber: deviceInfo?.serialNumber || "",
     status: deviceInfo?.status || "",
     annexed: deviceInfo?.annexed || "",
+    departament: deviceInfo?.departament || "",
     ubication: deviceInfo?.ubication || "",
     ip: deviceInfo?.ip || "",
     bussinesUnit: deviceInfo?.bussinesUnit || "",
@@ -33,6 +34,7 @@ const InfoDevice = () => {
     details,
     status,
     annexed,
+    departament,
     ubication,
     ip,
     bussinesUnit,
@@ -53,6 +55,7 @@ const InfoDevice = () => {
         serialNumber: deviceInfo.serialNumber || "",
         status: deviceInfo.status || "",
         annexed: deviceInfo.annexed || "",
+        departament: deviceInfo.departament || "",
         ubication: deviceInfo.ubication || "",
         ip: deviceInfo.ip || "",
         bussinesUnit: deviceInfo.bussinesUnit || "",
@@ -85,17 +88,14 @@ const InfoDevice = () => {
     const token = localStorage.getItem("token");
     const computerToSave = { ...formState, userTI: auth._id };
 
-    const request = await fetch(
-      Global.url + "computers/update/" + deviceInfo._id,
-      {
-        method: "PUT",
-        body: JSON.stringify(computerToSave),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      }
-    );
+    const request = await fetch(Global.url + "device/" + deviceInfo._id, {
+      method: "PATCH",
+      body: JSON.stringify(computerToSave),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
     await request.json();
 
     if (request.ok) {
@@ -223,14 +223,15 @@ const InfoDevice = () => {
         </div>
         <div className="mb-1 row">
           <div className="mb-1 col">
-            <label className="form-label" htmlFor="department">
+            <label className="form-label" htmlFor="departament">
               Departamento:
             </label>
             <input
               className="form-control"
               name="department"
               id="department"
-              disabled={!isEditing}
+              value={departament.name}
+              disabled
               onChange={onInputChange}
             />
           </div>

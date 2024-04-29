@@ -18,7 +18,7 @@ const ShowAssignmentInfo = () => {
       return false;
     }
 
-    const request = await fetch(Global.url + "persons/" + manager.managerId, {
+    const request = await fetch(Global.url + "persons/" + manager.id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,9 +28,9 @@ const ShowAssignmentInfo = () => {
 
     const response = await request.json();
 
-    const { person } = response.data;
+    const { data } = response;
 
-    setManager(person);
+    setManager(data);
   };
 
   useEffect(() => {
@@ -45,14 +45,10 @@ const ShowAssignmentInfo = () => {
     }
 
     const messageUpdate = {
-      manager: {
-        managerId: "Sin asignar",
-        managerName: "Sin asignar",
-      },
       userTI: auth._id,
     };
     const request = await fetch(
-      Global.url + "persons/update/" + personInfo._id,
+      Global.url + "persons/unassing/" + personInfo._id,
       {
         method: "PATCH",
         body: JSON.stringify(messageUpdate),
@@ -66,8 +62,8 @@ const ShowAssignmentInfo = () => {
     const updatedPersonInfo = {
       ...personInfo,
       manager: {
-        managerId: "Sin asignar",
-        managerName: "Sin asignar",
+        id: "Sin asignar",
+        name: "Sin asignar",
       },
     };
 

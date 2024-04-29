@@ -6,6 +6,7 @@ import MovementsDevice from "../../Components/device/MovementsDevice";
 import InfoDevice from "../../Components/device/InfoDevice";
 import AssignmentDevice from "../../Components/device/AssignmentDevice";
 import useDevice from "../../hooks/useDevice";
+import Alert from "@mui/material/Alert";
 import { CircularProgress } from "@mui/material";
 import MGMTMonitor from "../../Components/device/MGMTMonitor";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
@@ -15,6 +16,7 @@ const DetailsDevice = () => {
   const { id } = useParams();
   const { setDeviceInfo, deviceInfo } = useDevice();
   const [loading, setLoading] = useState(true);
+  const [validationResponsive, setvalidationResponsive] = useState(false);
 
   const getDevice = async () => {
     try {
@@ -45,7 +47,8 @@ const DetailsDevice = () => {
 
   useEffect(() => {
     getDevice();
-  }, []);
+    validation();
+  }, [deviceInfo]);
 
   const iconMap = {
     Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
@@ -54,6 +57,61 @@ const DetailsDevice = () => {
   };
   const type = deviceInfo.type;
   const icon = iconMap[type] || null;
+
+  const validation = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceInfo._id) {
+        throw new Error("No se encontró el token de autenticación.");
+      }
+
+      const request = await fetch(
+        Global.url + "reports/validationInfo/" + deviceInfo._id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      const response = await request.json();
+
+      setvalidationResponsive(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateResponsiva = async () => {
+    console.log("Creando responsiva.");
+
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceInfo._id) {
+        throw new Error("No se encontró el token de autenticación.");
+      }
+
+      const request = await fetch(
+        Global.url + "reports/responsiveCSM/" + deviceInfo._id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      const blob = await request.blob();
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="content glass m-1">
@@ -76,7 +134,19 @@ const DetailsDevice = () => {
                 </div>
               </div>
               <div className="col col-md-1 glass m-1 align-content-center text-center">
-                <button className="btn btn-info">Crear responsiva</button>
+                {validationResponsive.data === false ? (
+                  <Alert variant="outlined" severity="error">
+                    {validationResponsive.message}
+                  </Alert>
+                ) : (
+                  <button
+                    className="btn btn-info"
+                    onClick={handleCreateResponsiva}
+                    disabled={!validationResponsive.data}
+                  >
+                    Crear responsiva
+                  </button>
+                )}
               </div>
             </div>
           </div>

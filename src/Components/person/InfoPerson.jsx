@@ -31,20 +31,16 @@ const InfoPerson = () => {
     try {
       const token = localStorage.getItem("token");
 
-      let itemToSave = formState;
-      itemToSave.userTI = auth._id;
+      let itemToSave = { ...formState, userTI: auth._id };
 
-      const request = await fetch(
-        Global.url + "persons/update/" + itemToSave._id,
-        {
-          method: "PUT",
-          body: JSON.stringify(itemToSave),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const request = await fetch(Global.url + "persons/" + personInfo._id, {
+        method: "PATCH",
+        body: JSON.stringify(itemToSave),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       await request.json();
 

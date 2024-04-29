@@ -83,31 +83,41 @@ const InventoryDevices = () => {
           </div>
         ) : (
           <>
-            <div className="d-flex justify-content-center mt-3">
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                variant="outlined"
-                color="primary"
-                onChange={handleChangePage}
-              />
-            </div>
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-              {devices.map((item) => (
-                <div key={item._id} className="col">
-                  <CardDevice device={item} />
+            {devices.length > 1 ? (
+              <>
+                <div className="d-flex justify-content-center mt-3">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    color="primary"
+                    onChange={handleChangePage}
+                  />
                 </div>
-              ))}
-            </div>
-            <div className="d-flex justify-content-center mt-3">
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                variant="outlined"
-                color="primary"
-                onChange={handleChangePage}
-              />
-            </div>
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                  {devices.map((item) => (
+                    <div key={item._id} className="col">
+                      <CardDevice device={item} />
+                    </div>
+                  ))}
+                </div>
+                <div className="d-flex justify-content-center mt-3">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    color="primary"
+                    onChange={handleChangePage}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="d-flex justify-content-center mt-3">
+                  <label className="label">No hay dispositivos.</label>
+                </div>
+              </>
+            )}
           </>
         )}
       </div>

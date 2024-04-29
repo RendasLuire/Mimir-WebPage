@@ -17,10 +17,6 @@ const ShowAssignmentInfo = () => {
       const { user } = deviceInfo;
 
       if (!token || !deviceInfo || !user.id) {
-        console.log("algo falto");
-        console.log("token: " + token);
-        console.log("deviceInfo: " + deviceInfo);
-        console.log("user: " + JSON.stringify(deviceInfo.user));
         return;
       }
 
@@ -56,45 +52,21 @@ const ShowAssignmentInfo = () => {
         return false;
       }
 
-      if (deviceInfo.monitor.id !== "Sin asignar") {
-        const messageUpdateMonitor = {
-          user: {
-            id: "Sin asignar",
-            name: "Sin asignar",
-          },
-          userTI: auth._id,
-        };
-
-        const requestMonitor = await fetch(
-          Global.url + "device/" + deviceInfo.monitor.id,
-          {
-            method: "PATCH",
-            body: JSON.stringify(messageUpdateMonitor),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
-        await requestMonitor.json();
-      }
-
       const messageUpdate = {
-        user: {
-          id: "Sin asignar",
-          name: "Sin asignar",
-        },
         userTI: auth._id,
       };
 
-      const request = await fetch(Global.url + "device/" + deviceInfo._id, {
-        method: "PATCH",
-        body: JSON.stringify(messageUpdate),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const request = await fetch(
+        Global.url + "device/unassing/" + deviceInfo._id,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdate),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       await request.json();
 

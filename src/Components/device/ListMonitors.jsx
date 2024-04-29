@@ -29,8 +29,6 @@ const ListMonitors = () => {
       const response = await request.json();
       const { data } = response;
 
-      console.log(request);
-
       const filteredMonitors = data.filter(
         (monitor) =>
           monitor.status == "Activo" && monitor.user.id == "Sin asignar"
