@@ -7,19 +7,19 @@ import { Link } from "react-router-dom";
 const CardDevice = ({ device }) => {
   const { _id, hostname, model, user, brand, status, type } = device;
 
-  const iconMap = {
+  const deviceIconMap = {
     Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
     Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
     Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
 
-  const colorMap = {
+  const deviceColorMap = {
     Activo: "success",
     Guardado: "secondary",
   };
 
-  const icon = iconMap[type] || null;
-  const color = colorMap[status] || null;
+  const icon = deviceIconMap[type] || null;
+  const color = deviceColorMap[status] || null;
 
   return (
     <>

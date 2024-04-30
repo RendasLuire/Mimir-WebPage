@@ -55,8 +55,8 @@ const MovementsDevice = () => {
         </div>
       ) : (
         <>
-          <ol>
-            {movements ? (
+          {movements.length > 0 ? (
+            <ol>
               <div className="container">
                 {movements.map((item) => (
                   <div className="card glass m-3" key={item._id}>
@@ -66,10 +66,12 @@ const MovementsDevice = () => {
                   </div>
                 ))}
               </div>
-            ) : (
-              <h3>No hay Informacion</h3>
-            )}
-          </ol>
+            </ol>
+          ) : (
+            <div className="d-flex justify-content-center m-3">
+              <label className="label">No hay movimientos que mostrar.</label>
+            </div>
+          )}
         </>
       )}
     </div>

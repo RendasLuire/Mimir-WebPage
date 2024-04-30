@@ -100,7 +100,7 @@ const SearchPersonToAssingnment = () => {
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
-      ) : (
+      ) : users.length > 1 ? (
         <>
           <h5>Asigna el equipo</h5>
           <div className="m-3">
@@ -135,6 +135,12 @@ const SearchPersonToAssingnment = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="d-flex justify-content-center mt-3">
+            <label className="label">No hay usuarios registrados.</label>
           </div>
         </>
       )}

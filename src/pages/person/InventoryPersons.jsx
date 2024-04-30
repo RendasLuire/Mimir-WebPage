@@ -62,54 +62,66 @@ const ListAllPersons = () => {
 
   return (
     <div className="container glass mt-3">
-      <div className="d-flex justify-content-center mt-3 mb-3 glass">
-        <div className="col-6">
-          <input
-            className="form-control m-3"
-            value={searchTerm}
-            onChange={handleInputChange}
-            placeholder="Search"
-          />
+      {loading ? (
+        <div className="d-flex justify-content-center">
+          <CircularProgress />
         </div>
-        <div className="m-3">
-          <ButtonAddPerson setUpdate={setUpdate} />
-        </div>
-      </div>
-      <div className="constainer glass mt-3 mb-3">
-        {loading ? (
-          <div className="d-flex justify-content-center">
-            <CircularProgress />
+      ) : (
+        <>
+          <div className="d-flex justify-content-center align-items-center my-3 glass">
+            <div className="col-6">
+              <input
+                className="form-control m-3"
+                value={searchTerm}
+                onChange={handleInputChange}
+                placeholder="Search"
+              />
+            </div>
+            <div className="m-3">
+              <ButtonAddPerson setUpdate={setUpdate} />
+            </div>
           </div>
-        ) : (
-          <>
-            <div className="d-flex justify-content-center mt-3">
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                variant="outlined"
-                color="primary"
-                onChange={handleChangePage}
-              />
-            </div>
-            <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-              {users.map((item) => (
-                <div className="col" key={item._id}>
-                  <CardPersons user={item} />
-                </div>
-              ))}
-            </div>
-            <div className="d-flex justify-content-center mt-3">
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                variant="outlined"
-                color="primary"
-                onChange={handleChangePage}
-              />
-            </div>
-          </>
-        )}
-      </div>
+          <div className="constainer glass mt-3 mb-3">
+            <>
+              {users.length < 1 ? (
+                <>
+                  <div className="d-flex justify-content-center m-3">
+                    <label className="label">No hay usuarios.</label>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      variant="outlined"
+                      color="primary"
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                  <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                    {users.map((item) => (
+                      <div className="col" key={item._id}>
+                        <CardPersons user={item} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      variant="outlined"
+                      color="primary"
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                </>
+              )}
+            </>
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,25 +1,21 @@
-import { useState } from "react";
-import Global from "../../helpers/Global";
-import useAuth from "../../hooks/useAuth";
+import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 import useForm from "../../hooks/useForm";
-import Alert from "@mui/material/Alert";
 import { CircularProgress } from "@mui/material";
+import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import Alert from "@mui/material/Alert";
+import Global from "../../helpers/Global";
 
-const ButtonAddDevice = ({ setUpdate }) => {
-  const { formState, onInputChange, setFormState } = useForm({
-    brand: "",
-    model: "",
-    serialNumber: "",
-    type: "",
-  });
-  const [message, setMessage] = useState();
+const AddAnnexedButton = ({ setUpdate }) => {
+  const { formState, onInputChange, setFormState } = useForm({});
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState();
   const { auth } = useAuth();
 
-  const saveData = async (e) => {
+  const handleSaveData = async (e) => {
     e.preventDefault();
-
     setLoading(true);
+
     try {
       const token = localStorage.getItem("token");
 
@@ -33,10 +29,8 @@ const ButtonAddDevice = ({ setUpdate }) => {
           typeof value === "string" ? capitalizeField(value) : value,
         ])
       );
-
       let itemToSave = { ...capitalizedFormState, userTI: auth._id };
-
-      const request = await fetch(Global.url + "device/", {
+      const request = await fetch(Global.url + "annexeds/", {
         method: "POST",
         body: JSON.stringify(itemToSave),
         headers: {
@@ -46,53 +40,47 @@ const ButtonAddDevice = ({ setUpdate }) => {
       });
 
       const response = await request.json();
-
-      if (request.status == 201) {
-        setMessage("");
-        setFormState({
-          brand: "",
-          model: "",
-          serialNumber: "",
-          type: "",
-        });
-        setLoading(false);
-        console.log("Voy a cambiar el estado a true");
-        setUpdate(true);
-      } else {
-        const errorData = response;
-        setMessage(errorData.message);
+      if (!request.ok) {
+        setMessage(response.message);
         setLoading(false);
       }
+      setMessage("");
+      setFormState({
+        annexedNumber: "",
+        startDate: "",
+        endDate: "",
+        bill: "",
+      });
+      setUpdate(true);
+      setLoading(false);
     } catch (error) {
       console.error("Error saving data:", error);
       setMessage("Error al guardar los datos");
       setLoading(false);
     }
   };
-
   return (
     <>
-      <div className="m-3 container">
+      <div className="my-3 container">
         <button
           type="button"
           data-bs-toggle="modal"
-          data-bs-target="#AddComputerModal"
+          data-bs-target="#AddAnnexedModal"
           className="btn btn-success"
         >
-          +
+          <ControlPointOutlinedIcon />
         </button>
       </div>
-
       <div
         className="modal fade container"
-        id="AddComputerModal"
-        aria-labelledby="titleAddComputer"
+        id="AddAnnexedModal"
+        aria-labelledby="titleAddAnnexed"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="titleAddComputer">
+              <h1 className="modal-title fs-5" id="titleAddAnnexed">
                 Agregar Item
               </h1>
               <button
@@ -102,73 +90,69 @@ const ButtonAddDevice = ({ setUpdate }) => {
                 aria-label="Close"
               ></button>
             </div>
-            <form onSubmit={saveData}>
+            <form onSubmit={handleSaveData}>
               <div className="modal-body">
+                <div className="d-flex justify-content-center">
+                  {message && <Alert severity="error">{message}</Alert>}
+                </div>
                 <div className="mb-1">
-                  <div>
-                    {message ? <Alert severity="error">{message}</Alert> : ""}
-                  </div>
-                  <label htmlFor="brand" className="form-label">
-                    Marca:
+                  <label htmlFor="annexedNumber" className="form-label">
+                    Anexo:
                   </label>
                   <input
-                    id="brand"
-                    name="brand"
+                    id="annexedNumber"
+                    name="annexedNumber"
                     className="form-control"
                     type="text"
-                    value={formState.brand}
+                    value={formState.annexedNumber}
                     onChange={onInputChange}
                   />
                 </div>
                 <div className="mb-1">
-                  <label htmlFor="model" className="form-label">
-                    Modelo:
+                  <label htmlFor="startDate" className="form-label">
+                    Fecha de Inicio:
                   </label>
                   <input
-                    id="model"
-                    name="model"
+                    id="startDate"
+                    name="startDate"
                     className="form-control"
-                    type="text"
-                    value={formState.model}
+                    type="date"
+                    value={formState.startDate}
                     onChange={onInputChange}
                   />
                 </div>
                 <div className="mb-1">
-                  <label htmlFor="serialNumber" className="form-label">
-                    Numero de Serie:
+                  <label htmlFor="endDate" className="form-label">
+                    Fecha de Termino:
                   </label>
                   <input
-                    id="serialNumber"
-                    name="serialNumber"
+                    id="endDate"
+                    name="endDate"
                     className="form-control"
-                    type="text"
-                    value={formState.serialNumber}
+                    type="date"
+                    value={formState.endDate}
                     onChange={onInputChange}
                   />
                 </div>
                 <div className="mb-1">
-                  <label htmlFor="type" className="form-label">
-                    Tipo:
+                  <label htmlFor="bill" className="form-label">
+                    Factura:
                   </label>
-                  <select
-                    id="type"
-                    name="type"
+                  <input
+                    id="bill"
+                    name="bill"
+                    className="form-control"
+                    type="text"
+                    value={formState.bill}
                     onChange={onInputChange}
-                    className="form-select"
-                    value={formState.type}
-                  >
-                    <option value={""}>Selecciona un tipo</option>
-                    <option value={"Computadora"}>Computadora</option>
-                    <option value={"Impresora"}>Impresora</option>
-                    <option value={"Monitor"}>Monitor</option>
-                  </select>
+                  />
                 </div>
               </div>
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-secondary"
                   data-bs-dismiss="modal"
+                  className="btn btn-secondary"
                 >
                   Cerrar
                 </button>
@@ -177,7 +161,7 @@ const ButtonAddDevice = ({ setUpdate }) => {
                   data-bs-dismiss="modal"
                   className="btn btn-primary"
                 >
-                  {loading ? <CircularProgress /> : "Guardar"}
+                  {loading ? <CircularProgress /> : "Guardar"}{" "}
                 </button>
               </div>
             </form>
@@ -188,4 +172,4 @@ const ButtonAddDevice = ({ setUpdate }) => {
   );
 };
 
-export default ButtonAddDevice;
+export default AddAnnexedButton;

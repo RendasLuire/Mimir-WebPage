@@ -112,7 +112,7 @@ const ListMonitors = () => {
     <div className="m-3">
       {loading ? (
         <CircularProgress />
-      ) : (
+      ) : listMonitors.length > 0 ? (
         <table className="table table-striped glass">
           <thead>
             <tr>
@@ -122,25 +122,23 @@ const ListMonitors = () => {
             </tr>
           </thead>
           <tbody>
-            {listMonitors.length > 0 ? (
-              listMonitors.map((item) => (
-                <tr
-                  className="glass"
-                  key={item._id}
-                  onClick={() => handleSelectClick(item)}
-                >
-                  <td>{item.serialNumber}</td>
-                  <td>{item.brand}</td>
-                  <td>{item.model}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td>No hay monitores</td>
+            {listMonitors.map((item) => (
+              <tr
+                className="glass"
+                key={item._id}
+                onClick={() => handleSelectClick(item)}
+              >
+                <td>{item.serialNumber}</td>
+                <td>{item.brand}</td>
+                <td>{item.model}</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
+      ) : (
+        <div className="d-flex justify-content-center mt-3">
+          <label>No hay monitores disponibles.</label>
+        </div>
       )}
     </div>
   );

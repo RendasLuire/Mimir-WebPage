@@ -7,8 +7,8 @@ import PrivateLayout from "../Components/layout/private/PrivateLayout";
 import DevicesRoutes from "./DevicesRoutes";
 import UsersRoutes from "./UsersRoutes";
 import InventoryWarehouse from "../pages/warehouse/InventoryWarehouse";
-import InventoryAnnexeds from "../pages/annexed/InventoryAnnexeds";
 import ShowDashBoard from "../pages/dashboard/ShowDashBoard";
+import AnnexedRoutes from "./AnnexedRoutes";
 
 const Routing = () => {
   return (
@@ -24,13 +24,10 @@ const Routing = () => {
             <Route path="/inventory/dashboard/*" element={<ShowDashBoard />} />
             <Route path="/inventory/devices/*" element={<DevicesRoutes />} />
             <Route path="/inventory/users/*" element={<UsersRoutes />} />
+            <Route path="/inventory/annexeds/*" element={<AnnexedRoutes />} />
             <Route
               path="/inventory/warehouses/*"
               element={<InventoryWarehouse />}
-            />
-            <Route
-              path="/inventory/annexeds/*"
-              element={<InventoryAnnexeds />}
             />
             <Route path="/inventory/logout" element={<Logout />} />
           </Route>

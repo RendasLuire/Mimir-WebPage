@@ -116,7 +116,9 @@ const DetailsDevice = () => {
   return (
     <div className="content glass m-1">
       {loading ? (
-        <CircularProgress />
+        <div className="d-flex justify-content-center">
+          <CircularProgress />
+        </div>
       ) : (
         <>
           <div className="card glass m-3">

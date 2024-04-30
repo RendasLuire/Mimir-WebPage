@@ -12,6 +12,7 @@ const InfoDevice = () => {
     brand: deviceInfo?.brand || "",
     model: deviceInfo?.model || "",
     serialNumber: deviceInfo?.serialNumber || "",
+    details: deviceInfo?.details || "",
     status: deviceInfo?.status || "",
     annexed: deviceInfo?.annexed || "",
     departament: deviceInfo?.departament || "",
@@ -182,7 +183,7 @@ const InfoDevice = () => {
           <label className="form-label" htmlFor="details">
             Detalles:
           </label>
-          <input
+          <textarea
             className="form-control"
             name="details"
             id="details"
@@ -365,7 +366,7 @@ const InfoDevice = () => {
             disabled
           />
         </div>
-        <div>
+        <div className="text-center">
           {isEditing ? (
             <button className="btn btn-primary" onClick={handleSaveClick}>
               Guardar

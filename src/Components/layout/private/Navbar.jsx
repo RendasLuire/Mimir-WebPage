@@ -29,13 +29,13 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/inventory/warehouses"} className={"nav-link"}>
-                  Almacenes
+                <NavLink to={"/inventory/annexeds"} className={"nav-link"}>
+                  Anexos
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/inventory/annexeds"} className={"nav-link"}>
-                  Anexos
+                <NavLink to={"/inventory/warehouses"} className={"nav-link"}>
+                  Almacenes
                 </NavLink>
               </li>
             </ul>

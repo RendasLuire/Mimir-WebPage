@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import ButtonAddDevice from "../../Components/device/ButtonAddDevice";
+import AddDeviceButton from "../../Components/device/AddDeviceButton";
 import CardDevice from "../../Components/device/CardDevice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
@@ -50,7 +50,7 @@ const InventoryDevices = () => {
   };
 
   useEffect(() => {
-    getDevices(currentPage);
+    getDevices();
   }, [update, currentPage, searchTerm]);
 
   const handleInputChange = (event) => {
@@ -63,64 +63,66 @@ const InventoryDevices = () => {
 
   return (
     <div className="container glass mt-3">
-      <div className="d-flex justify-content-center mt-3 mb-3 glass">
-        <div className="col-6">
-          <input
-            className="form-control m-3"
-            value={searchTerm}
-            onChange={handleInputChange}
-            placeholder="Search"
-          />
+      {loading ? (
+        <div className="d-flex justify-content-center">
+          <CircularProgress />
         </div>
-        <div className="m-3">
-          <ButtonAddDevice setUpdate={setUpdate} />
-        </div>
-      </div>
-      <div className="container glass mt-3 mb-3">
-        {loading ? (
-          <div className="d-flex justify-content-center">
-            <CircularProgress />
+      ) : (
+        <>
+          <div className="d-flex justify-content-center align-items-center my-3 glass">
+            <div className="col-6">
+              <input
+                className="form-control my-3"
+                value={searchTerm}
+                onChange={handleInputChange}
+                placeholder="Search"
+              />
+            </div>
+            <div className="my-3">
+              <AddDeviceButton setUpdate={setUpdate} />
+            </div>
           </div>
-        ) : (
-          <>
-            {devices.length > 1 ? (
-              <>
-                <div className="d-flex justify-content-center mt-3">
-                  <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    variant="outlined"
-                    color="primary"
-                    onChange={handleChangePage}
-                  />
-                </div>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-                  {devices.map((item) => (
-                    <div key={item._id} className="col">
-                      <CardDevice device={item} />
-                    </div>
-                  ))}
-                </div>
-                <div className="d-flex justify-content-center mt-3">
-                  <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    variant="outlined"
-                    color="primary"
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="d-flex justify-content-center mt-3">
-                  <label className="label">No hay dispositivos.</label>
-                </div>
-              </>
-            )}
-          </>
-        )}
-      </div>
+          <div className="container glass mt-3 mb-3">
+            <>
+              {devices.length > 1 ? (
+                <>
+                  <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      variant="outlined"
+                      color="primary"
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                    {devices.map((item) => (
+                      <div key={item._id} className="col">
+                        <CardDevice device={item} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      variant="outlined"
+                      color="primary"
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="d-flex justify-content-center m-3">
+                    <label className="label">No hay dispositivos.</label>
+                  </div>
+                </>
+              )}
+            </>
+          </div>
+        </>
+      )}
     </div>
   );
 };

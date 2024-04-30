@@ -1,21 +1,26 @@
 import { useState } from "react";
+import Global from "../../helpers/Global";
+import useAuth from "../../hooks/useAuth";
 import useForm from "../../hooks/useForm";
 import Alert from "@mui/material/Alert";
-import useAuth from "../../hooks/useAuth";
-import Global from "../../helpers/Global";
 import { CircularProgress } from "@mui/material";
 import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 
-const ButtonAddPerson = ({ setUpdate }) => {
-  const { formState, onInputChange, setFormState } = useForm({});
+const AddDeviceButton = ({ setUpdate }) => {
+  const { formState, onInputChange, setFormState } = useForm({
+    brand: "",
+    model: "",
+    serialNumber: "",
+    type: "",
+  });
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
   const { auth } = useAuth();
 
-  const saveData = async (e) => {
+  const handleSaveData = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
 
@@ -32,7 +37,7 @@ const ButtonAddPerson = ({ setUpdate }) => {
 
       let itemToSave = { ...capitalizedFormState, userTI: auth._id };
 
-      const request = await fetch(Global.url + "persons/", {
+      const request = await fetch(Global.url + "device/", {
         method: "POST",
         body: JSON.stringify(itemToSave),
         headers: {
@@ -42,15 +47,16 @@ const ButtonAddPerson = ({ setUpdate }) => {
       });
 
       const response = await request.json();
+
       if (request.status == 201) {
         setMessage("");
         setFormState({
-          name: "",
-          department: "",
-          position: "",
+          brand: "",
+          model: "",
+          serialNumber: "",
+          type: "",
         });
         setLoading(false);
-        console.log("Voy a cambiar el estado a true");
         setUpdate(true);
       } else {
         const errorData = response;
@@ -63,97 +69,116 @@ const ButtonAddPerson = ({ setUpdate }) => {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="my-3 container">
         <button
           type="button"
           data-bs-toggle="modal"
-          data-bs-target="#AddPersonModal"
+          data-bs-target="#AddComputerModal"
           className="btn btn-success"
         >
           <ControlPointOutlinedIcon />
         </button>
       </div>
+
       <div
         className="modal fade container"
-        id="AddPersonModal"
-        aria-labelledby="titleAddPerson"
+        id="AddComputerModal"
+        aria-labelledby="titleAddComputer"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="titleAssPerson">
-                Agregar Usuario
+              <h1 className="modal-title fs-5" id="titleAddComputer">
+                Agregar Item
               </h1>
               <button
-                className="btn-close"
                 type="button"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <form onSubmit={saveData}>
+            <form onSubmit={handleSaveData}>
               <div className="modal-body">
                 <div className="mb-1">
                   <div>
                     {message ? <Alert severity="error">{message}</Alert> : ""}
                   </div>
-                  <label className="form-label" htmlFor="name">
-                    Nombre:
+                  <label htmlFor="brand" className="form-label">
+                    Marca:
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="brand"
+                    name="brand"
                     className="form-control"
                     type="text"
-                    value={formState.name}
+                    value={formState.brand}
                     onChange={onInputChange}
                   />
                 </div>
                 <div className="mb-1">
-                  <label className="form-label" htmlFor="department">
-                    Departamento:
+                  <label htmlFor="model" className="form-label">
+                    Modelo:
                   </label>
                   <input
-                    id="department"
-                    name="department"
+                    id="model"
+                    name="model"
                     className="form-control"
                     type="text"
-                    value={formState.department}
+                    value={formState.model}
                     onChange={onInputChange}
                   />
                 </div>
                 <div className="mb-1">
-                  <label className="form-label" htmlFor="position">
-                    Posicion:
+                  <label htmlFor="serialNumber" className="form-label">
+                    Numero de Serie:
                   </label>
                   <input
-                    id="position"
-                    name="position"
+                    id="serialNumber"
+                    name="serialNumber"
                     className="form-control"
                     type="text"
-                    value={formState.position}
+                    value={formState.serialNumber}
                     onChange={onInputChange}
                   />
                 </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
+                <div className="mb-1">
+                  <label htmlFor="type" className="form-label">
+                    Tipo:
+                  </label>
+                  <select
+                    id="type"
+                    name="type"
+                    onChange={onInputChange}
+                    className="form-select"
+                    value={formState.type}
                   >
-                    Cerrar
-                  </button>
-                  <button
-                    type="submit"
-                    data-bs-dismiss="modal"
-                    className="btn btn-primary"
-                  >
-                    {loading ? <CircularProgress /> : "Guardar"}
-                  </button>
+                    <option value={""}>Selecciona un tipo</option>
+                    <option value={"Computadora"}>Computadora</option>
+                    <option value={"Impresora"}>Impresora</option>
+                    <option value={"Monitor"}>Monitor</option>
+                  </select>
                 </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="submit"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
+                  {loading ? <CircularProgress /> : "Guardar"}
+                </button>
               </div>
             </form>
           </div>
@@ -163,4 +188,4 @@ const ButtonAddPerson = ({ setUpdate }) => {
   );
 };
 
-export default ButtonAddPerson;
+export default AddDeviceButton;
