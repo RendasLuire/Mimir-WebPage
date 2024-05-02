@@ -5,6 +5,9 @@ import AnnexedInfo from "../../Components/annexed/AnnexedInfo";
 import useAnnexed from "../../hooks/useAnnexed";
 import { useParams } from "react-router-dom";
 import Global from "../../helpers/Global";
+import moment from "moment";
+
+moment.locale("es-mx");
 
 const DetailsAnnexed = () => {
   const { id } = useParams();
@@ -19,7 +22,7 @@ const DetailsAnnexed = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "annexed/" + id, {
+      const request = await fetch(Global.url + "annexeds/" + id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -56,11 +59,15 @@ const DetailsAnnexed = () => {
                 </div>
               </div>
               <div className="col glass m-1">
-                {!annexedData ? (
+                {annexedData ? (
                   <div className="card-body">
-                    <h5 className="card-title">numero de anexo</h5>
-                    <p className="card-text">fecha de inicio</p>
-                    <p className="card-text">fecha de termino</p>
+                    <h5 className="card-title">{annexedData.annexedNumber}</h5>
+                    <p className="card-text">
+                      {moment(annexedData.startDate).format("L")}
+                    </p>
+                    <p className="card-text">
+                      {moment(annexedData.endDate).format("L")}
+                    </p>
                   </div>
                 ) : (
                   <div className="d-flex justify-content-center">
