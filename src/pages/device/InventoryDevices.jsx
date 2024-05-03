@@ -22,6 +22,8 @@ const InventoryDevices = () => {
         throw new Error("No se encontró el token de autenticación.");
       }
 
+      console.log(searchTerm);
+
       const request = await fetch(
         `${Global.url}device?page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
         {

@@ -34,6 +34,7 @@ const CardDevice = ({ device }) => {
         <div className="card-body text-center">
           <h5 className="card-title">{hostname}</h5>
           <p className="card-text">{`${brand} ${model}`}</p>
+          <p className="card-text">{`${device.serialNumber}`}</p>
           <p className="card-text">{`User: ${user.name}`}</p>
         </div>
       </Link>

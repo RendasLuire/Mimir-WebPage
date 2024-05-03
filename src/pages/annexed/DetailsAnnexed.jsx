@@ -6,6 +6,8 @@ import useAnnexed from "../../hooks/useAnnexed";
 import { useParams } from "react-router-dom";
 import Global from "../../helpers/Global";
 import moment from "moment";
+import DeviceInfo from "../../Components/annexed/DevicesInfo";
+import AddDevices from "../../Components/annexed/AddDevices";
 
 moment.locale("es-mx");
 
@@ -84,9 +86,14 @@ const DetailsAnnexed = () => {
                   <AnnexedInfo />
                 </div>
               </div>
+              <div className="col-md-3 m-1">
+                <div className="glass p-3">
+                  <AddDevices />
+                </div>
+              </div>
               <div className="col m-1">
                 <div className="glass p-3">
-                  <label className="label">Equipos</label>
+                  <DeviceInfo />
                 </div>
               </div>
             </div>
