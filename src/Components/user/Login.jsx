@@ -3,6 +3,7 @@ import Alert from "@mui/material/Alert";
 import Global from "../../helpers/Global";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 
 const Login = () => {
   const { formState, onInputChange } = useForm({});
@@ -28,8 +29,6 @@ const Login = () => {
       const response = await request.json();
       const { data, token, message } = response;
 
-      console.log();
-
       if (code == 200) {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(data));
@@ -51,6 +50,9 @@ const Login = () => {
   return (
     <div className="container d-flex mt-5 justify-content-center">
       <div className="card glass">
+        <div className="d-flex justify-content-center m-3">
+          <PsychologyIcon />
+        </div>
         <div className="card-body">
           <h5 className="card-title text-center">Login</h5>
           {login.code === 200 && (

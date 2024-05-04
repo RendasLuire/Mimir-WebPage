@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 
 const Navbar = () => {
   const { auth } = useAuth();
@@ -10,6 +11,7 @@ const Navbar = () => {
     <div className="glass">
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
+          <PsychologyIcon />
           <span className="navbar-brand mb-0 h1">MIMIR</span>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">

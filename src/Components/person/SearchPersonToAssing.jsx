@@ -95,70 +95,78 @@ const SearchPersonToAssingnment = () => {
 
   return (
     <div className="m-3">
-      <h5>Asigna el equipo</h5>
-      <div className="m-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Buscar usuario"
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="m-3">
+      {users.length > 1 ? (
         <>
-          {loading ? (
+          <h5>Asigna el usuario</h5>
+          <div className="m-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Buscar usuario"
+              value={searchTerm}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="m-3">
             <>
-              <div className="d-flex justify-content-center">
-                <CircularProgress />
-              </div>
+              {loading ? (
+                <>
+                  <div className="d-flex justify-content-center">
+                    <CircularProgress />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      variant="outlined"
+                      color="primary"
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                  <table className="table table-striped glass">
+                    <thead>
+                      <tr>
+                        <th className="col">Nombre</th>
+                        <th className="col">Posicion</th>
+                        <th className="col">Departamento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((item) => (
+                        <tr
+                          className="glass"
+                          key={item._id}
+                          onClick={() => handleSelectClick(item)}
+                        >
+                          <td>{item.name}</td>
+                          <td>{item.position}</td>
+                          <td>{item.department}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      variant="outlined"
+                      color="primary"
+                      onChange={handleChangePage}
+                    />
+                  </div>
+                </>
+              )}
             </>
-          ) : (
-            <>
-              <div className="d-flex justify-content-center mt-3">
-                <Pagination
-                  count={totalPages}
-                  page={currentPage}
-                  variant="outlined"
-                  color="primary"
-                  onChange={handleChangePage}
-                />
-              </div>
-              <table className="table table-striped glass">
-                <thead>
-                  <tr>
-                    <th className="col">Nombre</th>
-                    <th className="col">Posicion</th>
-                    <th className="col">Departamento</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((item) => (
-                    <tr
-                      className="glass"
-                      key={item._id}
-                      onClick={() => handleSelectClick(item)}
-                    >
-                      <td>{item.name}</td>
-                      <td>{item.position}</td>
-                      <td>{item.department}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="d-flex justify-content-center mt-3">
-                <Pagination
-                  count={totalPages}
-                  page={currentPage}
-                  variant="outlined"
-                  color="primary"
-                  onChange={handleChangePage}
-                />
-              </div>
-            </>
-          )}
+          </div>
         </>
-      </div>
+      ) : (
+        <div className="d-flex justify-content-center mt-3">
+          <label>No hay personas que mostrar.</label>
+        </div>
+      )}
     </div>
   );
 };

@@ -22,8 +22,6 @@ const InventoryDevices = () => {
         throw new Error("No se encontró el token de autenticación.");
       }
 
-      console.log(searchTerm);
-
       const request = await fetch(
         `${Global.url}device?page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
         {
@@ -44,6 +42,7 @@ const InventoryDevices = () => {
       const { data, pagination } = response;
 
       setDevices(data);
+      console.log(devices);
       setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {
@@ -86,7 +85,7 @@ const InventoryDevices = () => {
           </div>
           <div className="container glass mt-3 mb-3">
             <>
-              {devices.length > 1 ? (
+              {devices.length > 0 ? (
                 <>
                   <div className="d-flex justify-content-center mt-3">
                     <Pagination

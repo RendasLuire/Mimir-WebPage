@@ -5,7 +5,7 @@ import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import { Link } from "react-router-dom";
 
 const CardDevice = ({ device }) => {
-  const { _id, hostname, model, user, brand, status, type } = device;
+  const { _id, hostname, model, user, brand, status, typeDevice } = device;
 
   const deviceIconMap = {
     Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
@@ -18,14 +18,14 @@ const CardDevice = ({ device }) => {
     Guardado: "secondary",
   };
 
-  const icon = deviceIconMap[type] || null;
+  const icon = deviceIconMap[typeDevice] || null;
   const color = deviceColorMap[status] || null;
 
   return (
     <>
       <Link
         to={`/inventory/devices/details/${_id}`}
-        className="card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative"
+        className="card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
       >
         <div className="glass m-2">{icon}</div>
         <div className="position-absolute top-0 start-0">

@@ -11,7 +11,7 @@ const DevicesInfo = () => {
   const getDevices = async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
+      if (!token || !annexedData._id) {
         throw new Error("No se encontró el token de autenticación.");
       }
 
@@ -26,10 +26,10 @@ const DevicesInfo = () => {
         }
       );
 
-      const response = await request.json();
-
-      if (request.ok) {
-        setDevices(response.data);
+      if (request.status == 200) {
+        const response = await request.json();
+        const { data } = response;
+        setDevices(data);
         setLoading(false);
       }
     } catch (error) {
@@ -48,7 +48,7 @@ const DevicesInfo = () => {
         <div className="d-flex justify-content-center m-3">
           <CircularProgress />
         </div>
-      ) : devices ? (
+      ) : devices.length > 0 ? (
         <>
           <table className="table table-striped">
             <thead>

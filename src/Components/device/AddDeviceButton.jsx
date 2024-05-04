@@ -151,8 +151,8 @@ const AddDeviceButton = ({ setUpdate }) => {
                     Tipo:
                   </label>
                   <select
-                    id="type"
-                    name="type"
+                    id="typeDevice"
+                    name="typeDevice"
                     onChange={onInputChange}
                     className="form-select"
                     value={formState.type}

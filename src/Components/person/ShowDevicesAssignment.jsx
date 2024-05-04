@@ -44,27 +44,26 @@ const ShowDevicesAssignment = () => {
 
   return (
     <div className="container glass mt-3">
-      <div className="container glass mt-3 mb-3">
-        {loading ? (
+      {devices.length > 0 ? (
+        <div className="container mt-3 mb-3">
+          loading ?
           <div className="d-flex justify-content-center">
             <CircularProgress />
           </div>
-        ) : (
+          :
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            {devices.length > 1 ? (
-              devices.map((item) => (
-                <div key={item._id} className="col">
-                  <CardDevice device={item} />
-                </div>
-              ))
-            ) : (
-              <div className="d-flex text-center">
-                <p>No abemus devices</p>
+            {devices.map((item) => (
+              <div key={item._id} className="col">
+                <CardDevice device={item} />
               </div>
-            )}
+            ))}
           </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="d-flex justify-content-center m-3">
+          <label className="label">No hay dispositivos asignados.</label>
+        </div>
+      )}
     </div>
   );
 };

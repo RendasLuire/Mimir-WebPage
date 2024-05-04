@@ -100,7 +100,7 @@ const SearchPersonToAssingnment = () => {
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
-      ) : users.length > 1 ? (
+      ) : users.length > 0 ? (
         <>
           <h5>Asigna el equipo</h5>
           <div className="m-3">

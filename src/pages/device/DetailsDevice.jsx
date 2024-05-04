@@ -55,8 +55,8 @@ const DetailsDevice = () => {
     Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
     Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
-  const type = deviceInfo.type;
-  const icon = iconMap[type] || null;
+  const typeDevice = deviceInfo.typeDevice;
+  const icon = iconMap[typeDevice] || null;
 
   const validation = async () => {
     try {
