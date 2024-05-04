@@ -42,7 +42,6 @@ const InventoryDevices = () => {
       const { data, pagination } = response;
 
       setDevices(data);
-      console.log(devices);
       setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {

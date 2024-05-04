@@ -43,7 +43,8 @@ const DetailsAnnexed = () => {
 
   useEffect(() => {
     getAnnexed();
-  }, [annexedData]);
+    setLoading(false);
+  }, [AnnexedInfo]);
 
   return (
     <div className="content glass m-1">

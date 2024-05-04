@@ -50,10 +50,10 @@ const Login = () => {
   return (
     <div className="container d-flex mt-5 justify-content-center">
       <div className="card glass">
-        <div className="d-flex justify-content-center m-3">
-          <PsychologyIcon />
-        </div>
         <div className="card-body">
+          <div className="d-flex justify-content-center m-3">
+            <PsychologyIcon sx={{ width: 50, height: 50 }} />
+          </div>
           <h5 className="card-title text-center">Login</h5>
           {login.code === 200 && (
             <Alert severity="success">{login.message}</Alert>

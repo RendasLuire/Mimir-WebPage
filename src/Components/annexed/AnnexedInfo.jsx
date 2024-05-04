@@ -4,30 +4,26 @@ import useForm from "../../hooks/useForm";
 import moment from "moment";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
+import { Alert, CircularProgress } from "@mui/material";
 
 moment.locale("es-mx");
 
 const AnnexedInfo = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const { annexedData } = useAnnexed();
+  const { annexedData, setAnnexedData } = useAnnexed();
   const { auth } = useAuth();
-  const { formState, setFormState } = useForm({
+  const { formState, onInputChange } = useForm({
     annexedNumber: annexedData.annexedNumber,
+    bill: annexedData.bill,
     startDate: moment(annexedData.startDate).format("YYYY-MM-DD"),
     endDate: moment(annexedData.endDate).format("YYYY-MM-DD"),
-    bill: annexedData.bill,
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (annexedData) {
-      setFormState((prevState) => ({
-        ...prevState,
-        annexedNumber: annexedData.annexedNumber,
-        startDate: moment(annexedData.startDate).format("YYYY-MM-DD"),
-        endDate: moment(annexedData.endDate).format("YYYY-MM-DD"),
-        bill: annexedData.bill,
-      }));
-    }
+    setLoading(false);
+    setMessage("");
   }, [annexedData]);
 
   const handleEditClick = (e) => {
@@ -37,103 +33,148 @@ const AnnexedInfo = () => {
 
   const handleSaveClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    try {
+      if (
+        formState.annexedNumber === annexedData.annexedNumber &&
+        formState.bill === annexedData.bill &&
+        formState.startDate ===
+          moment(annexedData.startDate).format("YYYY-MM-DD") &&
+        formState.endDate === moment(annexedData.endDate).format("YYYY-MM-DD")
+      ) {
+        setIsEditing(false);
+        setLoading(false);
+        return;
+      }
 
-    const changesMade = Object.keys(formState).some(
-      (key) => formState[key] !== annexedData[key]
-    );
+      const token = localStorage.getItem("token");
 
-    if (!changesMade) {
+      if (!token) {
+        setIsEditing(false);
+        setLoading(false);
+        return;
+      }
+
+      const dataToUpdate = { ...formState, userTI: auth._id };
+
+      const request = fetch(Global.url + "annexeds/" + annexedData._id, {
+        method: "PATCH",
+        body: JSON.stringify(dataToUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+
+      console.log(request);
+
+      if (!request.ok) {
+        setIsEditing(false);
+        setLoading(false);
+      }
+
+      const { data, message } = response;
+
+      setAnnexedData(data);
+      setMessage(message);
+      console.log(message);
       setIsEditing(false);
-      return;
-    }
-
-    const token = localStorage.getItem("token");
-    const annexedToSave = { ...formState, userTI: auth._id };
-
-    const request = await fetch(Global.url + "annexeds/" + annexedData._id, {
-      method: "PATCH",
-      body: JSON.stringify(computerToSave),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
-
-    await request.json();
-
-    if (request.ok) {
-      setFormState(annexedToSave);
+      setLoading(false);
+    } catch (error) {
+      setMessage(error);
+      console.log(message);
       setIsEditing(false);
+      setLoading(false);
     }
   };
-
   return (
-    <div className="container mt-3">
-      <div className="glass p-3">
-        <div className="mb-1">
-          <label htmlFor="annexedNumber" className="form-label">
-            Anexo:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="annexedNumber"
-            id="annexedNumber"
-            value={formState.annexedNumber}
-            disabled={!isEditing}
-          />
+    <div className="container">
+      {!formState.annexedNumber ? (
+        <div className="d-flex justify-content-center m-3">
+          <CircularProgress />
         </div>
-        <div className="mb-1">
-          <label htmlFor="startDate" className="form-label">
-            Fecha de Inicio:
-          </label>
-          <input
-            type="date"
-            className="form-control"
-            name="startDate"
-            id="startDate"
-            value={formState.startDate}
-            disabled={!isEditing}
-          />
+      ) : (
+        <div className="">
+          <form>
+            {message && (
+              <Alert variant="outlined" severity="error">
+                message
+              </Alert>
+            )}
+            <div className="mt-1">
+              <label htmlFor="annexedNumber" className="form-label">
+                Anexo:
+              </label>
+              <input
+                id="annexedNumber"
+                type="text"
+                name="annexedNumber"
+                className="form-control"
+                value={formState.annexedNumber}
+                onChange={onInputChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="mt-1">
+              <label htmlFor="bill" className="form-label">
+                Factura:
+              </label>
+              <input
+                id="bill"
+                type="text"
+                name="bill"
+                className="form-control"
+                value={formState.bill}
+                onChange={onInputChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="mt-1">
+              <label htmlFor="startDate" className="form-label">
+                Fecha de Inicio:
+              </label>
+              <input
+                id="startDate"
+                name="startDate"
+                type="date"
+                className="form-control"
+                value={formState.startDate}
+                onChange={onInputChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="mt-1">
+              <label htmlFor="endDate" className="form-label">
+                Fecha de Termino:
+              </label>
+              <input
+                id="endDate"
+                name="endDate"
+                type="date"
+                className="form-control"
+                value={formState.endDate}
+                onChange={onInputChange}
+                disabled={!isEditing}
+              />
+            </div>
+            <div className="d-flex justify-content-center my-1">
+              {loading ? (
+                <CircularProgress />
+              ) : isEditing ? (
+                <button className="btn btn-success" onClick={handleSaveClick}>
+                  Guardar
+                </button>
+              ) : (
+                <button className="btn btn-success" onClick={handleEditClick}>
+                  Editar
+                </button>
+              )}
+            </div>
+          </form>
         </div>
-        <div className="mb-1">
-          <label htmlFor="endDate" className="form-label">
-            Fecha de Termino:
-          </label>
-          <input
-            type="date"
-            className="form-control"
-            name="endDate"
-            id="endDate"
-            value={formState.endDate}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="mb-1">
-          <label htmlFor="bill" className="form-label">
-            Factura:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="bill"
-            id="bill"
-            value={formState.bill}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="text-center">
-          {isEditing ? (
-            <button className="btn btn-primary" onClick={handleSaveClick}>
-              Guardar
-            </button>
-          ) : (
-            <button className="btn btn-primary" onClick={handleEditClick}>
-              Editar
-            </button>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
