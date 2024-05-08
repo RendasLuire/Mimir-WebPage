@@ -5,11 +5,13 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Alert from "@mui/material/Alert";
 import Global from "../../helpers/Global";
+import useAnnexed from "../../hooks/useAnnexed";
 
-const AddAnnexedButton = ({ setUpdate }) => {
+const AddAnnexedButton = () => {
   const { formState, onInputChange, setFormState } = useForm({});
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
+  const { setUpdate } = useAnnexed();
   const { auth } = useAuth();
 
   const handleSaveData = async (e) => {
@@ -30,6 +32,7 @@ const AddAnnexedButton = ({ setUpdate }) => {
         ])
       );
       let itemToSave = { ...capitalizedFormState, userTI: auth._id };
+
       const request = await fetch(Global.url + "annexeds/", {
         method: "POST",
         body: JSON.stringify(itemToSave),
@@ -40,8 +43,10 @@ const AddAnnexedButton = ({ setUpdate }) => {
       });
 
       const response = await request.json();
+      setMessage(response.message);
+      console.log(response.message);
+
       if (!request.ok) {
-        setMessage(response.message);
         setLoading(false);
       }
       setMessage("");

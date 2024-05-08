@@ -30,8 +30,8 @@ const DevicesInfo = () => {
         const response = await request.json();
         const { data } = response;
         setDevices(data);
-        setLoading(false);
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -68,7 +68,9 @@ const DevicesInfo = () => {
           </table>
         </>
       ) : (
-        <label>No hay datos</label>
+        <div className="d-flex justify-content-center m-3">
+          <label>No hay datos</label>
+        </div>
       )}
     </div>
   );

@@ -48,6 +48,7 @@ const DetailsDevice = () => {
   useEffect(() => {
     getDevice();
     validation();
+    console.log(deviceInfo);
   }, [deviceInfo]);
 
   const iconMap = {
@@ -122,52 +123,78 @@ const DetailsDevice = () => {
       ) : (
         <>
           <div className="card glass m-3">
-            <div className="row g-0">
-              <div className="glass col-md-1 m-1">
-                <div className="img-fluid rounded-start">{icon}</div>
-              </div>
-              <div className="col glass m-1">
-                <div className="card-body">
-                  <h5 className="card-title">{deviceInfo.hostname}</h5>
-                  <p className="card-text">
-                    {deviceInfo.brand + " " + deviceInfo.model}
-                  </p>
-                  <p className="card-text">{deviceInfo.status}</p>
+            {deviceInfo.serialNumber ? (
+              <>
+                <div className="row g-0">
+                  <div className="glass col-md-1 m-1">
+                    <div className="img-fluid rounded-start">{icon}</div>
+                  </div>
+                  <div className="col glass m-1">
+                    <div className="card-body">
+                      <h5 className="card-title">{deviceInfo.hostname}</h5>
+                      <p className="card-text">
+                        {deviceInfo.brand + " " + deviceInfo.model}
+                      </p>
+                      <p className="card-text">{deviceInfo.status}</p>
+                    </div>
+                  </div>
+                  <div className="col col-md-1 glass m-1 align-content-center text-center">
+                    {validationResponsive.data === false ? (
+                      <Alert variant="outlined" severity="error">
+                        {validationResponsive.message}
+                      </Alert>
+                    ) : (
+                      <button
+                        className="btn btn-info"
+                        onClick={handleCreateResponsiva}
+                        disabled={!validationResponsive.data}
+                      >
+                        Crear responsiva
+                      </button>
+                    )}
+                  </div>
                 </div>
+              </>
+            ) : (
+              <div className="d-flex justify-content-center">
+                <CircularProgress />
               </div>
-              <div className="col col-md-1 glass m-1 align-content-center text-center">
-                {validationResponsive.data === false ? (
-                  <Alert variant="outlined" severity="error">
-                    {validationResponsive.message}
-                  </Alert>
-                ) : (
-                  <button
-                    className="btn btn-info"
-                    onClick={handleCreateResponsiva}
-                    disabled={!validationResponsive.data}
-                  >
-                    Crear responsiva
-                  </button>
-                )}
-              </div>
-            </div>
+            )}
           </div>
           <div className="glass m-3">
             <div className="row g-0">
               <div className="col m-1">
                 <div className="glass p-3">
-                  <InfoDevice />
+                  {deviceInfo.serialNumber ? (
+                    <InfoDevice />
+                  ) : (
+                    <div className="d-flex justify-content-center">
+                      <CircularProgress />
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col m-1">
                 <div className="glass p-3">
-                  <AssignmentDevice />
+                  {deviceInfo.serialNumber ? (
+                    <AssignmentDevice />
+                  ) : (
+                    <div className="d-flex justify-content-center">
+                      <CircularProgress />
+                    </div>
+                  )}
                 </div>
               </div>
               {deviceInfo.type !== "Monitor" && (
                 <div className="col m-1">
                   <div className="glass p-3">
-                    <MGMTMonitor />
+                    {deviceInfo.serialNumber ? (
+                      <MGMTMonitor />
+                    ) : (
+                      <div className="d-flex justify-content-center">
+                        <CircularProgress />
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -175,7 +202,13 @@ const DetailsDevice = () => {
           </div>
           <div className="glass m-3">
             <div className="glass">
-              <MovementsDevice />
+              {deviceInfo.serialNumber ? (
+                <MovementsDevice />
+              ) : (
+                <div className="d-flex justify-content-center">
+                  <CircularProgress />
+                </div>
+              )}
             </div>
           </div>
         </>

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import AnnexedInfo from "../../Components/annexed/AnnexedInfo";
 import useAnnexed from "../../hooks/useAnnexed";
 import { useParams } from "react-router-dom";
-import Global from "../../helpers/Global";
 import moment from "moment";
 import DeviceInfo from "../../Components/annexed/DevicesInfo";
 import AddDevices from "../../Components/annexed/AddDevices";
@@ -13,28 +12,12 @@ moment.locale("es-mx");
 
 const DetailsAnnexed = () => {
   const { id } = useParams();
-  const [loading, setLoading] = useState(false);
-  const { annexedData, setAnnexedData } = useAnnexed();
+  const [loading, setLoading] = useState(true);
+  const { annexedData, setAnnexedData } = useAnnexed({});
 
   const getAnnexed = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        return false;
-      }
-
-      const request = await fetch(Global.url + "annexeds/" + id, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-      const response = await request.json();
-      const { data } = response;
-
-      setAnnexedData(data);
+      setAnnexedData({ _id: id });
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -44,11 +27,15 @@ const DetailsAnnexed = () => {
   useEffect(() => {
     getAnnexed();
     setLoading(false);
-  }, [AnnexedInfo]);
+  }, []);
 
   return (
     <div className="content glass m-1">
       {loading ? (
+        <div className="d-flex justify-content-center">
+          <CircularProgress />
+        </div>
+      ) : !annexedData.annexedNumber ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
@@ -62,21 +49,15 @@ const DetailsAnnexed = () => {
                 </div>
               </div>
               <div className="col glass m-1">
-                {annexedData ? (
-                  <div className="card-body">
-                    <h5 className="card-title">{annexedData.annexedNumber}</h5>
-                    <p className="card-text">
-                      {moment(annexedData.startDate).format("L")}
-                    </p>
-                    <p className="card-text">
-                      {moment(annexedData.endDate).format("L")}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="d-flex justify-content-center">
-                    <CircularProgress />
-                  </div>
-                )}
+                <div className="card-body">
+                  <h5 className="card-title">{annexedData.annexedNumber}</h5>
+                  <p className="card-text">
+                    {moment(annexedData.startDate).format("L")}
+                  </p>
+                  <p className="card-text">
+                    {moment(annexedData.endDate).format("L")}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

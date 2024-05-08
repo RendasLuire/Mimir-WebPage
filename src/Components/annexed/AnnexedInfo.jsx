@@ -9,7 +9,7 @@ import { Alert, CircularProgress } from "@mui/material";
 moment.locale("es-mx");
 
 const AnnexedInfo = () => {
-  const { annexedData, setAnnexedData } = useAnnexed();
+  const { annexedData, setUpdate } = useAnnexed();
   const { auth } = useAuth();
   const { formState, onInputChange } = useForm({
     annexedNumber: annexedData.annexedNumber,
@@ -68,113 +68,103 @@ const AnnexedInfo = () => {
 
       const response = await request.json();
 
-      console.log(request);
-
       if (!request.ok) {
         setIsEditing(false);
         setLoading(false);
       }
 
-      const { data, message } = response;
+      const { message } = response;
 
-      setAnnexedData(data);
+      setUpdate(true);
       setMessage(message);
-      console.log(message);
       setIsEditing(false);
       setLoading(false);
     } catch (error) {
       setMessage(error);
-      console.log(message);
       setIsEditing(false);
       setLoading(false);
     }
   };
   return (
     <div className="container">
-      {!formState.annexedNumber ? (
-        <div className="d-flex justify-content-center m-3">
-          <CircularProgress />
-        </div>
-      ) : (
-        <div className="">
-          <form>
-            {message && (
-              <Alert variant="outlined" severity="error">
-                message
-              </Alert>
+      <div className="">
+        <form>
+          {message && (
+            <Alert variant="outlined" severity="error">
+              message
+            </Alert>
+          )}
+          <div className="mt-1">
+            <label htmlFor="annexedNumber" className="form-label">
+              Anexo:
+            </label>
+            <input
+              id="annexedNumber"
+              type="text"
+              name="annexedNumber"
+              className="form-control"
+              value={formState.annexedNumber}
+              onChange={onInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mt-1">
+            <label htmlFor="bill" className="form-label">
+              Factura:
+            </label>
+            <input
+              id="bill"
+              type="text"
+              name="bill"
+              className="form-control"
+              value={formState.bill}
+              onChange={onInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mt-1">
+            <label htmlFor="startDate" className="form-label">
+              Fecha de Inicio:
+            </label>
+            <input
+              id="startDate"
+              name="startDate"
+              type="date"
+              className="form-control"
+              value={formState.startDate}
+              onChange={onInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mt-1">
+            <label htmlFor="endDate" className="form-label">
+              Fecha de Termino:
+            </label>
+            <input
+              id="endDate"
+              name="endDate"
+              type="date"
+              className="form-control"
+              value={formState.endDate}
+              onChange={onInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="d-flex justify-content-center my-1">
+            {loading ? (
+              <CircularProgress />
+            ) : isEditing ? (
+              <button className="btn btn-success" onClick={handleSaveClick}>
+                Guardar
+              </button>
+            ) : (
+              <button className="btn btn-success" onClick={handleEditClick}>
+                Editar
+              </button>
             )}
-            <div className="mt-1">
-              <label htmlFor="annexedNumber" className="form-label">
-                Anexo:
-              </label>
-              <input
-                id="annexedNumber"
-                type="text"
-                name="annexedNumber"
-                className="form-control"
-                value={formState.annexedNumber}
-                onChange={onInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-            <div className="mt-1">
-              <label htmlFor="bill" className="form-label">
-                Factura:
-              </label>
-              <input
-                id="bill"
-                type="text"
-                name="bill"
-                className="form-control"
-                value={formState.bill}
-                onChange={onInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-            <div className="mt-1">
-              <label htmlFor="startDate" className="form-label">
-                Fecha de Inicio:
-              </label>
-              <input
-                id="startDate"
-                name="startDate"
-                type="date"
-                className="form-control"
-                value={formState.startDate}
-                onChange={onInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-            <div className="mt-1">
-              <label htmlFor="endDate" className="form-label">
-                Fecha de Termino:
-              </label>
-              <input
-                id="endDate"
-                name="endDate"
-                type="date"
-                className="form-control"
-                value={formState.endDate}
-                onChange={onInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-            <div className="d-flex justify-content-center my-1">
-              {loading ? (
-                <CircularProgress />
-              ) : isEditing ? (
-                <button className="btn btn-success" onClick={handleSaveClick}>
-                  Guardar
-                </button>
-              ) : (
-                <button className="btn btn-success" onClick={handleEditClick}>
-                  Editar
-                </button>
-              )}
-            </div>
-          </form>
-        </div>
-      )}
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

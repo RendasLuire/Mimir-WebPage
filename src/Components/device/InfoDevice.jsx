@@ -46,28 +46,7 @@ const InfoDevice = () => {
     user,
   } = formState;
 
-  useEffect(() => {
-    if (deviceInfo) {
-      setFormState((prevState) => ({
-        ...prevState,
-        hostname: deviceInfo.hostname || "",
-        brand: deviceInfo.brand || "",
-        model: deviceInfo.model || "",
-        serialNumber: deviceInfo.serialNumber || "",
-        status: deviceInfo.status || "",
-        annexed: deviceInfo.annexed || "",
-        departament: deviceInfo.departament || "",
-        ubication: deviceInfo.ubication || "",
-        ip: deviceInfo.ip || "",
-        bussinesUnit: deviceInfo.bussinesUnit || "",
-        custom: deviceInfo.custom || "",
-        headphones: deviceInfo.headphones || "",
-        adaptVGA: deviceInfo.adaptVGA || "",
-        mouse: deviceInfo.mouse || "",
-        user: deviceInfo.user || "",
-      }));
-    }
-  }, [deviceInfo, setFormState]);
+  useEffect(() => {}, [deviceInfo]);
 
   const handleEditClick = (e) => {
     e.preventDefault();
