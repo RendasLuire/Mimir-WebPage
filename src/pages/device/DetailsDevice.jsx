@@ -149,7 +149,7 @@ const DetailsDevice = () => {
                       <AssignmentDevice />
                     </div>
                   </div>
-                  {deviceData.type !== "Monitor" && (
+                  {deviceData.typeDevice !== "Monitor" && (
                     <div className="col m-1">
                       <div className="glass p-3">
                         <MGMTMonitor />

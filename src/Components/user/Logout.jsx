@@ -7,9 +7,8 @@ const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.clear();
-
     setAuth({});
+    localStorage.clear();
 
     navigate("/login");
   }, [setAuth, navigate]);

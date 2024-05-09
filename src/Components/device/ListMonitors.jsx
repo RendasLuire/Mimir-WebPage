@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import useDevice from "../../hooks/useDevice";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Pagination } from "@mui/material";
 
 const ListMonitors = () => {
   const [listMonitors, setListMonitors] = useState([]);
   const { deviceData, setUpdate } = useDevice();
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const devicesPerPage = 5;
   const { auth } = useAuth();
 
   const getMonitors = async () => {
@@ -18,16 +22,19 @@ const ListMonitors = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "device?type=Monitor", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const request = await fetch(
+        `${Global.url}device?typeDevice=Monitor&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       const response = await request.json();
-      const { data } = response;
+      const { data, pagination } = response;
 
       const filteredMonitors = data.filter(
         (monitor) =>
@@ -35,6 +42,7 @@ const ListMonitors = () => {
       );
 
       setListMonitors(filteredMonitors);
+      setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -98,38 +106,73 @@ const ListMonitors = () => {
       setLoading(false);
     }
   };
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleChangePage = (event, value) => {
+    setCurrentPage(value);
+  };
 
   useEffect(() => {
     getMonitors();
-  }, [deviceData]);
+  }, [deviceData, currentPage, searchTerm]);
 
   return (
     <div className="m-3">
+      <div className="col-6">
+        <input
+          className="form-control my-3"
+          value={searchTerm}
+          onChange={handleInputChange}
+          placeholder="Search"
+        />
+      </div>
       {loading ? (
         <CircularProgress />
       ) : listMonitors.length > 0 ? (
-        <table className="table table-striped glass">
-          <thead>
-            <tr>
-              <th className="col">Numero de Serie</th>
-              <th className="col">Marca</th>
-              <th className="col">Modelo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listMonitors.map((item) => (
-              <tr
-                className="glass"
-                key={item._id}
-                onClick={() => handleSelectClick(item)}
-              >
-                <td>{item.serialNumber}</td>
-                <td>{item.brand}</td>
-                <td>{item.model}</td>
+        <>
+          <div className="d-flex justify-content-center mt-3">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              variant="outlined"
+              color="primary"
+              onChange={handleChangePage}
+            />
+          </div>
+          <table className="table table-striped glass">
+            <thead>
+              <tr>
+                <th className="col">Numero de Serie</th>
+                <th className="col">Marca</th>
+                <th className="col">Modelo</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {listMonitors.map((item) => (
+                <tr
+                  className="glass"
+                  key={item._id}
+                  onClick={() => handleSelectClick(item)}
+                >
+                  <td>{item.serialNumber}</td>
+                  <td>{item.brand}</td>
+                  <td>{item.model}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="d-flex justify-content-center mt-3">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              variant="outlined"
+              color="primary"
+              onChange={handleChangePage}
+            />
+          </div>
+        </>
       ) : (
         <div className="d-flex justify-content-center mt-3">
           <label>No hay monitores disponibles.</label>

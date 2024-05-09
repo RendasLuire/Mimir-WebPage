@@ -51,6 +51,7 @@ const ListAllPersons = () => {
 
   useEffect(() => {
     getUsers();
+    setUpdate(false);
   }, [update, currentPage, searchTerm]);
 
   const handleInputChange = (event) => {

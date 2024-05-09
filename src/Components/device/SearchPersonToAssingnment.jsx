@@ -1,23 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import useDevice from "../../hooks/useDevice";
 import useAuth from "../../hooks/useAuth";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Pagination } from "@mui/material";
 
 const SearchPersonToAssingnment = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState(users);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const usersPerPage = 5;
   const { deviceData, setUpdate } = useDevice();
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
-
-  const updateFilter = useCallback(
-    (data) => {
-      setFilter(data);
-    },
-    [setFilter]
-  );
 
   const handleInputChange = (event) => {
     setSearch(event.target.value);
@@ -31,19 +26,23 @@ const SearchPersonToAssingnment = () => {
         return false;
       }
 
-      const request = await fetch(Global.url + "persons/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const request = await fetch(
+        `${Global.url}persons?page=${currentPage}&limit=${usersPerPage}&search=${search}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       const response = await request.json();
 
-      const { data } = response;
+      const { data, pagination } = response;
 
       setUsers(data);
+      setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -52,7 +51,7 @@ const SearchPersonToAssingnment = () => {
 
   useEffect(() => {
     getPersons();
-  }, [deviceData, updateFilter]);
+  }, [deviceData]);
 
   const handleSelectClick = async (item) => {
     setLoading(true);
@@ -89,6 +88,10 @@ const SearchPersonToAssingnment = () => {
     }
   };
 
+  const handleChangePage = (event, value) => {
+    setCurrentPage(value);
+  };
+
   return (
     <div className="m-3">
       {loading ? (
@@ -108,6 +111,15 @@ const SearchPersonToAssingnment = () => {
           </div>
           <div className="m-3">
             <h5>Usuarios</h5>
+            <div className="d-flex justify-content-center mt-3">
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                variant="outlined"
+                color="primary"
+                onChange={handleChangePage}
+              />
+            </div>
             <table className="table table-striped glass">
               <thead>
                 <tr>
@@ -130,6 +142,15 @@ const SearchPersonToAssingnment = () => {
                 ))}
               </tbody>
             </table>
+            <div className="d-flex justify-content-center mt-3">
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                variant="outlined"
+                color="primary"
+                onChange={handleChangePage}
+              />
+            </div>
           </div>
         </>
       ) : (
