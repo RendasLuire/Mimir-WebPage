@@ -6,34 +6,34 @@ import usePerson from "../../hooks/usePerson";
 import { CircularProgress } from "@mui/material";
 
 const InfoPerson = () => {
-  const { personInfo } = usePerson();
+  const { personData, setUpdate } = usePerson();
   const [isEditing, setIsEditing] = useState(false);
   const { formState, onInputChange } = useForm({
-    name: personInfo?.name || "",
-    department: personInfo?.department || "",
-    position: personInfo?.position || "",
-    manager: personInfo?.manager || "",
+    name: personData?.name || "",
+    department: personData?.department || "",
+    position: personData?.position || "",
+    manager: personData?.manager || "",
   });
   const { auth } = useAuth();
   const { name, department, position, manager } = formState;
-  const [login, setLogin] = useState(false);
+  const [loadin, setLoadin] = useState(false);
 
-  useEffect(() => {}, [personInfo]);
+  useEffect(() => {}, [personData]);
 
   const handleEditClick = () => {
-    setLogin(true);
+    setLoadin(true);
     setIsEditing(true);
-    setLogin(false);
+    setLoadin(false);
   };
 
   const handleSaveClick = async () => {
-    setLogin(true);
+    setLoadin(true);
     try {
       const token = localStorage.getItem("token");
 
       let itemToSave = { ...formState, userTI: auth._id };
 
-      const request = await fetch(Global.url + "persons/" + personInfo._id, {
+      const request = await fetch(Global.url + "persons/" + personData._id, {
         method: "PATCH",
         body: JSON.stringify(itemToSave),
         headers: {
@@ -45,14 +45,15 @@ const InfoPerson = () => {
       await request.json();
 
       setIsEditing(false);
-      setLogin(false);
+      setLoadin(false);
+      setUpdate(true);
     } catch (error) {
       setIsEditing(false);
     }
   };
   return (
     <div className="container glass m-2">
-      {login ? (
+      {loadin ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>

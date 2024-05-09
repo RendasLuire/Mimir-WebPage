@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentDevice = () => {
-  const { deviceInfo } = useDevice();
-  const { user } = deviceInfo;
+  const { deviceData } = useDevice();
+  const { user } = deviceData;
 
-  useEffect(() => {}, [deviceInfo]);
+  useEffect(() => {}, [deviceData]);
 
   return (
     <div className="container glass">

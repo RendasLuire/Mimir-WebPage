@@ -14,61 +14,37 @@ import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlin
 
 const DetailsDevice = () => {
   const { id } = useParams();
-  const { setDeviceInfo, deviceInfo } = useDevice();
+  const { setDeviceData, deviceData } = useDevice({});
   const [loading, setLoading] = useState(true);
   const [validationResponsive, setvalidationResponsive] = useState(false);
 
   const getDevice = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        return false;
-      }
-
-      const request = await fetch(Global.url + "device/" + id, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-
-      const response = await request.json();
-
-      const { data } = response;
-
-      setDeviceInfo(data);
+      setDeviceData({ _id: id });
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    getDevice();
-    validation();
-    console.log(deviceInfo);
-  }, [deviceInfo]);
-
   const iconMap = {
     Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
     Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
     Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
-  const typeDevice = deviceInfo.typeDevice;
+  const typeDevice = deviceData.typeDevice;
   const icon = iconMap[typeDevice] || null;
 
   const validation = async () => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !deviceInfo._id) {
+      if (!token || !deviceData._id) {
         throw new Error("No se encontró el token de autenticación.");
       }
 
       const request = await fetch(
-        Global.url + "reports/validationInfo/" + deviceInfo._id,
+        Global.url + "reports/validationInfo/" + deviceData._id,
         {
           method: "GET",
           headers: {
@@ -86,17 +62,15 @@ const DetailsDevice = () => {
   };
 
   const handleCreateResponsiva = async () => {
-    console.log("Creando responsiva.");
-
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !deviceInfo._id) {
+      if (!token || !deviceData._id) {
         throw new Error("No se encontró el token de autenticación.");
       }
 
       const request = await fetch(
-        Global.url + "reports/responsiveCSM/" + deviceInfo._id,
+        Global.url + "reports/responsiveCSM/" + deviceData._id,
         {
           method: "GET",
           headers: {
@@ -114,6 +88,12 @@ const DetailsDevice = () => {
     }
   };
 
+  useEffect(() => {
+    getDevice();
+    validation();
+    setLoading(false);
+  }, []);
+
   return (
     <div className="content glass m-1">
       {loading ? (
@@ -122,95 +102,73 @@ const DetailsDevice = () => {
         </div>
       ) : (
         <>
-          <div className="card glass m-3">
-            {deviceInfo.serialNumber ? (
-              <>
-                <div className="row g-0">
-                  <div className="glass col-md-1 m-1">
-                    <div className="img-fluid rounded-start">{icon}</div>
-                  </div>
-                  <div className="col glass m-1">
-                    <div className="card-body">
-                      <h5 className="card-title">{deviceInfo.hostname}</h5>
-                      <p className="card-text">
-                        {deviceInfo.brand + " " + deviceInfo.model}
-                      </p>
-                      <p className="card-text">{deviceInfo.status}</p>
+          {deviceData.serialNumber ? (
+            <>
+              <div className="card glass m-3">
+                <>
+                  <div className="row g-0">
+                    <div className="glass col-md-1 m-1">
+                      <div className="img-fluid rounded-start">{icon}</div>
                     </div>
-                  </div>
-                  <div className="col col-md-1 glass m-1 align-content-center text-center">
-                    {validationResponsive.data === false ? (
-                      <Alert variant="outlined" severity="error">
-                        {validationResponsive.message}
-                      </Alert>
-                    ) : (
-                      <button
-                        className="btn btn-info"
-                        onClick={handleCreateResponsiva}
-                        disabled={!validationResponsive.data}
-                      >
-                        Crear responsiva
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="d-flex justify-content-center">
-                <CircularProgress />
-              </div>
-            )}
-          </div>
-          <div className="glass m-3">
-            <div className="row g-0">
-              <div className="col m-1">
-                <div className="glass p-3">
-                  {deviceInfo.serialNumber ? (
-                    <InfoDevice />
-                  ) : (
-                    <div className="d-flex justify-content-center">
-                      <CircularProgress />
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="col m-1">
-                <div className="glass p-3">
-                  {deviceInfo.serialNumber ? (
-                    <AssignmentDevice />
-                  ) : (
-                    <div className="d-flex justify-content-center">
-                      <CircularProgress />
-                    </div>
-                  )}
-                </div>
-              </div>
-              {deviceInfo.type !== "Monitor" && (
-                <div className="col m-1">
-                  <div className="glass p-3">
-                    {deviceInfo.serialNumber ? (
-                      <MGMTMonitor />
-                    ) : (
-                      <div className="d-flex justify-content-center">
-                        <CircularProgress />
+                    <div className="col glass m-1">
+                      <div className="card-body">
+                        <h5 className="card-title">{deviceData.hostname}</h5>
+                        <p className="card-text">
+                          {deviceData.brand + " " + deviceData.model}
+                        </p>
+                        <p className="card-text">{deviceData.status}</p>
                       </div>
-                    )}
+                    </div>
+                    <div className="col col-md-1 glass m-1 align-content-center text-center">
+                      {validationResponsive.data === false ? (
+                        <Alert variant="outlined" severity="error">
+                          {validationResponsive.message}
+                        </Alert>
+                      ) : (
+                        <button
+                          className="btn btn-info"
+                          onClick={handleCreateResponsiva}
+                          disabled={!validationResponsive.data}
+                        >
+                          Crear responsiva
+                        </button>
+                      )}
+                    </div>
                   </div>
+                </>
+              </div>
+              <div className="glass m-3">
+                <div className="row g-0">
+                  <div className="col m-1">
+                    <div className="glass p-3">
+                      <InfoDevice />
+                    </div>
+                  </div>
+                  <div className="col m-1">
+                    <div className="glass p-3">
+                      <AssignmentDevice />
+                    </div>
+                  </div>
+                  {deviceData.type !== "Monitor" && (
+                    <div className="col m-1">
+                      <div className="glass p-3">
+                        <MGMTMonitor />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-          <div className="glass m-3">
-            <div className="glass">
-              {deviceInfo.serialNumber ? (
-                <MovementsDevice />
-              ) : (
-                <div className="d-flex justify-content-center">
-                  <CircularProgress />
+              </div>
+              <div className="glass m-3">
+                <div className="glass">
+                  <MovementsDevice />
                 </div>
-              )}
+              </div>
+            </>
+          ) : (
+            <div className="d-flex justify-content-center">
+              <CircularProgress />
             </div>
-          </div>
+          )}
         </>
       )}
     </div>

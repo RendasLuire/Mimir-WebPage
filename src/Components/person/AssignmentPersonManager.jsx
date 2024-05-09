@@ -4,12 +4,12 @@ import SearchPersonToAssing from "./SearchPersonToAssing";
 import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentPersonManager = () => {
-  const { personInfo } = usePerson();
+  const { personData } = usePerson();
 
-  useEffect(() => {}, [personInfo]);
+  useEffect(() => {}, [personData]);
 
   const managerId =
-    personInfo && personInfo.manager ? personInfo.manager.id : "Sin asignar";
+    personData && personData.manager ? personData.manager.id : "Sin asignar";
 
   return (
     <div className="container glass">

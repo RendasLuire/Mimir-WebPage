@@ -5,15 +5,15 @@ import ListMonitors from "./ListMonitors";
 import ShowInfoMonitor from "./ShowInfoMonitor";
 
 const MGMTMonitor = () => {
-  const { deviceInfo } = useDevice();
-  const { monitor } = deviceInfo;
+  const { deviceData } = useDevice();
+  const { monitor } = deviceData;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (deviceInfo) {
+    if (deviceData) {
       setLoading(false);
     }
-  }, [deviceInfo]);
+  }, [deviceData]);
 
   return (
     <div>

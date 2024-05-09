@@ -51,7 +51,6 @@ const InventoryDevices = () => {
 
   useEffect(() => {
     getDevices();
-    console.log(loading);
   }, [update, currentPage, searchTerm]);
 
   const handleInputChange = (event) => {

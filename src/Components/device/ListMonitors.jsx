@@ -6,7 +6,7 @@ import { CircularProgress } from "@mui/material";
 
 const ListMonitors = () => {
   const [listMonitors, setListMonitors] = useState([]);
-  const { deviceInfo, setDeviceInfo } = useDevice();
+  const { deviceData, setUpdate } = useDevice();
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
@@ -46,7 +46,7 @@ const ListMonitors = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const { user } = deviceInfo;
+      const { user } = deviceData;
 
       if (!token) {
         return false;
@@ -69,7 +69,7 @@ const ListMonitors = () => {
       };
 
       const requestComputer = await fetch(
-        Global.url + "device/" + deviceInfo._id,
+        Global.url + "device/" + deviceData._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdateComputer),
@@ -92,12 +92,7 @@ const ListMonitors = () => {
       await requestComputer.json();
       await requestMonitor.json();
 
-      const updatedComputerInfo = {
-        ...deviceInfo,
-        monitor: { id: item._id, serialNumber: item.serialNumber },
-      };
-
-      setDeviceInfo(updatedComputerInfo);
+      setUpdate(true);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -106,7 +101,7 @@ const ListMonitors = () => {
 
   useEffect(() => {
     getMonitors();
-  }, []);
+  }, [deviceData]);
 
   return (
     <div className="m-3">

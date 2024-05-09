@@ -5,17 +5,17 @@ import { CircularProgress } from "@mui/material";
 
 const MovementsDevice = () => {
   const [movements, setMovements] = useState([]);
-  const { deviceInfo } = useDevice();
+  const { deviceData } = useDevice();
   const [login, setLogin] = useState(true);
 
   const getMovements = async () => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !deviceInfo || !deviceInfo._id) {
+      if (!token || !deviceData || !deviceData._id) {
         return;
       }
-      const request = await fetch(Global.url + "movements/" + deviceInfo._id, {
+      const request = await fetch(Global.url + "movements/" + deviceData._id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ const MovementsDevice = () => {
 
   useEffect(() => {
     getMovements();
-  }, [deviceInfo]);
+  }, [deviceData]);
 
   return (
     <div className="container glass">

@@ -8,11 +8,11 @@ import useAuth from "../../hooks/useAuth";
 const ShowInfoMonitor = () => {
   const [loading, setLoading] = useState(true);
   const [monitorInfo, setMonitorInfo] = useState({});
-  const { deviceInfo, setDeviceInfo } = useDevice();
+  const { deviceData, setUpdate } = useDevice();
   const { auth } = useAuth();
 
   const getMonitor = async () => {
-    const { monitor } = deviceInfo;
+    const { monitor } = deviceData;
 
     try {
       const token = localStorage.getItem("token");
@@ -41,7 +41,7 @@ const ShowInfoMonitor = () => {
 
   useEffect(() => {
     getMonitor();
-  }, []);
+  }, [deviceData]);
 
   const handleUnassignClick = async () => {
     setLoading(true);
@@ -83,7 +83,7 @@ const ShowInfoMonitor = () => {
       );
 
       const requestComputer = await fetch(
-        Global.url + "device/" + deviceInfo._id,
+        Global.url + "device/" + deviceData._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdatComputer),
@@ -97,24 +97,7 @@ const ShowInfoMonitor = () => {
       await requestMonitor.json();
       await requestComputer.json();
 
-      const updatedComputerInfo = {
-        ...deviceInfo,
-        monitor: {
-          id: "Sin asignar",
-          serialNumber: "Sin asignar",
-        },
-      };
-
-      const updatedMonitorInfo = {
-        ...monitorInfo,
-        user: {
-          id: "Sin asignar",
-          name: "Sin asignar",
-        },
-      };
-
-      setDeviceInfo(updatedComputerInfo);
-      setMonitorInfo(updatedMonitorInfo);
+      setUpdate(true);
       setLoading(false);
     } catch (error) {
       setLoading(false);

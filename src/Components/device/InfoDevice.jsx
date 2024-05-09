@@ -6,24 +6,26 @@ import useDevice from "../../hooks/useDevice";
 
 const InfoDevice = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const { deviceInfo } = useDevice();
+  const { deviceData, setUpdate } = useDevice();
   const { formState, onInputChange, setFormState } = useForm({
-    hostname: deviceInfo?.hostname || "",
-    brand: deviceInfo?.brand || "",
-    model: deviceInfo?.model || "",
-    serialNumber: deviceInfo?.serialNumber || "",
-    details: deviceInfo?.details || "",
-    status: deviceInfo?.status || "",
-    annexed: deviceInfo?.annexed || "",
-    departament: deviceInfo?.departament || "",
-    ubication: deviceInfo?.ubication || "",
-    ip: deviceInfo?.ip || "",
-    bussinesUnit: deviceInfo?.bussinesUnit || "",
-    custom: deviceInfo?.custom || "",
-    headphones: deviceInfo?.headphones || "",
-    adaptVGA: deviceInfo?.adaptVGA || "",
-    mouse: deviceInfo?.mouse || "",
-    user: deviceInfo?.user || "",
+    hostname: deviceData.hostname || "",
+    brand: deviceData.brand || "",
+    model: deviceData.model || "",
+    serialNumber: deviceData.serialNumber || "",
+    details: deviceData.details || "",
+    status: deviceData.status || "",
+    annexed: {
+      number: deviceData.annexed.number || "",
+    },
+    departament: deviceData.departament || "",
+    ubication: deviceData.ubication || "",
+    ip: deviceData.ip || "",
+    bussinesUnit: deviceData.bussinesUnit || "",
+    custom: deviceData.custom || "",
+    headphones: deviceData.headphones || "",
+    adaptVGA: deviceData.adaptVGA || "",
+    mouse: deviceData.mouse || "",
+    user: deviceData.user || "",
   });
   const { auth } = useAuth();
 
@@ -46,7 +48,7 @@ const InfoDevice = () => {
     user,
   } = formState;
 
-  useEffect(() => {}, [deviceInfo]);
+  useEffect(() => {}, [deviceData]);
 
   const handleEditClick = (e) => {
     e.preventDefault();
@@ -57,7 +59,7 @@ const InfoDevice = () => {
     e.preventDefault();
 
     const changesMade = Object.keys(formState).some(
-      (key) => formState[key] !== deviceInfo[key]
+      (key) => formState[key] !== deviceData[key]
     );
 
     if (!changesMade) {
@@ -68,7 +70,7 @@ const InfoDevice = () => {
     const token = localStorage.getItem("token");
     const computerToSave = { ...formState, userTI: auth._id };
 
-    const request = await fetch(Global.url + "device/" + deviceInfo._id, {
+    const request = await fetch(Global.url + "device/" + deviceData._id, {
       method: "PATCH",
       body: JSON.stringify(computerToSave),
       headers: {
@@ -79,7 +81,8 @@ const InfoDevice = () => {
     await request.json();
 
     if (request.ok) {
-      setFormState(computerToSave);
+      setFormState({});
+      setUpdate(true);
       setIsEditing(false);
     }
   };

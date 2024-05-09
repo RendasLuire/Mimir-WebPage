@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { CircularProgress } from "@mui/material";
 
 const ShowAssignmentInfo = () => {
-  const { deviceInfo, setDeviceInfo } = useDevice();
+  const { deviceData, setUpdate } = useDevice();
   const [personInfo, setPersonInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
@@ -14,9 +14,9 @@ const ShowAssignmentInfo = () => {
   const getPerson = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { user } = deviceInfo;
+      const { user } = deviceData;
 
-      if (!token || !deviceInfo || !user.id) {
+      if (!token || !deviceData || !user.id) {
         return;
       }
 
@@ -41,7 +41,7 @@ const ShowAssignmentInfo = () => {
 
   useEffect(() => {
     getPerson();
-  }, [deviceInfo]);
+  }, [deviceData]);
 
   const handleUnassignClick = async () => {
     setLoading(true);
@@ -57,7 +57,7 @@ const ShowAssignmentInfo = () => {
       };
 
       const request = await fetch(
-        Global.url + "device/unassing/" + deviceInfo._id,
+        Global.url + "device/unassing/" + deviceData._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdate),
@@ -70,15 +70,7 @@ const ShowAssignmentInfo = () => {
 
       await request.json();
 
-      const updatedComputerInfo = {
-        ...deviceInfo,
-        user: {
-          id: "Sin asignar",
-          name: "Sin asignar",
-        },
-      };
-
-      setDeviceInfo(updatedComputerInfo);
+      setUpdate(true);
       setLoading(false);
     } catch (error) {
       setLoading(false);

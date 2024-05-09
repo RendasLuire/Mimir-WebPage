@@ -8,7 +8,7 @@ const SearchPersonToAssingnment = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(users);
-  const { deviceInfo, setDeviceInfo } = useDevice();
+  const { deviceData, setUpdate } = useDevice();
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
 
@@ -52,7 +52,7 @@ const SearchPersonToAssingnment = () => {
 
   useEffect(() => {
     getPersons();
-  }, [deviceInfo, updateFilter]);
+  }, [deviceData, updateFilter]);
 
   const handleSelectClick = async (item) => {
     setLoading(true);
@@ -60,7 +60,7 @@ const SearchPersonToAssingnment = () => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !deviceInfo || !deviceInfo._id) {
+      if (!token || !deviceData || !deviceData._id) {
         return false;
       }
 
@@ -70,7 +70,7 @@ const SearchPersonToAssingnment = () => {
       };
 
       const request = await fetch(
-        Global.url + "device/assing/" + deviceInfo._id,
+        Global.url + "device/assing/" + deviceData._id,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdate),
@@ -82,12 +82,7 @@ const SearchPersonToAssingnment = () => {
       );
       await request.json();
 
-      const updatedComputerInfo = {
-        ...deviceInfo,
-        user: { id: item._id, name: item.name },
-        department: { id: item.department.id, name: item.department.name },
-      };
-      setDeviceInfo(updatedComputerInfo);
+      setUpdate(true);
       setLoading(false);
     } catch (error) {
       setLoading(false);

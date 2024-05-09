@@ -1,7 +1,6 @@
 import PersonIcon from "@mui/icons-material/Person";
 import usePerson from "../../hooks/usePerson";
 import { useEffect, useState } from "react";
-import Global from "../../helpers/Global";
 import { useParams } from "react-router-dom";
 import InfoPerson from "../../Components/person/InfoPerson";
 import MovementsPerson from "../../Components/person/MovementsPerson";
@@ -10,31 +9,13 @@ import ShowDevicesAssignment from "../../Components/person/ShowDevicesAssignment
 import { CircularProgress } from "@mui/material";
 
 const DetailsPerson = () => {
-  const { personInfo, setPersonInfo } = usePerson();
+  const { personData, setPersonData } = usePerson();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
 
   const getPerson = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        return false;
-      }
-
-      const request = await fetch(Global.url + "persons/" + id, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-
-      const response = await request.json();
-
-      const { data } = response;
-
-      setPersonInfo(data);
+      setPersonData({ _id: id });
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -51,7 +32,7 @@ const DetailsPerson = () => {
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
-      ) : !personInfo.name ? (
+      ) : !personData.name ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
@@ -66,9 +47,9 @@ const DetailsPerson = () => {
               </div>
               <div className="col">
                 <div className="card-body">
-                  <h5 className="card-title">{personInfo.name}</h5>
-                  <p className="card-text">{personInfo.position}</p>
-                  <p className="card-text">{personInfo.department}</p>
+                  <h5 className="card-title">{personData.name}</h5>
+                  <p className="card-text">{personData.position}</p>
+                  <p className="card-text">{personData.department}</p>
                 </div>
               </div>
             </div>

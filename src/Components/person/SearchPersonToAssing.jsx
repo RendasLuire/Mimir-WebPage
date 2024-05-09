@@ -6,7 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 
 const SearchPersonToAssingnment = () => {
-  const { personInfo, setPersonInfo } = usePerson();
+  const { personData, setUpdate } = usePerson();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,7 +37,7 @@ const SearchPersonToAssingnment = () => {
 
     const { data, pagination } = response;
 
-    const filteredData = data.filter((person) => person._id !== personInfo._id);
+    const filteredData = data.filter((person) => person._id !== personData._id);
 
     setUsers(filteredData);
     setTotalPages(pagination.totalPages);
@@ -65,7 +65,7 @@ const SearchPersonToAssingnment = () => {
     };
 
     const request = await fetch(
-      Global.url + "persons/assing/" + personInfo._id,
+      Global.url + "persons/assing/" + personData._id,
       {
         method: "PATCH",
         body: JSON.stringify(messageUpdate),
@@ -78,15 +78,7 @@ const SearchPersonToAssingnment = () => {
 
     await request.json();
 
-    const updatedPersonInfo = {
-      ...personInfo,
-      manager: {
-        id: item._id,
-        name: item.name,
-      },
-    };
-
-    setPersonInfo(updatedPersonInfo);
+    setUpdate(true);
   };
 
   const handleChangePage = (event, value) => {

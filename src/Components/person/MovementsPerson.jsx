@@ -4,17 +4,17 @@ import usePerson from "../../hooks/usePerson";
 
 const MovementsPerson = () => {
   const [movements, setMovements] = useState([]);
-  const { personInfo } = usePerson();
+  const { personData } = usePerson();
 
   const getMovements = async () => {
     const token = localStorage.getItem("token");
 
-    if (!token || !personInfo) {
+    if (!token || !personData) {
       return;
     }
 
     try {
-      const request = await fetch(Global.url + "movements/" + personInfo._id, {
+      const request = await fetch(Global.url + "movements/" + personData._id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const MovementsPerson = () => {
 
   useEffect(() => {
     getMovements();
-  }, [personInfo]);
+  }, [personData]);
 
   return (
     <div className="container glass">
