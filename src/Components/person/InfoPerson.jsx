@@ -110,7 +110,7 @@ const InfoPerson = () => {
                 className="form-control"
                 type="text"
                 name="position"
-                value={manager.managerName}
+                value={manager.name}
                 disabled
               />
             </div>

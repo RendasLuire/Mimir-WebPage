@@ -87,7 +87,7 @@ const SearchPersonToAssingnment = () => {
 
   return (
     <div className="m-3">
-      {users.length > 1 ? (
+      {users.length > 0 ? (
         <>
           <h5>Asigna el usuario</h5>
           <div className="m-3">

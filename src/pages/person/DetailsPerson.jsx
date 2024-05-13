@@ -1,6 +1,6 @@
 import PersonIcon from "@mui/icons-material/Person";
 import usePerson from "../../hooks/usePerson";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import InfoPerson from "../../Components/person/InfoPerson";
 import MovementsPerson from "../../Components/person/MovementsPerson";
@@ -9,22 +9,14 @@ import ShowDevicesAssignment from "../../Components/person/ShowDevicesAssignment
 import { CircularProgress } from "@mui/material";
 
 const DetailsPerson = () => {
-  const { personData, setPersonData } = usePerson();
+  const { personData, setPersonData, loading } = usePerson();
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
 
-  const getPerson = async () => {
-    try {
-      setPersonData({ _id: id });
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
+  console.log(loading);
 
   useEffect(() => {
-    getPerson();
-  }, []);
+    setPersonData({ _id: id });
+  }, [id, setPersonData]);
 
   return (
     <div className="content glass m-1">

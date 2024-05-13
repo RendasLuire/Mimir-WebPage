@@ -6,13 +6,13 @@ import useAuth from "../../hooks/useAuth";
 import { CircularProgress } from "@mui/material";
 
 const ShowAssignmentInfo = () => {
-  const { personInfo, setPersonInfo } = usePerson();
+  const { personData, setUpdate } = usePerson();
   const [manager, setManager] = useState({});
   const { auth } = useAuth();
 
   const getManagerInfo = async () => {
     const token = localStorage.getItem("token");
-    const { manager } = personInfo;
+    const { manager } = personData;
 
     if (!token) {
       return false;
@@ -35,7 +35,7 @@ const ShowAssignmentInfo = () => {
 
   useEffect(() => {
     getManagerInfo();
-  }, [personInfo]);
+  }, [personData]);
 
   const handleUnassignClick = async () => {
     const token = localStorage.getItem("token");
@@ -48,7 +48,7 @@ const ShowAssignmentInfo = () => {
       userTI: auth._id,
     };
     const request = await fetch(
-      Global.url + "persons/unassing/" + personInfo._id,
+      Global.url + "persons/unassing/" + personData._id,
       {
         method: "PATCH",
         body: JSON.stringify(messageUpdate),
@@ -59,15 +59,8 @@ const ShowAssignmentInfo = () => {
       }
     );
     await request.json();
-    const updatedPersonInfo = {
-      ...personInfo,
-      manager: {
-        id: "Sin asignar",
-        name: "Sin asignar",
-      },
-    };
 
-    setPersonInfo(updatedPersonInfo);
+    setUpdate(true);
   };
 
   return (

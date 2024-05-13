@@ -6,9 +6,11 @@ const PersonContext = createContext();
 export const PersonProvider = ({ children }) => {
   const [personData, setPersonData] = useState({});
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const updateData = async () => {
     if (!personData._id) {
+      setLoading(false);
       return false;
     }
 
@@ -16,6 +18,7 @@ export const PersonProvider = ({ children }) => {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        setLoading(false);
         return false;
       }
 
@@ -32,8 +35,10 @@ export const PersonProvider = ({ children }) => {
       const { data } = response;
 
       setPersonData(data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
       return false;
     }
   };
@@ -44,7 +49,9 @@ export const PersonProvider = ({ children }) => {
   }, [personData, update]);
 
   return (
-    <PersonContext.Provider value={{ personData, setPersonData, setUpdate }}>
+    <PersonContext.Provider
+      value={{ personData, setPersonData, setUpdate, loading }}
+    >
       {children}
     </PersonContext.Provider>
   );

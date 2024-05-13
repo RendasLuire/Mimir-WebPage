@@ -41,7 +41,11 @@ const InventoryDevices = () => {
 
       const { data, pagination } = response;
 
-      setDevices(data);
+      const filteredData = data.filter(
+        (device) => device.typeDevice !== "Monitor"
+      );
+
+      setDevices(filteredData);
       setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {

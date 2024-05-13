@@ -18,14 +18,9 @@ const DetailsDevice = () => {
   const [loading, setLoading] = useState(true);
   const [validationResponsive, setvalidationResponsive] = useState(false);
 
-  const getDevice = async () => {
-    try {
-      setDeviceData({ _id: id });
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    setDeviceData({ _id: id });
+  }, [id, setDeviceData]);
 
   const iconMap = {
     Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
@@ -89,10 +84,11 @@ const DetailsDevice = () => {
   };
 
   useEffect(() => {
-    getDevice();
-    validation();
+    if (deviceData._id) {
+      validation();
+    }
     setLoading(false);
-  }, []);
+  }, [deviceData]);
 
   return (
     <div className="content glass m-1">
@@ -116,6 +112,7 @@ const DetailsDevice = () => {
                         <p className="card-text">
                           {deviceData.brand + " " + deviceData.model}
                         </p>
+                        <span className="card-text">{deviceData.details}</span>
                         <p className="card-text">{deviceData.status}</p>
                       </div>
                     </div>

@@ -8,12 +8,9 @@ const AssignmentPersonManager = () => {
 
   useEffect(() => {}, [personData]);
 
-  const managerId =
-    personData && personData.manager ? personData.manager.id : "Sin asignar";
-
   return (
     <div className="container glass">
-      {managerId !== "Sin asignar" ? (
+      {personData.manager.id !== "Sin asignar" ? (
         <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssing />
