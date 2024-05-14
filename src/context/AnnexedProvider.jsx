@@ -42,7 +42,7 @@ export const AnnexedProvider = ({ children }) => {
   useEffect(() => {
     updateData();
     setUpdate(false);
-  }, [annexedData._id, update]);
+  }, [annexedData._id, annexedData.annexedNumber, update]);
 
   return (
     <AnnexedContext.Provider

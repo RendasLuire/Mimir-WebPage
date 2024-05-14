@@ -11,7 +11,7 @@ const AddDeviceButton = ({ setUpdate }) => {
     brand: "",
     model: "",
     serialNumber: "",
-    type: "",
+    typeDevice: "",
   });
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ const AddDeviceButton = ({ setUpdate }) => {
           brand: "",
           model: "",
           serialNumber: "",
-          type: "",
+          typeDevice: "",
         });
         setLoading(false);
         setUpdate(true);
@@ -155,7 +155,7 @@ const AddDeviceButton = ({ setUpdate }) => {
                     name="typeDevice"
                     onChange={onInputChange}
                     className="form-select"
-                    value={formState.type}
+                    value={formState.typeDevice}
                   >
                     <option value={""}>Selecciona un tipo</option>
                     <option value={"Computadora"}>Computadora</option>

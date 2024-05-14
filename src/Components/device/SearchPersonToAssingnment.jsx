@@ -51,7 +51,7 @@ const SearchPersonToAssingnment = () => {
 
   useEffect(() => {
     getPersons();
-  }, [deviceData]);
+  }, [deviceData, search]);
 
   const handleSelectClick = async (item) => {
     setLoading(true);

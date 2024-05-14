@@ -23,9 +23,8 @@ const MovementsPerson = () => {
       });
 
       if (request.status == "200") {
-        const { data } = response;
-
         const response = await request.json();
+        const { data } = response;
 
         data.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()

@@ -46,7 +46,7 @@ export const DeviceProvider = ({ children }) => {
   useEffect(() => {
     updateData();
     setUpdate(false);
-  }, [deviceData._id, update]);
+  }, [deviceData._id, deviceData.serialNumber, update]);
 
   return (
     <DeviceContext.Provider

@@ -48,8 +48,8 @@ const DetailsDevice = () => {
           },
         }
       );
-      const response = await request.json();
 
+      const response = await request.json();
       setvalidationResponsive(response);
     } catch (error) {
       console.log(error);
@@ -70,7 +70,11 @@ const DetailsDevice = () => {
         </div>
       ) : (
         <>
-          {deviceData.serialNumber ? (
+          {!deviceData.serialNumber ? (
+            <div className="d-flex justify-content-center">
+              <CircularProgress />
+            </div>
+          ) : (
             <>
               <div className="card glass m-3">
                 <>
@@ -89,7 +93,7 @@ const DetailsDevice = () => {
                       </div>
                     </div>
                     <div className="col col-md-1 glass m-1 align-content-center text-center">
-                      {validationResponsive.data === false ? (
+                      {!validationResponsive.data ? (
                         <Alert variant="outlined" severity="error">
                           {validationResponsive.message}
                         </Alert>
@@ -127,10 +131,6 @@ const DetailsDevice = () => {
                 </div>
               </div>
             </>
-          ) : (
-            <div className="d-flex justify-content-center">
-              <CircularProgress />
-            </div>
           )}
         </>
       )}
