@@ -62,14 +62,14 @@ const ListAllPersons = () => {
   };
 
   return (
-    <div className="container glass mt-3">
+    <div className="m-3 glass">
       {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center my-3 glass">
+          <div className="d-flex justify-content-center align-items-center m-3 glass">
             <div className="col-6">
               <input
                 className="form-control m-3"
@@ -82,7 +82,7 @@ const ListAllPersons = () => {
               <ButtonAddPerson setUpdate={setUpdate} />
             </div>
           </div>
-          <div className="constainer glass mt-3 mb-3">
+          <div className="constainer glass m-3">
             <>
               {users.length < 1 ? (
                 <>
@@ -101,9 +101,9 @@ const ListAllPersons = () => {
                       onChange={handleChangePage}
                     />
                   </div>
-                  <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                  <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mx-3">
                     {users.map((item) => (
-                      <div className="col" key={item._id}>
+                      <div className="col-12 col-md-6 col-lg-3" key={item._id}>
                         <CardPersons user={item} />
                       </div>
                     ))}

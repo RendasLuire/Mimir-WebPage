@@ -12,8 +12,6 @@ const DetailsPerson = () => {
   const { personData, setPersonData, loading } = usePerson();
   const { id } = useParams();
 
-  console.log(loading);
-
   useEffect(() => {
     setPersonData({ _id: id });
   }, [id, setPersonData]);

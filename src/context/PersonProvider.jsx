@@ -46,7 +46,7 @@ export const PersonProvider = ({ children }) => {
   useEffect(() => {
     updateData();
     setUpdate(false);
-  }, [personData, update]);
+  }, [personData._id, update]);
 
   return (
     <PersonContext.Provider

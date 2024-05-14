@@ -6,15 +6,18 @@ const AnnexedContext = createContext();
 export const AnnexedProvider = ({ children }) => {
   const [annexedData, setAnnexedData] = useState({});
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const updateData = async () => {
     if (!annexedData._id) {
+      setLoading(false);
       return false;
     }
 
     try {
       const token = localStorage.getItem("token");
       if (!token) {
+        setLoading(false);
         return false;
       }
       const request = await fetch(Global.url + "annexeds/" + annexedData._id, {
@@ -28,8 +31,10 @@ export const AnnexedProvider = ({ children }) => {
       const { data } = response;
 
       setAnnexedData(data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
       return false;
     }
   };
@@ -37,10 +42,12 @@ export const AnnexedProvider = ({ children }) => {
   useEffect(() => {
     updateData();
     setUpdate(false);
-  }, [annexedData, update]);
+  }, [annexedData._id, update]);
 
   return (
-    <AnnexedContext.Provider value={{ annexedData, setAnnexedData, setUpdate }}>
+    <AnnexedContext.Provider
+      value={{ annexedData, setAnnexedData, setUpdate, loading }}
+    >
       {children}
     </AnnexedContext.Provider>
   );

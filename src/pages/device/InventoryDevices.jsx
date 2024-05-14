@@ -66,17 +66,17 @@ const InventoryDevices = () => {
   };
 
   return (
-    <div className="container glass mt-3">
+    <div className="glass m-3">
       {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center my-3 glass">
+          <div className="d-flex justify-content-center align-items-center m-3 glass">
             <div className="col-6">
               <input
-                className="form-control my-3"
+                className="form-control m-3"
                 value={searchTerm}
                 onChange={handleInputChange}
                 placeholder="Search"
@@ -86,7 +86,7 @@ const InventoryDevices = () => {
               <AddDeviceButton setUpdate={setUpdate} />
             </div>
           </div>
-          <div className="container glass mt-3 mb-3">
+          <div className="glass m-3">
             <>
               {devices.length > 0 ? (
                 <>
@@ -99,9 +99,9 @@ const InventoryDevices = () => {
                       onChange={handleChangePage}
                     />
                   </div>
-                  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3">
                     {devices.map((item) => (
-                      <div key={item._id} className="col">
+                      <div key={item._id} className="col-12 col-md-6 col-lg-3">
                         <CardDevice device={item} />
                       </div>
                     ))}

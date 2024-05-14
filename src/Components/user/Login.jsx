@@ -4,11 +4,13 @@ import Global from "../../helpers/Global";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import PsychologyIcon from "@mui/icons-material/Psychology";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { formState, onInputChange } = useForm({});
   const [login, setLogin] = useState({ code: null, message: "" });
   const { setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
         setLogin({ code, message });
         setAuth(data);
+        navigate("/inventory/devices");
       } else {
         setLogin({ code, message });
       }

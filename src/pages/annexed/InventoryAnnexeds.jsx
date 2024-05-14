@@ -62,17 +62,17 @@ const InventoryAnnexeds = () => {
     setUpdate(false);
   }, [searchTerm, currentPage, update]);
   return (
-    <div className="container glass mt-3">
+    <div className=" glass m-3">
       {loading ? (
         <div className="d-flex justify-content-center m-3">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center my-3 glass">
-            <div className="col-6">
+          <div className="d-flex justify-content-center align-items-center m-3 glass">
+            <div className="col-6 m-3">
               <input
-                className="form-control my-3"
+                className="form-control m-3"
                 placeholder="Search"
                 value={searchTerm}
                 onChange={handleInputChange}
@@ -82,7 +82,7 @@ const InventoryAnnexeds = () => {
               <AddAnnexedButton setUpdate={setUpdate} />
             </div>
           </div>
-          <div className="container glass my-3">
+          <div className="glass m-3">
             {annexeds.length > 0 ? (
               <>
                 <div className="d-flex justify-content-center mt-3">
@@ -94,9 +94,9 @@ const InventoryAnnexeds = () => {
                     onChange={handleChangePage}
                   />
                 </div>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mx-3">
                   {annexeds.map((item) => (
-                    <div key={item._id} className="col">
+                    <div key={item._id} className="col-12 col-md-6 col-lg-3">
                       <CardAnnexed annexed={item} />
                     </div>
                   ))}

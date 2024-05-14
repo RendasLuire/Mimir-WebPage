@@ -84,12 +84,12 @@ const AddDeviceButton = ({ setUpdate }) => {
       </div>
 
       <div
-        className="modal fade container"
+        className="modal fade"
         id="AddComputerModal"
         aria-labelledby="titleAddComputer"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-scrollable">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="titleAddComputer">

@@ -1,6 +1,6 @@
 import TextSnippetOutlined from "@mui/icons-material/TextSnippetOutlined";
 import { CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AnnexedInfo from "../../Components/annexed/AnnexedInfo";
 import useAnnexed from "../../hooks/useAnnexed";
 import { useParams } from "react-router-dom";
@@ -12,22 +12,11 @@ moment.locale("es-mx");
 
 const DetailsAnnexed = () => {
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const { annexedData, setAnnexedData } = useAnnexed({});
-
-  const getAnnexed = async () => {
-    try {
-      setAnnexedData({ _id: id });
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
+  const { annexedData, setAnnexedData, loading } = useAnnexed({});
 
   useEffect(() => {
-    getAnnexed();
-    setLoading(false);
-  }, []);
+    setAnnexedData({ _id: id });
+  }, [id, setAnnexedData]);
 
   return (
     <div className="content glass m-1">

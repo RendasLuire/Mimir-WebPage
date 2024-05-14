@@ -11,11 +11,11 @@ import { CircularProgress } from "@mui/material";
 import MGMTMonitor from "../../Components/device/MGMTMonitor";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import PrintResponsiveButton from "../../Components/device/PrintResponsiveButton";
 
 const DetailsDevice = () => {
   const { id } = useParams();
-  const { setDeviceData, deviceData } = useDevice({});
-  const [loading, setLoading] = useState(true);
+  const { setDeviceData, deviceData, loading } = useDevice({});
   const [validationResponsive, setvalidationResponsive] = useState(false);
 
   useEffect(() => {
@@ -56,38 +56,10 @@ const DetailsDevice = () => {
     }
   };
 
-  const handleCreateResponsiva = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      if (!token || !deviceData._id) {
-        throw new Error("No se encontró el token de autenticación.");
-      }
-
-      const request = await fetch(
-        Global.url + "reports/responsiveCSM/" + deviceData._id,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
-
-      const blob = await request.blob();
-      const url = window.URL.createObjectURL(blob);
-      window.open(url, "_blank");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     if (deviceData._id) {
       validation();
     }
-    setLoading(false);
   }, [deviceData]);
 
   return (
@@ -122,13 +94,7 @@ const DetailsDevice = () => {
                           {validationResponsive.message}
                         </Alert>
                       ) : (
-                        <button
-                          className="btn btn-info"
-                          onClick={handleCreateResponsiva}
-                          disabled={!validationResponsive.data}
-                        >
-                          Crear responsiva
-                        </button>
+                        <PrintResponsiveButton />
                       )}
                     </div>
                   </div>
@@ -146,7 +112,7 @@ const DetailsDevice = () => {
                       <AssignmentDevice />
                     </div>
                   </div>
-                  {deviceData.typeDevice !== "Monitor" && (
+                  {deviceData.typeDevice === "Computadora" && (
                     <div className="col m-1">
                       <div className="glass p-3">
                         <MGMTMonitor />

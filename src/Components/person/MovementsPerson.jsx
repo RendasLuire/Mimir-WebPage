@@ -9,8 +9,8 @@ const MovementsPerson = () => {
   const getMovements = async () => {
     const token = localStorage.getItem("token");
 
-    if (!token || !personData) {
-      return;
+    if (!token || !personData._id) {
+      return false;
     }
 
     try {
@@ -22,14 +22,19 @@ const MovementsPerson = () => {
         },
       });
 
-      const response = await request.json();
-      const { data } = response;
+      if (request.status == "200") {
+        const { data } = response;
 
-      data.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
+        const response = await request.json();
 
-      setMovements(data);
+        data.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+
+        setMovements(data);
+      } else {
+        setMovements([]);
+      }
     } catch (error) {
       console.error("Error fetching movements:", error.message);
       setMovements([]);

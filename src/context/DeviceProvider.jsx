@@ -6,9 +6,11 @@ const DeviceContext = createContext();
 export const DeviceProvider = ({ children }) => {
   const [deviceData, setDeviceData] = useState({});
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const updateData = async () => {
     if (!deviceData._id) {
+      setLoading(false);
       return false;
     }
 
@@ -16,6 +18,7 @@ export const DeviceProvider = ({ children }) => {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        setLoading(false);
         return false;
       }
 
@@ -32,8 +35,10 @@ export const DeviceProvider = ({ children }) => {
       const { data } = response;
 
       setDeviceData(data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
       return false;
     }
   };
@@ -41,10 +46,12 @@ export const DeviceProvider = ({ children }) => {
   useEffect(() => {
     updateData();
     setUpdate(false);
-  }, [deviceData, update]);
+  }, [deviceData._id, update]);
 
   return (
-    <DeviceContext.Provider value={{ deviceData, setDeviceData, setUpdate }}>
+    <DeviceContext.Provider
+      value={{ deviceData, setDeviceData, setUpdate, loading }}
+    >
       {children}
     </DeviceContext.Provider>
   );
