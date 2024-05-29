@@ -24,7 +24,7 @@ const DetailsAnnexed = () => {
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
-      ) : !annexedData.annexedNumber ? (
+      ) : !annexedData.number ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
@@ -39,7 +39,7 @@ const DetailsAnnexed = () => {
               </div>
               <div className="col glass m-1">
                 <div className="card-body">
-                  <h5 className="card-title">{annexedData.annexedNumber}</h5>
+                  <h5 className="card-title">{annexedData.number}</h5>
                   <p className="card-text">
                     {moment(annexedData.startDate).format("L")}
                   </p>

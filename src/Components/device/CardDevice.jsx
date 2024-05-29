@@ -5,16 +5,16 @@ import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import { Link } from "react-router-dom";
 
 const CardDevice = ({ device }) => {
-  const { _id, hostname, model, user, brand, status, typeDevice } = device;
+  const { _id, hostname, model, person, brand, status, typeDevice } = device;
 
   const deviceIconMap = {
-    Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
 
   const deviceColorMap = {
-    Activo: "success",
+    available: "success",
     Guardado: "secondary",
   };
 
@@ -35,7 +35,7 @@ const CardDevice = ({ device }) => {
           <h5 className="card-title">{hostname}</h5>
           <p className="card-text">{`${brand} ${model}`}</p>
           <p className="card-text">{`${device.serialNumber}`}</p>
-          <p className="card-text">{`User: ${user.name}`}</p>
+          <p className="card-text">{`User: ${person.name}`}</p>
         </div>
       </Link>
     </>

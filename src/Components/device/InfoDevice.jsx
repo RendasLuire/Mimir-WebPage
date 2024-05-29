@@ -49,7 +49,28 @@ const InfoDevice = () => {
     user,
   } = formState;
 
-  useEffect(() => {}, [deviceData]);
+  useEffect(() => {
+    setFormState({
+      hostname: deviceData.hostname || "",
+      brand: deviceData.brand || "",
+      model: deviceData.model || "",
+      serialNumber: deviceData.serialNumber || "",
+      details: deviceData.details || "",
+      status: deviceData.status || "",
+      annexed: {
+        number: deviceData.annexed.number || "",
+      },
+      departament: deviceData.departament || "",
+      ubication: deviceData.ubication || "",
+      ip: deviceData.ip || "",
+      bussinesUnit: deviceData.bussinesUnit || "",
+      custom: deviceData.custom || "",
+      headphones: deviceData.headphones || "",
+      adaptVGA: deviceData.adaptVGA || "",
+      mouse: deviceData.mouse || "",
+      user: deviceData.user || "",
+    });
+  }, [deviceData, setFormState]);
 
   const handleEditClick = (e) => {
     e.preventDefault();
@@ -59,17 +80,25 @@ const InfoDevice = () => {
   const handleSaveClick = async (e) => {
     e.preventDefault();
 
-    const changesMade = Object.keys(formState).some(
-      (key) => formState[key] !== deviceData[key]
-    );
+    const isEqual = (a, b) => {
+      if (typeof a !== "object" || typeof b !== "object") return a === b;
+      if (Object.keys(a).length !== Object.keys(b).length) return false;
+      for (const key in a) {
+        if (!isEqual(a[key], b[key])) return false;
+      }
+      return true;
+    };
+
+    const changesMade = !isEqual(formState, deviceData);
 
     if (!changesMade) {
       setIsEditing(false);
+      console.log("nada cambio");
       return;
     }
 
     const token = localStorage.getItem("token");
-    const computerToSave = { ...formState, userTI: auth._id };
+    const computerToSave = { ...formState, user: auth._id };
 
     const request = await fetch(Global.url + "device/" + deviceData._id, {
       method: "PATCH",

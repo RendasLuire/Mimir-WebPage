@@ -5,13 +5,13 @@ import ShowAssignmentInfo from "./ShowAssignmentInfo";
 
 const AssignmentDevice = () => {
   const { deviceData } = useDevice();
-  const { user } = deviceData;
+  const { person } = deviceData;
 
   useEffect(() => {}, [deviceData]);
 
   return (
     <div className="container glass">
-      {user.id !== "Sin asignar" ? (
+      {person.id !== "available" ? (
         <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssingnment />

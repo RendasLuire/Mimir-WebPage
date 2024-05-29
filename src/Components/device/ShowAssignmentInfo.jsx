@@ -14,13 +14,13 @@ const ShowAssignmentInfo = () => {
   const getPerson = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { user } = deviceData;
+      const { person } = deviceData;
 
-      if (!token || !deviceData || !user.id) {
+      if (!token || !deviceData || !person.id) {
         return;
       }
 
-      const request = await fetch(Global.url + "persons/" + user.id, {
+      const request = await fetch(Global.url + "persons/" + person.id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const ShowAssignmentInfo = () => {
                   <label className="card-title">Posicion:</label>
                   <p>{personInfo.position}</p>
                   <h5 className="card-title">Departamento:</h5>
-                  <p>{personInfo.department}</p>
+                  <p>{personInfo.department.name}</p>
                 </div>
               ) : (
                 <div className="d-flex justify-content-center">

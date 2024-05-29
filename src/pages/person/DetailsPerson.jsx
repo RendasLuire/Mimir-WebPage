@@ -39,7 +39,7 @@ const DetailsPerson = () => {
                 <div className="card-body">
                   <h5 className="card-title">{personData.name}</h5>
                   <p className="card-text">{personData.position}</p>
-                  <p className="card-text">{personData.department}</p>
+                  <p className="card-text">{personData.department.name}</p>
                 </div>
               </div>
             </div>

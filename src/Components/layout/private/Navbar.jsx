@@ -1,71 +1,87 @@
 import { NavLink } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PsychologyIcon from "@mui/icons-material/Psychology";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import DevicesIcon from "@mui/icons-material/Devices";
+import GroupIcon from "@mui/icons-material/Group";
+import FilePresentIcon from "@mui/icons-material/FilePresent";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 const Navbar = () => {
-  const { auth } = useAuth();
   return (
-    <div className="glass">
-      <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid">
+    <div className="d-flex">
+      <nav className="navbar glass flex-column vh-100">
+        <div className="d-flex flex-column align-items-center mb-3">
           <PsychologyIcon />
-          <span className="navbar-brand mb-0 h1">MIMIR</span>
-          <div className="collapse navbar-collapse">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li>
-                <NavLink to={"/inventory/dashboard"} className={"nav-link"}>
-                  Tablero
-                </NavLink>
+          <span className="navbar-brand mb-0 h1 ms-2">MIMIR</span>
+        </div>
+        <ul className="navbar-nav flex-column mb-auto">
+          <li className="nav-item">
+            <NavLink to="/inventory/dashboard" className="nav-link">
+              <SpaceDashboardIcon sx={{ width: 50, height: 50 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/dashboard" className="nav-link">
+              <TaskAltIcon sx={{ width: 50, height: 50 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/devices" className="nav-link">
+              <DevicesIcon sx={{ width: 50, height: 50 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/users" className="nav-link">
+              <GroupIcon sx={{ width: 50, height: 50 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/annexeds" className="nav-link">
+              <FilePresentIcon sx={{ width: 50, height: 50 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/warehouses" className="nav-link">
+              <WarehouseIcon sx={{ width: 50, height: 50 }} />
+            </NavLink>
+          </li>
+        </ul>
+        <div className="dropup mt-auto">
+          <div className="d-flex align-items-center">
+            <button
+              className="btn btn-secondary dropdown-toggle ms-2"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <AccountCircleOutlinedIcon />
+            </button>
+            <ul
+              className="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <li className="dropdown-item">
+                <SettingsOutlinedIcon />
+                <span className="ms-2">Configuración</span>
               </li>
               <li>
-                <NavLink to="/inventory/devices" className={"nav-link"}>
-                  Inventario
-                </NavLink>
+                <hr className="dropdown-divider" />
               </li>
-              <li>
-                <NavLink to={"/inventory/users"} className={"nav-link"}>
-                  Usuarios
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={"/inventory/annexeds"} className={"nav-link"}>
-                  Anexos
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={"/inventory/warehouses"} className={"nav-link"}>
-                  Almacenes
+              <li className="dropdown-item">
+                <LogoutOutlinedIcon />
+                <NavLink
+                  to="/inventory/logout"
+                  className="nav-link d-inline p-0"
+                >
+                  Cerrar Sesión
                 </NavLink>
               </li>
             </ul>
-            <div className="d-flex dropdown mx-3">
-              <AccountCircleOutlinedIcon />
-              <label
-                className="nav-link dropdown-toggle mx-1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {auth.name}
-              </label>
-              <ul className="dropdown-menu glass m-1 p-1">
-                <li className="dropdown-item">
-                  <SettingsOutlinedIcon />
-                  <label>Configuracion</label>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="dropdown-item">
-                  <LogoutOutlinedIcon />
-                  <NavLink to={"/inventory/logout"} className="btn">
-                    Cerrar Sesion
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </nav>

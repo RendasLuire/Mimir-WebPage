@@ -16,16 +16,16 @@ const PrivateLayout = () => {
   }
 
   return (
-    <>
+    <div className="d-flex">
       <Navbar />
-      <section className="layout_content">
+      <div className="flex-grow-1 p-3 layout_content">
         {auth._id ? (
           <Outlet />
         ) : (
           <Navigate to="/login" state={{ from: location }} />
         )}
-      </section>
-    </>
+      </div>
+    </div>
   );
 };
 

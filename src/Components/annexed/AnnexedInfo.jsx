@@ -12,7 +12,7 @@ const AnnexedInfo = () => {
   const { annexedData, setUpdate } = useAnnexed();
   const { auth } = useAuth();
   const { formState, onInputChange } = useForm({
-    annexedNumber: annexedData.annexedNumber,
+    number: annexedData.number,
     bill: annexedData.bill,
     startDate: moment(annexedData.startDate).format("YYYY-MM-DD"),
     endDate: moment(annexedData.endDate).format("YYYY-MM-DD"),
@@ -36,7 +36,7 @@ const AnnexedInfo = () => {
     setLoading(true);
     try {
       if (
-        formState.annexedNumber === annexedData.annexedNumber &&
+        formState.number === annexedData.number &&
         formState.bill === annexedData.bill &&
         formState.startDate ===
           moment(annexedData.startDate).format("YYYY-MM-DD") &&
@@ -95,15 +95,15 @@ const AnnexedInfo = () => {
             </Alert>
           )}
           <div className="mt-1">
-            <label htmlFor="annexedNumber" className="form-label">
+            <label htmlFor="number" className="form-label">
               Anexo:
             </label>
             <input
-              id="annexedNumber"
+              id="number"
               type="text"
-              name="annexedNumber"
+              name="number"
               className="form-control"
-              value={formState.annexedNumber}
+              value={formState.number}
               onChange={onInputChange}
               disabled={!isEditing}
             />

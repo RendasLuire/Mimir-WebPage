@@ -23,9 +23,9 @@ const DetailsDevice = () => {
   }, [id, setDeviceData]);
 
   const iconMap = {
-    Computadora: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    Impresora: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    Monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
   };
   const typeDevice = deviceData.typeDevice;
   const icon = iconMap[typeDevice] || null;
@@ -116,7 +116,7 @@ const DetailsDevice = () => {
                       <AssignmentDevice />
                     </div>
                   </div>
-                  {deviceData.typeDevice === "Computadora" && (
+                  {deviceData.typeDevice === "computer" && (
                     <div className="col m-1">
                       <div className="glass p-3">
                         <MGMTMonitor />

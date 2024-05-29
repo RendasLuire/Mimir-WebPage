@@ -8,7 +8,7 @@ import Pagination from "@mui/material/Pagination";
 const SearchPersonToAssingnment = () => {
   const { personData, setUpdate } = usePerson();
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -39,7 +39,7 @@ const SearchPersonToAssingnment = () => {
 
     const filteredData = data.filter((person) => person._id !== personData._id);
 
-    setUsers(filteredData);
+    setPersons(filteredData);
     setTotalPages(pagination.totalPages);
     setLoading(false);
   };
@@ -50,7 +50,7 @@ const SearchPersonToAssingnment = () => {
 
   useEffect(() => {
     getPersons();
-  }, [users, currentPage, searchTerm]);
+  }, [persons, currentPage, searchTerm]);
 
   const handleSelectClick = async (item) => {
     const token = localStorage.getItem("token");
@@ -87,7 +87,7 @@ const SearchPersonToAssingnment = () => {
 
   return (
     <div className="m-3">
-      {users.length > 0 ? (
+      {persons.length > 0 ? (
         <>
           <h5>Asigna el usuario</h5>
           <div className="m-3">
@@ -127,7 +127,7 @@ const SearchPersonToAssingnment = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users.map((item) => (
+                      {persons.map((item) => (
                         <tr
                           className="glass"
                           key={item._id}
@@ -135,7 +135,7 @@ const SearchPersonToAssingnment = () => {
                         >
                           <td>{item.name}</td>
                           <td>{item.position}</td>
-                          <td>{item.department}</td>
+                          <td>{item.department.name}</td>
                         </tr>
                       ))}
                     </tbody>

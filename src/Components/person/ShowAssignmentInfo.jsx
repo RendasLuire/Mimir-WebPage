@@ -77,7 +77,7 @@ const ShowAssignmentInfo = () => {
               <h5 className="card-title">Posicion:</h5>
               <p className="card-text">{manager.position}</p>
               <h5 className="card-title">Departamento:</h5>
-              <p className="card-text">{manager.department}</p>
+              <p className="card-text">{manager.department.name}</p>
             </div>
           ) : (
             <div className="d-flex justify-content-center">

@@ -14,7 +14,7 @@ const CardAnnexed = ({ annexed }) => {
         <TextSnippetOutlinedIcon sx={{ width: 150, height: 150 }} />
       </div>
       <div className="card-body text-center">
-        <h5 className="card-title">{annexed.annexedNumber}</h5>
+        <h5 className="card-title">{annexed.number}</h5>
         <p className="card-text">{`Dispositivos: ${annexed.devices.length}`}</p>
         <p className="card-text">{`Fecha Inicio: ${moment(
           annexed.startDate
