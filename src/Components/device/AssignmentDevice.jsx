@@ -10,7 +10,7 @@ const AssignmentDevice = () => {
   useEffect(() => {}, [deviceData]);
 
   return (
-    <div className="container glass">
+    <div className="container">
       {person.id !== "available" ? (
         <ShowAssignmentInfo />
       ) : (

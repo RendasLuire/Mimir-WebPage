@@ -1,0 +1,139 @@
+import useDevice from "../../hooks/useDevice";
+import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
+import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import PrintResponsiveButton from "../../Components/device/PrintResponsiveButton";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { useEffect, useState } from "react";
+import { Alert } from "@mui/material";
+import Global from "../../helpers/Global";
+
+const BarInfoDevice = () => {
+  const { deviceData } = useDevice({});
+  const [validationResponsive, setvalidationResponsive] = useState({
+    data: false,
+  });
+  const iconMap = {
+    computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
+  };
+  const typeDevice = deviceData.typeDevice;
+  const icon = iconMap[typeDevice] || null;
+
+  const validation = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData._id) {
+        throw new Error("No se encontró el token de autenticación.");
+      }
+
+      const request = await fetch(
+        Global.url + "reports/validationInfo/" + deviceData._id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      const response = await request.json();
+      setvalidationResponsive(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (deviceData._id) {
+      validation();
+    }
+  }, [deviceData]);
+
+  return (
+    <div className="glass card">
+      <div className="row g-0">
+        <div className="col-md-1 m-1">
+          <div className="img-fluid rounded-start">{icon}</div>
+        </div>
+        <div className="col m-1">
+          <div className="card-body">
+            <h5 className="card-title">{deviceData.hostname}</h5>
+            <p className="card-text">
+              {deviceData.brand + " " + deviceData.model}
+            </p>
+          </div>
+        </div>
+        <div className="col m-1 pt-3">
+          <div className="card-body glass d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column px-2">
+              <label className="card-title">{deviceData.status}</label>
+              <p className="card-text">
+                <small className="text-body-secondary">status</small>
+              </p>
+            </div>
+            <button className="btn">
+              <BorderColorIcon />
+            </button>
+          </div>
+        </div>
+        <div className="col m-1 pt-3">
+          <div className="card-body glass d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column px-2">
+              <label className="card-title">{deviceData.ubication}</label>
+              <p className="card-text">
+                <small className="text-body-secondary">ubication</small>
+              </p>
+            </div>
+            <button className="btn">
+              <BorderColorIcon />
+            </button>
+          </div>
+        </div>
+        <div className="col m-1 pt-3">
+          <div className="card-body glass d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column px-2">
+              <label className="card-title">{deviceData.person.name}</label>
+              <p className="card-text">
+                <small className="text-body-secondary">person</small>
+              </p>
+            </div>
+            <button className="btn">
+              <BorderColorIcon />
+            </button>
+          </div>
+        </div>
+        <div className="col m-1 pt-3">
+          <div className="card-body glass d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column px-2">
+              <label className="card-title">
+                {validationResponsive.data.toString()}
+              </label>
+              <p className="card-text">
+                <small className="text-body-secondary">responsive</small>
+              </p>
+            </div>
+            <button className="btn" disabled={!validationResponsive.data}>
+              <BorderColorIcon />
+            </button>
+          </div>
+        </div>
+        <div className="col m-1 pt-3">
+          <div className="card-body glass d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column px-2">
+              <label className="card-title">Edit</label>
+            </div>
+            <button className="btn">
+              <BorderColorIcon />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BarInfoDevice;

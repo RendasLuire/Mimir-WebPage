@@ -111,8 +111,8 @@ const ShowInfoMonitor = () => {
           <CircularProgress />
         </div>
       ) : (
-        <div className="card w-100 glass m-1 align-items-center">
-          <div className="glass m-2">
+        <div className="card glass w-100 m-1 align-items-center">
+          <div className=" m-2">
             <MonitorOutlined sx={{ width: 150, height: 150 }} />
           </div>
           <div className="card-body text-center">
