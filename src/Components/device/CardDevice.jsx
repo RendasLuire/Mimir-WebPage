@@ -15,11 +15,17 @@ const CardDevice = ({ device }) => {
 
   const deviceColorMap = {
     available: "success",
-    Guardado: "secondary",
+    assigned: "secondary",
+    replacement_requested: "primary",
+    lost: "disabled",
+    broken: "disabled",
+    under_repair: "disabled",
   };
 
+  const defaultColor = "disabled";
+
   const icon = deviceIconMap[typeDevice] || null;
-  const color = deviceColorMap[status] || null;
+  const color = deviceColorMap[status] || defaultColor;
 
   return (
     <>

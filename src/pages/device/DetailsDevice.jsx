@@ -29,29 +29,11 @@ const DetailsDevice = () => {
             </div>
           ) : (
             <>
-              <div className="m-3">
+              <div className="m-1">
                 <BarInfoDevice />
               </div>
               <div className="m-3">
-                <div className="row g-0">
-                  <div className="col m-1">
-                    <div className="p-3">
-                      <InfoDevice />
-                    </div>
-                  </div>
-                  <div className="col m-1">
-                    <div className="p-3">
-                      <AssignmentDevice />
-                    </div>
-                  </div>
-                  {deviceData.typeDevice === "computer" && (
-                    <div className="col m-1">
-                      <div className="p-3">
-                        <MGMTMonitor />
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <div className="row g-0"></div>
               </div>
             </>
           )}

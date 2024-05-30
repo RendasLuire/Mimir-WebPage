@@ -66,7 +66,7 @@ const InventoryDevices = () => {
   };
 
   return (
-    <div className="glass m-3">
+    <div className="m-3">
       {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />

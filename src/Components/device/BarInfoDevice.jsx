@@ -2,11 +2,11 @@ import useDevice from "../../hooks/useDevice";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import PrintResponsiveButton from "../../Components/device/PrintResponsiveButton";
+import PrintIcon from "@mui/icons-material/Print";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useEffect, useState } from "react";
-import { Alert } from "@mui/material";
 import Global from "../../helpers/Global";
+import StatusInfoCard from "./StatusInfoCard";
 
 const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
@@ -68,17 +68,7 @@ const BarInfoDevice = () => {
           </div>
         </div>
         <div className="col m-1 pt-3">
-          <div className="card-body glass d-flex justify-content-between align-items-center">
-            <div className="d-flex flex-column px-2">
-              <label className="card-title">{deviceData.status}</label>
-              <p className="card-text">
-                <small className="text-body-secondary">status</small>
-              </p>
-            </div>
-            <button className="btn">
-              <BorderColorIcon />
-            </button>
-          </div>
+          <StatusInfoCard />
         </div>
         <div className="col m-1 pt-3">
           <div className="card-body glass d-flex justify-content-between align-items-center">
@@ -117,7 +107,7 @@ const BarInfoDevice = () => {
               </p>
             </div>
             <button className="btn" disabled={!validationResponsive.data}>
-              <BorderColorIcon />
+              <PrintIcon />
             </button>
           </div>
         </div>
