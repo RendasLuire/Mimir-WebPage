@@ -7,6 +7,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import StatusInfoCard from "./StatusInfoCard";
+import UbicationCard from "./UbicationCard";
 
 const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
@@ -71,17 +72,7 @@ const BarInfoDevice = () => {
           <StatusInfoCard />
         </div>
         <div className="col m-1 pt-3">
-          <div className="card-body glass d-flex justify-content-between align-items-center">
-            <div className="d-flex flex-column px-2">
-              <label className="card-title">{deviceData.ubication}</label>
-              <p className="card-text">
-                <small className="text-body-secondary">ubication</small>
-              </p>
-            </div>
-            <button className="btn">
-              <BorderColorIcon />
-            </button>
-          </div>
+          <UbicationCard />
         </div>
         <div className="col m-1 pt-3">
           <div className="card-body glass d-flex justify-content-between align-items-center">

@@ -1,45 +1,13 @@
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useDevice from "../../hooks/useDevice";
-import { useEffect, useState } from "react";
-import Global from "../../helpers/Global";
 import useForm from "../../hooks/useForm";
-import { CircularProgress } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
+import Global from "../../helpers/Global";
 
-const StatusInfoCard = () => {
+const UbicationCard = () => {
   const { deviceData, setUpdate } = useDevice({});
-  const [listSettings, setListSettings] = useState([]);
   const { formState, onInputChange } = useForm({});
   const { auth } = useAuth();
-
-  const getStatus = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        return false;
-      }
-
-      const request = await fetch(`${Global.url}settings/statusDevice`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-
-      const response = await request.json();
-      const { data } = response;
-
-      setListSettings(data);
-    } catch (error) {
-      console.log("Error:" + error);
-    }
-  };
-
-  useEffect(() => {
-    getStatus();
-  }, [deviceData]);
 
   const handleClickSave = async () => {
     if (!formState || Object.keys(formState).length === 0) {
@@ -55,6 +23,8 @@ const StatusInfoCard = () => {
 
       const messageToSend = { ...formState, user: auth._id };
 
+      console.log(messageToSend);
+
       const request = await fetch(Global.url + "device/" + deviceData._id, {
         method: "PATCH",
         body: JSON.stringify(messageToSend),
@@ -64,6 +34,8 @@ const StatusInfoCard = () => {
         },
       });
       await request.json();
+
+      console.log(request.message);
 
       if (request.ok) {
         setUpdate(true);
@@ -76,31 +48,31 @@ const StatusInfoCard = () => {
   return (
     <div className="card-body glass d-flex justify-content-between align-items-center">
       <div className="d-flex flex-column px-2">
-        <label className="card-title">{deviceData.status}</label>
+        <label className="card-title">{deviceData.ubication}</label>
         <p className="card-text">
-          <small className="text-body-secondary">status</small>
+          <small className="text-body-secondary">ubication</small>
         </p>
       </div>
       <button
-        type="button"
         className="btn"
+        type="button"
         data-bs-toggle="modal"
-        data-bs-target="#listStatus"
+        data-bs-target="#inputUbication"
       >
         <BorderColorIcon />
       </button>
       <div
         className="modal fade"
-        id="listStatus"
+        id="inputUbication"
         tabIndex={"-1"}
-        aria-labelledby="listStatus"
+        aria-labelledby="inputUbication"
         aria-hidden={"true"}
       >
         <div className="modal-dialog">
           <div className="modal-content glass">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="listStatus">
-                Selecciona un status:
+              <h1 className="modal-title fs-5" id="inputUbication">
+                Ingresa la ubicacion
               </h1>
               <button
                 type="button"
@@ -110,29 +82,19 @@ const StatusInfoCard = () => {
               ></button>
             </div>
             <div className="modal-body">
-              {listSettings ? (
-                <select
-                  className="form-select"
-                  name="status"
-                  id="status"
-                  onChange={onInputChange}
-                >
-                  {listSettings.map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <div className="d-flex justify-content-center">
-                  <CircularProgress />
-                </div>
-              )}
+              <input
+                type="text"
+                className="form-control"
+                id="ubication"
+                name="ubication"
+                value={deviceData.ubication}
+                onChange={onInputChange}
+              />
             </div>
             <div className="modal-footer">
               <button
-                type="button"
                 className="btn btn-secondary"
+                type="button"
                 data-bs-dismiss="modal"
               >
                 Close
@@ -152,4 +114,4 @@ const StatusInfoCard = () => {
   );
 };
 
-export default StatusInfoCard;
+export default UbicationCard;
