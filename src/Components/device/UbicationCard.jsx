@@ -48,9 +48,9 @@ const UbicationCard = () => {
   return (
     <div className="card-body glass d-flex justify-content-between align-items-center">
       <div className="d-flex flex-column px-2">
-        <label className="card-title">{deviceData.ubication}</label>
+        <label className="card-title">{deviceData.phisicRef}</label>
         <p className="card-text">
-          <small className="text-body-secondary">ubication</small>
+          <small className="text-body-secondary">phisic ref</small>
         </p>
       </div>
       <button
@@ -82,6 +82,14 @@ const UbicationCard = () => {
               ></button>
             </div>
             <div className="modal-body">
+              <input
+                type="text"
+                className="form-control"
+                id="ubication"
+                name="ubication"
+                value={deviceData.phisicRef}
+                onChange={onInputChange}
+              />
               <input
                 type="text"
                 className="form-control"
