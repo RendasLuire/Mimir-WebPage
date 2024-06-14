@@ -8,9 +8,9 @@ const CardDevice = ({ device }) => {
   const { _id, hostname, model, person, brand, status, typeDevice } = device;
 
   const deviceIconMap = {
-    computer: <ComputerOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    printer: <LocalPrintshopOutlinedIcon sx={{ width: 150, height: 150 }} />,
-    monitor: <MonitorOutlinedIcon sx={{ width: 150, height: 150 }} />,
+    computer: <ComputerOutlinedIcon sx={{ width: 100, height: 100 }} />,
+    printer: <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 100, height: 100 }} />,
   };
 
   const deviceColorMap = {

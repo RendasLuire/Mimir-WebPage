@@ -101,7 +101,7 @@ const InventoryDevices = () => {
                   </div>
                   <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3">
                     {devices.map((item) => (
-                      <div key={item._id} className="col-12 col-md-6 col-lg-3">
+                      <div key={item._id} className="col-12 col-md-4 col-lg-2">
                         <CardDevice device={item} />
                       </div>
                     ))}

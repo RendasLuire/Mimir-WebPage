@@ -21,32 +21,32 @@ const Navbar = () => {
         <ul className="navbar-nav flex-column mb-auto">
           <li className="nav-item">
             <NavLink to="/inventory/dashboard" className="nav-link">
-              <SpaceDashboardIcon sx={{ width: 50, height: 50 }} />
+              <SpaceDashboardIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/inventory/dashboard" className="nav-link">
-              <TaskAltIcon sx={{ width: 50, height: 50 }} />
+              <TaskAltIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/inventory/devices" className="nav-link">
-              <DevicesIcon sx={{ width: 50, height: 50 }} />
+              <DevicesIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/inventory/users" className="nav-link">
-              <GroupIcon sx={{ width: 50, height: 50 }} />
+              <GroupIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/inventory/annexeds" className="nav-link">
-              <FilePresentIcon sx={{ width: 50, height: 50 }} />
+              <FilePresentIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/inventory/warehouses" className="nav-link">
-              <WarehouseIcon sx={{ width: 50, height: 50 }} />
+              <WarehouseIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
         </ul>
