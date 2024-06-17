@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import StatusInfoCard from "./StatusInfoCard";
 import UbicationCard from "./UbicationCard";
+import PersonAssingCard from "./PersonAssingCard";
 
 const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
@@ -75,17 +76,7 @@ const BarInfoDevice = () => {
           <UbicationCard />
         </div>
         <div className="col m-1 py-3">
-          <div className="card-body glass d-flex justify-content-between align-items-center">
-            <div className="d-flex flex-column px-2">
-              <label className="card-title">{deviceData.person.name}</label>
-              <p className="card-text">
-                <small className="text-body-secondary">person</small>
-              </p>
-            </div>
-            <button className="btn">
-              <BorderColorIcon />
-            </button>
-          </div>
+          <PersonAssingCard />
         </div>
         <div className="col m-1 py-3">
           <div className="card-body glass d-flex justify-content-between align-items-center">
