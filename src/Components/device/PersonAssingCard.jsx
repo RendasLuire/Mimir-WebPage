@@ -1,16 +1,18 @@
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useDevice from "../../hooks/useDevice";
 import { useEffect, useState } from "react";
-import { CircularProgress, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 import Global from "../../helpers/Global";
+import useAuth from "../../hooks/useAuth";
 
 const PersonAssingCard = () => {
-  const { deviceData } = useDevice({});
+  const { deviceData, setUpdate } = useDevice({});
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const usersPerPage = 5;
+  const { auth } = useAuth();
 
   const handleInputChange = (event) => {
     setSearch(event.target.value);
@@ -52,6 +54,38 @@ const PersonAssingCard = () => {
   useEffect(() => {
     getPerson();
   }, [deviceData, search]);
+
+  const handleSelectClick = async (item) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData || !deviceData._id) {
+        return false;
+      }
+
+      const messageUpdate = {
+        person: item._id,
+        user: auth._id,
+      };
+
+      const request = await fetch(
+        `${Global.url}device/assing/${deviceData._id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdate),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      await request.json();
+
+      setUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="card-body glass d-flex justify-content-between align-items-center">
@@ -117,7 +151,11 @@ const PersonAssingCard = () => {
                   </thead>
                   <tbody>
                     {persons.map((item) => (
-                      <tr className="glass" key={item._id}>
+                      <tr
+                        className="glass"
+                        key={item._id}
+                        onClick={() => handleSelectClick(item)}
+                      >
                         <td>{item.name}</td>
                         <td>{item.position}</td>
                       </tr>

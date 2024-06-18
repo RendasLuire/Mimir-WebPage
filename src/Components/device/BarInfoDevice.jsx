@@ -3,12 +3,13 @@ import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import PrintIcon from "@mui/icons-material/Print";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
+
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import StatusInfoCard from "./StatusInfoCard";
 import UbicationCard from "./UbicationCard";
 import PersonAssingCard from "./PersonAssingCard";
+import EditInfoCard from "./EditInfoCard";
 
 const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
@@ -94,14 +95,7 @@ const BarInfoDevice = () => {
           </div>
         </div>
         <div className="col m-1 py-3">
-          <div className="card-body glass d-flex justify-content-between align-items-center">
-            <div className="d-flex flex-column px-2">
-              <label className="card-title">Edit</label>
-            </div>
-            <button className="btn">
-              <BorderColorIcon />
-            </button>
-          </div>
+          <EditInfoCard />
         </div>
       </div>
     </div>
