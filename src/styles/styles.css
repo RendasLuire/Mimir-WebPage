@@ -1,11 +1,11 @@
 body {
- background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 0%, #9dcaff 100%);
+ background: rgb(115,171,255);
+background: linear-gradient(0deg, rgba(115,171,255,1) 0%, rgba(151,201,255,1) 50%, rgba(215,235,255,1) 100%);
 }
 
  .glass {
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.44);
+  background: rgba(255, 255, 255, 0.51);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 1);
  }
