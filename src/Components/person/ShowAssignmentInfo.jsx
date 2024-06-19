@@ -14,7 +14,7 @@ const ShowAssignmentInfo = () => {
     const token = localStorage.getItem("token");
     const { manager } = personData;
 
-    if (!token) {
+    if (!token || !manager) {
       return false;
     }
 

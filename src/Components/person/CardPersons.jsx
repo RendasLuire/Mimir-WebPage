@@ -20,7 +20,7 @@ const CardPersons = ({ user }) => {
         <div className="card-body text-center">
           <h5 className="card-title">{name}</h5>
           <p className="card-text">{position}</p>
-          <p className="card-text">{department.name}</p>
+          <p className="card-text">{department?.name}</p>
           <p className="card-text">{managerName}</p>
         </div>
       </Link>

@@ -10,7 +10,7 @@ const AssignmentPersonManager = () => {
 
   return (
     <div className="container glass">
-      {personData.manager.id !== "Sin asignar" ? (
+      {personData.manager.name !== "unassigned" ? (
         <ShowAssignmentInfo />
       ) : (
         <SearchPersonToAssing />

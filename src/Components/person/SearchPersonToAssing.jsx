@@ -135,7 +135,7 @@ const SearchPersonToAssingnment = () => {
                         >
                           <td>{item.name}</td>
                           <td>{item.position}</td>
-                          <td>{item.department.name}</td>
+                          <td>{item.department?.name}</td>
                         </tr>
                       ))}
                     </tbody>

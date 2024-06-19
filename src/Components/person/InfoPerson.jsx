@@ -10,7 +10,7 @@ const InfoPerson = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { formState, onInputChange } = useForm({
     name: personData?.name || "",
-    department: personData?.department.name || "",
+    department: personData?.department?.name || "",
     position: personData?.position || "",
     manager: personData?.manager || "",
   });

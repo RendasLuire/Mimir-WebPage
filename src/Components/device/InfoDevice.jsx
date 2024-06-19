@@ -296,6 +296,9 @@ const InfoDevice = () => {
             </div>
             <div className="mb-1">
               <div className="form-check form-check-inline">
+                <label className="form-check-label" htmlFor="custom">
+                  Personalizado
+                </label>
                 <input
                   className="form-check-input"
                   type="radio"
@@ -305,9 +308,6 @@ const InfoDevice = () => {
                   disabled={!isEditing}
                   onChange={() => handleCustomChange(true)}
                 />
-                <label className="form-check-label" htmlFor="custom">
-                  Personalizado
-                </label>
               </div>
               <div className="form-check form-check-inline">
                 <input
