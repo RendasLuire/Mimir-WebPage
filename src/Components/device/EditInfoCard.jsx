@@ -3,10 +3,22 @@ import useDevice from "../../hooks/useDevice";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
+import { useEffect } from "react";
 
 const EditInfoCard = () => {
-  const { deviceData, setUpdate, setFormState } = useDevice({});
-  const { formState, onInputChange } = useForm(deviceData);
+  const { deviceData, setUpdate } = useDevice({});
+  const { formState, onInputChange, setFormState } = useForm({
+    hostname: deviceData.hostname,
+    serialNumber: deviceData.serialNumber,
+    brand: deviceData.brand,
+    model: deviceData.model,
+    details: deviceData.details,
+    annexed: deviceData.annexed.number,
+    custom: deviceData.custom,
+    headphones: deviceData.headphones,
+    adaptVGA: deviceData.adaptVGA,
+    mouse: deviceData.mouse,
+  });
   const { auth } = useAuth();
 
   const handleCustomChange = (newValue) => {
@@ -39,9 +51,14 @@ const EditInfoCard = () => {
     await request.json();
 
     if (request.ok) {
-      setFormState({});
+      console.log("Se actualiza");
+      setUpdate(true);
     }
   };
+
+  useEffect(() => {
+    console.log(formState);
+  }, [deviceData]);
 
   return (
     <div>
@@ -89,8 +106,8 @@ const EditInfoCard = () => {
                     className="form-control"
                     name="hostname"
                     id="hostname"
-                    value={deviceData.hostname}
                     onChange={onInputChange}
+                    value={formState.hostname}
                   />
                 </div>
                 <div className="mb-1">
@@ -101,8 +118,8 @@ const EditInfoCard = () => {
                     className="form-control"
                     name="serialNumber"
                     id="serialNumber"
-                    value={deviceData.serialNumber}
                     onChange={onInputChange}
+                    value={formState.serialNumber}
                   />
                 </div>
                 <div className="mb-1 col">
@@ -113,8 +130,8 @@ const EditInfoCard = () => {
                     className="form-control"
                     name="brand"
                     id="brand"
-                    value={deviceData.brand}
                     onChange={onInputChange}
+                    value={formState.brand}
                   />
                 </div>
                 <div className="mb-1 col">
@@ -125,8 +142,8 @@ const EditInfoCard = () => {
                     className="form-control"
                     name="model"
                     id="model"
-                    value={deviceData.model}
                     onChange={onInputChange}
+                    value={formState.model}
                   />
                 </div>
                 <div className="mb-1">
@@ -137,8 +154,8 @@ const EditInfoCard = () => {
                     className="form-control"
                     name="details"
                     id="details"
-                    value={deviceData.details}
                     onChange={onInputChange}
+                    value={formState.details}
                   />
                 </div>
                 <div className="mb-1">
@@ -149,7 +166,8 @@ const EditInfoCard = () => {
                     className="form-control"
                     name="annexed"
                     id="annexed"
-                    value={deviceData.annexed.number}
+                    onChange={onInputChange}
+                    value={formState.annexed}
                   />
                 </div>
                 <div className="mb-1">
@@ -162,8 +180,8 @@ const EditInfoCard = () => {
                       type="radio"
                       name="custom"
                       id="custom"
-                      checked={deviceData.custom}
                       onChange={() => handleCustomChange(true)}
+                      checked={formState.custom}
                     />
                   </div>
                   <div className="form-check form-check-inline">
@@ -172,8 +190,8 @@ const EditInfoCard = () => {
                       type="radio"
                       name="custom"
                       id="custom"
-                      checked={!deviceData.custom}
                       onChange={() => handleCustomChange(false)}
+                      checked={!formState.custom}
                     />
                     <label className="form-check-label" htmlFor="custom">
                       Compartido
@@ -187,10 +205,10 @@ const EditInfoCard = () => {
                       type="checkbox"
                       id="headphones"
                       name="headphones"
-                      checked={deviceData.headphones}
                       onChange={(e) =>
                         handleCheckboxChange("headphones", e.target.checked)
                       }
+                      checked={formState.headphones}
                     />
                     <label className="form-check-label" htmlFor="headphones">
                       Audifonos
@@ -202,10 +220,10 @@ const EditInfoCard = () => {
                       type="checkbox"
                       id="adaptVGA"
                       name="adaptVGA"
-                      checked={deviceData.adaptVGA}
                       onChange={(e) =>
                         handleCheckboxChange("adaptVGA", e.target.checked)
                       }
+                      checked={formState.adaptVGA}
                     />
                     <label className="form-check-label" htmlFor="adaptVGA">
                       Adaptador
@@ -217,10 +235,10 @@ const EditInfoCard = () => {
                       type="checkbox"
                       id="mouse"
                       name="mouse"
-                      checked={deviceData.mouse}
                       onChange={(e) =>
                         handleCheckboxChange("mouse", e.target.checked)
                       }
+                      checked={formState.mouse}
                     />
                     <label className="form-check-label" htmlFor="mouse">
                       Mouse

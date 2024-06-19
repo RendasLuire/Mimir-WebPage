@@ -1,7 +1,7 @@
 import Global from "../../helpers/Global";
 import useDevice from "../../hooks/useDevice";
 
-const PrintResponsiveButton = () => {
+const PrintResponsiveButton = ({ children }) => {
   const { deviceData } = useDevice({});
 
   const handleCreateResponsiva = async () => {
@@ -13,7 +13,7 @@ const PrintResponsiveButton = () => {
       }
 
       const request = await fetch(
-        Global.url + "reports/responsiveCSM/" + deviceData._id,
+        `${Global.url}reports/responsiveCSM/${deviceData._id}`,
         {
           method: "GET",
           headers: {
@@ -31,8 +31,8 @@ const PrintResponsiveButton = () => {
     }
   };
   return (
-    <button className="btn btn-info" onClick={handleCreateResponsiva}>
-      Crear responsiva
+    <button className="btn" onClick={handleCreateResponsiva}>
+      {children}
     </button>
   );
 };

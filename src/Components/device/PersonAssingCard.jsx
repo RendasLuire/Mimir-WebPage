@@ -45,7 +45,6 @@ const PersonAssingCard = () => {
 
       setPersons(data);
       setTotalPages(pagination.totalPages);
-      console.log(persons);
     } catch (error) {
       console.log(error);
     }

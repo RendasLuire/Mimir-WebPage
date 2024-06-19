@@ -6,7 +6,9 @@ import Global from "../../helpers/Global";
 
 const UbicationCard = () => {
   const { deviceData, setUpdate } = useDevice({});
-  const { formState, onInputChange } = useForm({});
+  const { formState, onInputChange } = useForm({
+    phisicRef: deviceData.phisicRef,
+  });
   const { auth } = useAuth();
 
   const handleClickSave = async () => {
@@ -25,7 +27,7 @@ const UbicationCard = () => {
 
       console.log(messageToSend);
 
-      const request = await fetch(Global.url + "device/" + deviceData._id, {
+      const request = await fetch(`${Global.url}device/${deviceData._id}`, {
         method: "PATCH",
         body: JSON.stringify(messageToSend),
         headers: {
@@ -35,7 +37,7 @@ const UbicationCard = () => {
       });
       await request.json();
 
-      console.log(request.message);
+      console.log(request);
 
       if (request.ok) {
         setUpdate(true);
@@ -82,21 +84,16 @@ const UbicationCard = () => {
               ></button>
             </div>
             <div className="modal-body">
+              <label className="form-label" htmlFor="phisicRef">
+                Referencia fisica
+              </label>
               <input
                 type="text"
                 className="form-control"
-                id="ubication"
-                name="ubication"
-                value={deviceData.phisicRef}
+                id="phisicRef"
+                name="phisicRef"
                 onChange={onInputChange}
-              />
-              <input
-                type="text"
-                className="form-control"
-                id="ubication"
-                name="ubication"
-                value={deviceData.ubication}
-                onChange={onInputChange}
+                value={formState.phisicRef}
               />
             </div>
             <div className="modal-footer">
