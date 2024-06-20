@@ -52,7 +52,7 @@ const UbicationCard = () => {
       <div className="d-flex flex-column px-2">
         <label className="card-title">{deviceData.phisicRef}</label>
         <p className="card-text">
-          <small className="text-body-secondary">phisic ref</small>
+          <small className="text-body-secondary">Referencia fisica</small>
         </p>
       </div>
       <button

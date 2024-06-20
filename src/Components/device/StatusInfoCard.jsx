@@ -78,7 +78,7 @@ const StatusInfoCard = () => {
       <div className="d-flex flex-column px-2">
         <label className="card-title">{deviceData.status}</label>
         <p className="card-text">
-          <small className="text-body-secondary">status</small>
+          <small className="text-body-secondary">Estatus</small>
         </p>
       </div>
       <button

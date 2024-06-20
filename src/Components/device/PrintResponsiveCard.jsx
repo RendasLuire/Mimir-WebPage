@@ -45,10 +45,10 @@ const PrintResponsiveCard = () => {
     <div className="card-body glass d-flex justify-content-between align-items-center">
       <div className="d-flex flex-column px-2">
         <label className="card-title">
-          {validationResponsive.data.toString()}
+          {validationResponsive.data ? "Completa" : "Incompleta"}
         </label>
         <p className="card-text">
-          <small className="text-body-secondary">responsive</small>
+          <small className="text-body-secondary">Responsiva</small>
         </p>
       </div>
       <button className="btn" disabled={!validationResponsive.data}>

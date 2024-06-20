@@ -64,7 +64,7 @@ const EditInfoCard = () => {
     <div>
       <div className="card-body glass d-flex justify-content-between align-items-center">
         <div className="d-flex flex-column px-2">
-          <label className="card-title">Edit</label>
+          <label className="card-title">Editar</label>
         </div>
         <button
           className="btn"

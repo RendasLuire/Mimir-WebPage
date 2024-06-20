@@ -31,7 +31,7 @@ const BarInfoDevice = () => {
         </div>
         <div className="col m-1">
           <div className="card-body">
-            <h5 className="card-title">{deviceData.hostname}</h5>
+            <h5 className="card-title">{deviceData.hostname.toUpperCase()}</h5>
             <p className="card-text">
               {deviceData.brand + " " + deviceData.model}
             </p>

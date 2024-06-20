@@ -52,7 +52,8 @@ const PersonAssingCard = () => {
 
   useEffect(() => {
     getPerson();
-  }, [deviceData, search]);
+    console.log(persons);
+  }, [deviceData, search, currentPage]);
 
   const handleSelectClick = async (item) => {
     try {
@@ -91,7 +92,7 @@ const PersonAssingCard = () => {
       <div className="d-flex flex-column px-2">
         <label className="card-title">{deviceData.person.name}</label>
         <p className="card-text">
-          <small className="text-body-secondary">person</small>
+          <small className="text-body-secondary">Usuario</small>
         </p>
       </div>
       <button
