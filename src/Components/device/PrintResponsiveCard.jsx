@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import useDevice from "../../hooks/useDevice";
-import PrintIcon from "@mui/icons-material/Print";
 import PrintResponsiveButton from "./PrintResponsiveButton";
 
 const PrintResponsiveCard = () => {
@@ -42,20 +41,15 @@ const PrintResponsiveCard = () => {
   }, [deviceData]);
 
   return (
-    <div className="card-body glass d-flex justify-content-between align-items-center">
-      <div className="d-flex flex-column px-2">
-        <label className="card-title">
-          {validationResponsive.data ? "Completa" : "Incompleta"}
-        </label>
+    <div className="card glass text-center">
+      <div className="card-body">
+        <PrintResponsiveButton
+          validationResponsive={validationResponsive.data}
+        />
         <p className="card-text">
           <small className="text-body-secondary">Responsiva</small>
         </p>
       </div>
-      <button className="btn" disabled={!validationResponsive.data}>
-        <PrintResponsiveButton>
-          <PrintIcon />
-        </PrintResponsiveButton>
-      </button>
     </div>
   );
 };

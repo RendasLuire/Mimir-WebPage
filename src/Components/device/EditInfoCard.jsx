@@ -56,16 +56,11 @@ const EditInfoCard = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(formState);
-  }, [deviceData]);
+  useEffect(() => {}, [deviceData]);
 
   return (
-    <div>
-      <div className="card-body glass d-flex justify-content-between align-items-center">
-        <div className="d-flex flex-column px-2">
-          <label className="card-title">Editar</label>
-        </div>
+    <div className="card glass text-center">
+      <div className="card-body">
         <button
           className="btn"
           type="button"
@@ -74,6 +69,9 @@ const EditInfoCard = () => {
         >
           <BorderColorIcon />
         </button>
+        <p className="card-text">
+          <small className="text-body-secondary">Editar</small>
+        </p>
       </div>
       <div
         className="modal fade"

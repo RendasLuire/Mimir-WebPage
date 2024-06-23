@@ -42,7 +42,7 @@ const InventoryDevices = () => {
       const { data, pagination } = response;
 
       const filteredData = data.filter(
-        (device) => device.typeDevice !== "Monitor"
+        (device) => device.typeDevice !== "monitor"
       );
 
       setDevices(filteredData);

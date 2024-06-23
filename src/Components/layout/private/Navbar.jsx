@@ -19,16 +19,16 @@ const Navbar = () => {
           <span className="navbar-brand mb-0 h1 ms-2">MIMIR</span>
         </div>
         <ul className="navbar-nav flex-column mb-auto">
-          <li className="nav-item">
+          {/*<li className="nav-item">
             <NavLink to="/inventory/dashboard" className="nav-link">
               <SpaceDashboardIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
-          </li>
-          <li className="nav-item">
+          </li>*/}
+          {/*<li className="nav-item">
             <NavLink to="/inventory/dashboard" className="nav-link">
               <TaskAltIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
-          </li>
+          </li>*/}
           <li className="nav-item">
             <NavLink to="/inventory/devices" className="nav-link">
               <DevicesIcon sx={{ width: 40, height: 40 }} />
@@ -44,11 +44,11 @@ const Navbar = () => {
               <FilePresentIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
-          <li className="nav-item">
+          {/*<li className="nav-item">
             <NavLink to="/inventory/warehouses" className="nav-link">
               <WarehouseIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
-          </li>
+          </li>*/}
         </ul>
         <div className="dropup mt-auto">
           <div className="d-flex align-items-center">

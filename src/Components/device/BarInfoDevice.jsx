@@ -9,6 +9,7 @@ import UbicationCard from "./UbicationCard";
 import PersonAssingCard from "./PersonAssingCard";
 import EditInfoCard from "./EditInfoCard";
 import PrintResponsiveCard from "./PrintResponsiveCard";
+import MonitorInfoCard from "./MonitorInfoCard";
 
 const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
@@ -37,14 +38,18 @@ const BarInfoDevice = () => {
             </p>
           </div>
         </div>
+        <div className="col-3  m-1 py-3">
+          <PersonAssingCard />
+        </div>
         <div className="col m-1 py-3 ">
           <StatusInfoCard />
         </div>
         <div className="col m-1 py-3">
           <UbicationCard />
         </div>
+
         <div className="col m-1 py-3">
-          <PersonAssingCard />
+          <MonitorInfoCard />
         </div>
         <div className="col m-1 py-3">
           <PrintResponsiveCard />

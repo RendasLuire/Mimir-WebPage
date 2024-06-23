@@ -1,8 +1,9 @@
 import Global from "../../helpers/Global";
 import useDevice from "../../hooks/useDevice";
+import PrintIcon from "@mui/icons-material/Print";
 
-const PrintResponsiveButton = ({ children }) => {
-  const { deviceData } = useDevice({});
+const PrintResponsiveButton = ({ validationResponsive }) => {
+  const { deviceData } = useDevice();
 
   const handleCreateResponsiva = async () => {
     try {
@@ -31,8 +32,12 @@ const PrintResponsiveButton = ({ children }) => {
     }
   };
   return (
-    <button className="btn" onClick={handleCreateResponsiva}>
-      {children}
+    <button
+      className={`btn ${validationResponsive ? "btn-info" : "btn-secondary"}`}
+      disabled={!validationResponsive}
+      onClick={handleCreateResponsiva}
+    >
+      <PrintIcon />
     </button>
   );
 };

@@ -1,10 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import InfoDevice from "../../Components/device/InfoDevice";
-import AssignmentDevice from "../../Components/device/AssignmentDevice";
 import useDevice from "../../hooks/useDevice";
 import { CircularProgress } from "@mui/material";
-import MGMTMonitor from "../../Components/device/MGMTMonitor";
 import BarInfoDevice from "../../Components/device/BarInfoDevice";
 
 const DetailsDevice = () => {
