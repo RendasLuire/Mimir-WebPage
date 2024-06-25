@@ -13,7 +13,7 @@ const MonitorInfoCard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const monitorsPerPage = 5;
-  const typeDevice = "monitor";
+  const status = "disponible";
   const { auth } = useAuth();
 
   const handleInputChange = (event) => {
@@ -33,7 +33,7 @@ const MonitorInfoCard = () => {
       }
 
       const request = await fetch(
-        `${Global.url}device?page=${currentPage}&limit=${monitorsPerPage}&search=${search}&typeDevice=${typeDevice}`,
+        `${Global.url}device/monitors?page=${currentPage}&limit=${monitorsPerPage}&search=${search}&status=${status}`,
         {
           method: "GET",
           headers: {
@@ -51,11 +51,7 @@ const MonitorInfoCard = () => {
 
       const { data, pagination } = response;
 
-      const filteredData = data.filter(
-        (device) => device.status.value !== "asignado"
-      );
-
-      setMonitors(filteredData);
+      setMonitors(data);
       setTotalPages(pagination.totalPages);
     } catch (error) {
       console.log(error);
@@ -151,7 +147,7 @@ const MonitorInfoCard = () => {
                 <div className="card-body">
                   <label className="card-text">
                     {deviceData.monitor.serialNumber
-                      ? deviceData.monitor.serialNumber
+                      ? deviceData.monitor.serialNumber.toUpperCase()
                       : "Sin monitor"}
                   </label>
                   <p className="card-text">
@@ -161,47 +157,59 @@ const MonitorInfoCard = () => {
                   </p>
                 </div>
               </div>
-              <div className="m-3">
-                <input
-                  className="form-control"
-                  placeholder="Buscar monitor"
-                  value={search}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="m-3">
-                <div className="d-flex justify-content-center mt-3">
-                  <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    variant="outlined"
-                    color="primary"
-                    onChange={handleChangePage}
-                  />
+              {monitors.length > 0 ? (
+                <>
+                  <div className="m-3">
+                    <input
+                      className="form-control"
+                      placeholder="Buscar monitor"
+                      value={search}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="m-3">
+                    <div className="d-flex justify-content-center mt-3">
+                      <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        variant="outlined"
+                        color="primary"
+                        onChange={handleChangePage}
+                      />
+                    </div>
+                    <table className="table table-striped glass">
+                      <thead>
+                        <tr>
+                          <th className="col">Marca</th>
+                          <th className="col">Modelo</th>
+                          <th className="col">Numero de serie</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {monitors.map((item) => (
+                          <tr
+                            className="glass"
+                            key={item._id}
+                            onClick={() => handleSelectClick(item)}
+                          >
+                            <td>{item.brand}</td>
+                            <td>{item.model}</td>
+                            <td>{item.serialNumber}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              ) : (
+                <div className="card m-3 text-center">
+                  <div className="card-body">
+                    <label className="card-text">
+                      No hay monitores disponibles
+                    </label>
+                  </div>
                 </div>
-                <table className="table table-striped glass">
-                  <thead>
-                    <tr>
-                      <th className="col">Marca</th>
-                      <th className="col">Modelo</th>
-                      <th className="col">Numero de serie</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {monitors.map((item) => (
-                      <tr
-                        className="glass"
-                        key={item._id}
-                        onClick={() => handleSelectClick(item)}
-                      >
-                        <td>{item.brand}</td>
-                        <td>{item.model}</td>
-                        <td>{item.serialNumber}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              )}
             </div>
           </div>
         </div>
