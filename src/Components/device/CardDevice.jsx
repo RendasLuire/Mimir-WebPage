@@ -1,10 +1,14 @@
 import PropTypes from "prop-types";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import CircleIcon from "@mui/icons-material/Circle";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
+import DevicesIcon from "@mui/icons-material/Devices";
+import TabletIcon from "@mui/icons-material/Tablet";
+import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
 import { Link } from "react-router-dom";
+import { Tooltip } from "@mui/material";
 
 const CardDevice = ({ device }) => {
   const {
@@ -19,24 +23,27 @@ const CardDevice = ({ device }) => {
   } = device;
 
   const deviceIconMap = {
-    computadora: <ComputerOutlinedIcon sx={{ width: 100, height: 100 }} />,
-    printer: <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
+    desktop: <DevicesIcon sx={{ width: 100, height: 100 }} />,
+    impresora: <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
     monitor: <MonitorOutlinedIcon sx={{ width: 100, height: 100 }} />,
+    laptop: <ComputerOutlinedIcon sx={{ width: 100, height: 100 }} />,
+    tablet: <TabletIcon sx={{ width: 100, height: 100 }} />,
+    accesorio: <DeviceUnknownIcon sx={{ width: 100, height: 100 }} />,
   };
 
   const deviceColorMap = {
-    available: "success",
-    assigned: "secondary",
-    replacement_requested: "primary",
-    lost: "disabled",
-    broken: "disabled",
-    under_repair: "disabled",
+    disponible: { color: "green", label: "Disponible" },
+    asignado: { color: "blue", label: "Asignado" },
+    remplazo_requerido: { color: "orange", label: "Remplazo requerido" },
+    perdido: { color: "grey", label: "Perdido" },
+    descompuesto: { color: "red", label: "Descompuesto" },
+    en_reparacion: { color: "yellow", label: "En reparación" },
   };
 
-  const defaultColor = "disabled";
+  const defaultConfig = { color: "grey", label: "Desconocido" };
 
   const icon = deviceIconMap[typeDevice] || null;
-  const color = deviceColorMap[status] || defaultColor;
+  const { color, label } = deviceColorMap[status.value] || defaultConfig;
 
   return (
     <Link
@@ -45,7 +52,9 @@ const CardDevice = ({ device }) => {
     >
       <div className="glass m-2">{icon}</div>
       <div className="position-absolute top-0 start-0">
-        <CircleOutlinedIcon color={color} />
+        <Tooltip title={label} arrow>
+          <CircleIcon sx={{ color }} />
+        </Tooltip>
       </div>
       <div className="card-body text-center">
         <h5 className="card-title">{hostname.toUpperCase()}</h5>

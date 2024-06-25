@@ -147,9 +147,12 @@ const AddDeviceButton = ({ setUpdate }) => {
                     value={formState.typeDevice}
                   >
                     <option value={""}>Selecciona un tipo</option>
-                    <option value={"Computadora"}>Computadora</option>
-                    <option value={"Impresora"}>Impresora</option>
-                    <option value={"Monitor"}>Monitor</option>
+                    <option value={"desktop"}>Desktop</option>
+                    <option value={"impresora"}>Impresora</option>
+                    <option value={"monitor"}>Monitor</option>
+                    <option value={"laptop"}>Laptop</option>
+                    <option value={"tablet"}>Tablet</option>
+                    <option value={"accesorio"}>Accesorio</option>
                   </select>
                 </div>
               </div>

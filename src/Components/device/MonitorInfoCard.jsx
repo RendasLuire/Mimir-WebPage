@@ -52,7 +52,7 @@ const MonitorInfoCard = () => {
       const { data, pagination } = response;
 
       const filteredData = data.filter(
-        (device) => device.status !== "assigned"
+        (device) => device.status.value !== "asignado"
       );
 
       setMonitors(filteredData);
@@ -107,7 +107,7 @@ const MonitorInfoCard = () => {
           <div className="d-flex flex-column px-2">
             <label className="card-title">
               {deviceData.monitor.serialNumber &&
-              deviceData.monitor.serialNumber !== "unassigned"
+              deviceData.monitor.serialNumber !== "disponible"
                 ? deviceData.monitor.serialNumber.toUpperCase()
                 : "Sin asignar"}
             </label>

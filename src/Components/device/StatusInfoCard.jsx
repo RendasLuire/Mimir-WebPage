@@ -5,6 +5,7 @@ import Global from "../../helpers/Global";
 import useForm from "../../hooks/useForm";
 import { CircularProgress } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
+import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
 
 const StatusInfoCard = () => {
   const { deviceData, setUpdate } = useDevice({});
@@ -77,7 +78,9 @@ const StatusInfoCard = () => {
     <div className="card glass">
       <div className="card-body d-flex justify-content-between align-items-center">
         <div className="d-flex flex-column flex-grow-1">
-          <label className="card-title">{deviceData.status}</label>
+          <label className="card-title">
+            {capitalizeFirstLetterOfEachWord(deviceData.status.label)}
+          </label>
           <p className="card-text">
             <small className="text-body-secondary">Estatus</small>
           </p>
@@ -123,7 +126,7 @@ const StatusInfoCard = () => {
                 >
                   {listSettings.map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.label}
+                      {capitalizeFirstLetterOfEachWord(item.label)}
                     </option>
                   ))}
                 </select>
