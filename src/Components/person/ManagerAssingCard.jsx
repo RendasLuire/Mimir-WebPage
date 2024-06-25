@@ -1,19 +1,19 @@
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import PersonIcon from "@mui/icons-material/Person";
-import useDevice from "../../hooks/useDevice";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import usePerson from "../../hooks/usePerson";
 import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
-import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
+import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
 
-const PersonAssingCard = () => {
-  const { deviceData, setUpdate } = useDevice({});
+const ManagerAssingCard = () => {
+  const { personData, setUpdate } = usePerson({});
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const usersPerPage = 5;
+  const personsPerPage = 5;
   const { auth } = useAuth();
 
   const handleInputChange = (event) => {
@@ -33,7 +33,7 @@ const PersonAssingCard = () => {
       }
 
       const request = await fetch(
-        `${Global.url}persons?page=${currentPage}&limit=${usersPerPage}&search=${search}`,
+        `${Global.url}persons?page=${currentPage}&limit=${personsPerPage}&search=${search}`,
         {
           method: "GET",
           headers: {
@@ -45,32 +45,32 @@ const PersonAssingCard = () => {
       const response = await request.json();
       const { data, pagination } = response;
 
-      setPersons(data);
+      const filteredData = data.filter(
+        (person) => person._id !== personData._id
+      );
+
+      setPersons(filteredData);
       setTotalPages(pagination.totalPages);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getPerson();
-  }, [deviceData, search, currentPage]);
-
   const handleSelectClick = async (item) => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token || !deviceData || !deviceData._id) {
+      if (!token) {
         return false;
       }
 
       const messageUpdate = {
-        person: item._id,
+        manager: item._id,
         user: auth._id,
       };
 
       const request = await fetch(
-        `${Global.url}device/assing/${deviceData._id}`,
+        `${Global.url}persons/assing/${personData._id}`,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdate),
@@ -88,46 +88,56 @@ const PersonAssingCard = () => {
     }
   };
 
+  useEffect(() => {
+    getPerson();
+  }, [personData, search, currentPage]);
+
   return (
     <div className="card glass">
-      <div className="card-body d-flex align-items-center">
-        <PersonIcon className="me-2" sx={{ width: 50, height: 50 }} />
-        <div className="flex-grow-1">
+      <div className="card-body d-flex justify-content-between align-items-center">
+        <div className="col-2">
+          <PersonIcon
+            className="img-fluid rounded-start"
+            sx={{ width: 50, height: 50 }}
+          />
+        </div>
+        <div className="d-flex col flex-column px-2">
           <label className="card-title">
-            {deviceData.person.name && deviceData.person.name !== "unassigned"
-              ? capitalizeFirstLetterOfEachWord(deviceData.person.name)
+            {personData.manager.name
+              ? capitalizeFirstLetterOfEachWord(personData.manager.name)
               : "Sin asignar"}
           </label>
           <p className="card-text">
-            <small className="text-body-secondary">Usuario</small>
+            <small className="text-body-secondary">Gerente / Director</small>
           </p>
         </div>
-        <button
-          className="btn btn-outline-primary mx-1"
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#selectPerson"
-          style={{ flexShrink: 0 }}
-        >
-          <BorderColorIcon />
-        </button>
+        <div className="col-1">
+          <button
+            className="btn"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#selectManager"
+          >
+            <BorderColorIcon />
+          </button>
+        </div>
 
         <div
           className="modal fade"
-          id="selectPerson"
-          tabIndex="-1"
-          aria-labelledby="selectPerson"
+          id="selectManager"
+          tabIndex={"-1"}
+          aria-labelledby="selectManager"
           aria-hidden="true"
         >
           <div className="modal-dialog">
             <div className="modal-content glass">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="selectPerson">
-                  Selecciona a la persona para asignar:
+                <h1 className="modal-title fs-5" id="selectManager">
+                  Selecciona al Gerente o Director:
                 </h1>
                 <button
-                  type="button"
                   className="btn-close"
+                  type="button"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
@@ -136,13 +146,15 @@ const PersonAssingCard = () => {
                 <div className="card m-3 text-center">
                   <div className="card-body">
                     <label className="card-text">
-                      {deviceData.person.name
-                        ? deviceData.person.name
-                        : "Sin asignar"}
+                      {personData.manager.name
+                        ? capitalizeFirstLetterOfEachWord(
+                            personData.manager.name
+                          )
+                        : "Sin seleccionar"}
                     </label>
                     <p className="card-text">
                       <small className="text-body-secondary">
-                        Usuario actual
+                        Gerente / Director Actual
                       </small>
                     </p>
                   </div>
@@ -150,13 +162,13 @@ const PersonAssingCard = () => {
                 <div className="m-3">
                   <input
                     className="form-control"
-                    placeholder="Buscar usuario"
+                    placeholder="Buscar personas"
                     value={search}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div className="m-3">
-                  <div className="d-flex justify-content-center mt-3">
+                  <div className="d-flex justify-content-around mt-3">
                     <Pagination
                       count={totalPages}
                       page={currentPage}
@@ -169,7 +181,8 @@ const PersonAssingCard = () => {
                     <thead>
                       <tr>
                         <th className="col">Nombre</th>
-                        <th className="col">Posición</th>
+                        <th className="col">Departamento</th>
+                        <th className="col">Posicion</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -179,8 +192,15 @@ const PersonAssingCard = () => {
                           key={item._id}
                           onClick={() => handleSelectClick(item)}
                         >
-                          <td>{item.name}</td>
-                          <td>{item.position}</td>
+                          <td>{capitalizeFirstLetterOfEachWord(item.name)}</td>
+                          <td>
+                            {capitalizeFirstLetterOfEachWord(
+                              item.department.name
+                            )}
+                          </td>
+                          <td>
+                            {capitalizeFirstLetterOfEachWord(item.position)}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -195,4 +215,4 @@ const PersonAssingCard = () => {
   );
 };
 
-export default PersonAssingCard;
+export default ManagerAssingCard;

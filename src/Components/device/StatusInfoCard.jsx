@@ -74,21 +74,25 @@ const StatusInfoCard = () => {
   };
 
   return (
-    <div className="card-body glass d-flex justify-content-between align-items-center">
-      <div className="d-flex flex-column px-2">
-        <label className="card-title">{deviceData.status}</label>
-        <p className="card-text">
-          <small className="text-body-secondary">Estatus</small>
-        </p>
+    <div className="card glass">
+      <div className="card-body d-flex justify-content-between align-items-center">
+        <div className="d-flex flex-column flex-grow-1">
+          <label className="card-title">{deviceData.status}</label>
+          <p className="card-text">
+            <small className="text-body-secondary">Estatus</small>
+          </p>
+        </div>
+        <button
+          type="button"
+          className="btn btn-outline-primary mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="#listStatus"
+          style={{ flexShrink: 0 }}
+        >
+          <BorderColorIcon />
+        </button>
       </div>
-      <button
-        type="button"
-        className="btn"
-        data-bs-toggle="modal"
-        data-bs-target="#listStatus"
-      >
-        <BorderColorIcon />
-      </button>
+
       <div
         className="modal fade"
         id="listStatus"

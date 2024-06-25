@@ -1,23 +1,23 @@
+import { useEffect } from "react";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useDevice from "../../hooks/useDevice";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
-import { useEffect } from "react";
 
 const EditInfoCard = () => {
   const { deviceData, setUpdate } = useDevice({});
   const { formState, onInputChange, setFormState } = useForm({
-    hostname: deviceData.hostname,
-    serialNumber: deviceData.serialNumber,
-    brand: deviceData.brand,
-    model: deviceData.model,
-    details: deviceData.details,
-    annexed: deviceData.annexed.number,
-    custom: deviceData.custom,
-    headphones: deviceData.headphones,
-    adaptVGA: deviceData.adaptVGA,
-    mouse: deviceData.mouse,
+    hostname: deviceData.hostname || "",
+    serialNumber: deviceData.serialNumber || "",
+    brand: deviceData.brand || "",
+    model: deviceData.model || "",
+    details: deviceData.details || "",
+    annexed: deviceData.annexed?.number || "",
+    custom: deviceData.custom || false,
+    headphones: deviceData.headphones || false,
+    adaptVGA: deviceData.adaptVGA || false,
+    mouse: deviceData.mouse || false,
   });
   const { auth } = useAuth();
 
@@ -40,29 +40,31 @@ const EditInfoCard = () => {
     const token = localStorage.getItem("token");
     const messageUpdate = { ...formState, user: auth._id };
 
-    const request = await fetch(`${Global.url}device/${deviceData._id}`, {
-      method: "PATCH",
-      body: JSON.stringify(messageUpdate),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
-    await request.json();
+    try {
+      const request = await fetch(`${Global.url}device/${deviceData._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
-    if (request.ok) {
-      console.log("Se actualiza");
-      setUpdate(true);
+      if (request.ok) {
+        setUpdate(true);
+      }
+    } catch (error) {
+      console.log("Error: ", error);
     }
   };
 
   useEffect(() => {}, [deviceData]);
 
   return (
-    <div className="card glass text-center">
-      <div className="card-body">
+    <div className="card glass">
+      <div className="card-body text-center">
         <button
-          className="btn"
+          className="btn btn-outline-primary"
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#formInfoDevice"
@@ -73,19 +75,20 @@ const EditInfoCard = () => {
           <small className="text-body-secondary">Editar</small>
         </p>
       </div>
+
       <div
         className="modal fade"
         id="formInfoDevice"
-        tabIndex={"-1"}
+        tabIndex="-1"
         aria-labelledby="formInfoDevice"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content glass">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="formInfoDevice">
-                Informacion del dispositivo
-              </h1>
+              <h5 className="modal-title" id="formInfoDevice">
+                Información del dispositivo
+              </h5>
               <button
                 type="button"
                 className="btn-close"
@@ -94,161 +97,178 @@ const EditInfoCard = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="p-3">
-                <div className="mb-1">
-                  <label className="form-label" htmlFor="hostname">
+              <form>
+                <div className="mb-3">
+                  <label htmlFor="hostname" className="form-label">
                     Hostname:
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    name="hostname"
                     id="hostname"
-                    onChange={onInputChange}
+                    name="hostname"
                     value={formState.hostname}
+                    onChange={onInputChange}
                   />
                 </div>
-                <div className="mb-1">
-                  <label className="form-label" htmlFor="serialNumber">
-                    Numero de Serie:
+                <div className="mb-3">
+                  <label htmlFor="serialNumber" className="form-label">
+                    Número de Serie:
                   </label>
                   <input
+                    type="text"
                     className="form-control"
-                    name="serialNumber"
                     id="serialNumber"
-                    onChange={onInputChange}
+                    name="serialNumber"
                     value={formState.serialNumber}
-                  />
-                </div>
-                <div className="mb-1 col">
-                  <label className="form-label" htmlFor="brand">
-                    Marca:
-                  </label>
-                  <input
-                    className="form-control"
-                    name="brand"
-                    id="brand"
                     onChange={onInputChange}
-                    value={formState.brand}
                   />
                 </div>
-                <div className="mb-1 col">
-                  <label className="form-label" htmlFor="model">
-                    Modelo:
-                  </label>
-                  <input
-                    className="form-control"
-                    name="model"
-                    id="model"
-                    onChange={onInputChange}
-                    value={formState.model}
-                  />
+                <div className="row mb-3">
+                  <div className="col-3">
+                    <label htmlFor="brand" className="form-label">
+                      Marca:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="brand"
+                      name="brand"
+                      value={formState.brand}
+                      onChange={onInputChange}
+                    />
+                  </div>
+                  <div className="col">
+                    <label htmlFor="model" className="form-label">
+                      Modelo:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="model"
+                      name="model"
+                      value={formState.model}
+                      onChange={onInputChange}
+                    />
+                  </div>
                 </div>
-                <div className="mb-1">
-                  <label className="form-label" htmlFor="details">
+                <div className="mb-3">
+                  <label htmlFor="details" className="form-label">
                     Detalles:
                   </label>
                   <textarea
                     className="form-control"
-                    name="details"
                     id="details"
-                    onChange={onInputChange}
+                    name="details"
                     value={formState.details}
-                  />
+                    onChange={onInputChange}
+                  ></textarea>
                 </div>
-                <div className="mb-1">
-                  <label className="form-label" htmlFor="annexed">
+                <div className="mb-3">
+                  <label htmlFor="annexed" className="form-label">
                     Anexo:
                   </label>
                   <input
+                    type="text"
                     className="form-control"
-                    name="annexed"
                     id="annexed"
-                    onChange={onInputChange}
+                    name="annexed"
                     value={formState.annexed}
+                    onChange={onInputChange}
                   />
                 </div>
-                <div className="mb-1">
-                  <div className="form-check form-check-inline">
+                <div className="mb-3">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="custom"
+                      id="custom"
+                      checked={formState.custom}
+                      onChange={() => handleCustomChange(true)}
+                    />
                     <label className="form-check-label" htmlFor="custom">
                       Personalizado
                     </label>
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="custom"
-                      id="custom"
-                      onChange={() => handleCustomChange(true)}
-                      checked={formState.custom}
-                    />
                   </div>
-                  <div className="form-check form-check-inline">
+                  <div className="form-check">
                     <input
                       className="form-check-input"
                       type="radio"
                       name="custom"
-                      id="custom"
-                      onChange={() => handleCustomChange(false)}
+                      id="shared"
                       checked={!formState.custom}
+                      onChange={() => handleCustomChange(false)}
                     />
-                    <label className="form-check-label" htmlFor="custom">
+                    <label className="form-check-label" htmlFor="shared">
                       Compartido
                     </label>
                   </div>
                 </div>
-                <div className="mb-1">
-                  <div className="form-check form-check-inline">
+                <div className="mb-3">
+                  <div className="form-check">
                     <input
                       className="form-check-input"
                       type="checkbox"
                       id="headphones"
                       name="headphones"
+                      checked={formState.headphones}
                       onChange={(e) =>
                         handleCheckboxChange("headphones", e.target.checked)
                       }
-                      checked={formState.headphones}
                     />
                     <label className="form-check-label" htmlFor="headphones">
-                      Audifonos
+                      Audífonos
                     </label>
                   </div>
-                  <div className="form-check form-check-inline">
+                  <div className="form-check">
                     <input
                       className="form-check-input"
                       type="checkbox"
                       id="adaptVGA"
                       name="adaptVGA"
+                      checked={formState.adaptVGA}
                       onChange={(e) =>
                         handleCheckboxChange("adaptVGA", e.target.checked)
                       }
-                      checked={formState.adaptVGA}
                     />
                     <label className="form-check-label" htmlFor="adaptVGA">
-                      Adaptador
+                      Adaptador VGA
                     </label>
                   </div>
-                  <div className="form-check form-check-inline">
+                  <div className="form-check">
                     <input
                       className="form-check-input"
                       type="checkbox"
                       id="mouse"
                       name="mouse"
+                      checked={formState.mouse}
                       onChange={(e) =>
                         handleCheckboxChange("mouse", e.target.checked)
                       }
-                      checked={formState.mouse}
                     />
                     <label className="form-check-label" htmlFor="mouse">
                       Mouse
                     </label>
                   </div>
                 </div>
-                <div className="text-center">
-                  <button className="btn btn-primary" onClick={handleSaveClick}>
-                    Guardar
-                  </button>
-                </div>
-              </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleSaveClick}
+              >
+                Guardar
+              </button>
             </div>
           </div>
         </div>

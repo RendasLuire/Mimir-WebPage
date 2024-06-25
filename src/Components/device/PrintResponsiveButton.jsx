@@ -33,7 +33,9 @@ const PrintResponsiveButton = ({ validationResponsive }) => {
   };
   return (
     <button
-      className={`btn ${validationResponsive ? "btn-info" : "btn-secondary"}`}
+      className={`btn ${
+        validationResponsive ? "btn-outline-primary" : "btn-outline-secondary"
+      }`}
       disabled={!validationResponsive}
       onClick={handleCreateResponsiva}
     >

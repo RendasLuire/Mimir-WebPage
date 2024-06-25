@@ -5,9 +5,10 @@ import PrintResponsiveButton from "./PrintResponsiveButton";
 
 const PrintResponsiveCard = () => {
   const { deviceData } = useDevice({});
-  const [validationResponsive, setvalidationResponsive] = useState({
+  const [validationResponsive, setValidationResponsive] = useState({
     data: false,
   });
+
   const validation = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -28,7 +29,7 @@ const PrintResponsiveCard = () => {
       );
 
       const response = await request.json();
-      setvalidationResponsive(response);
+      setValidationResponsive(response);
     } catch (error) {
       console.log(error);
     }
@@ -42,11 +43,11 @@ const PrintResponsiveCard = () => {
 
   return (
     <div className="card glass text-center">
-      <div className="card-body">
+      <div className="card-body d-flex flex-column align-items-center justify-content-center">
         <PrintResponsiveButton
           validationResponsive={validationResponsive.data}
         />
-        <p className="card-text">
+        <p className="card-text mt-2">
           <small className="text-body-secondary">Responsiva</small>
         </p>
       </div>

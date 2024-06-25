@@ -19,18 +19,7 @@ const ButtonAddPerson = ({ setUpdate }) => {
     try {
       const token = localStorage.getItem("token");
 
-      const capitalizeField = (value) => {
-        return value.replace(/\b\w/g, (char) => char.toUpperCase());
-      };
-
-      const capitalizedFormState = Object.fromEntries(
-        Object.entries(formState).map(([key, value]) => [
-          key,
-          typeof value === "string" ? capitalizeField(value) : value,
-        ])
-      );
-
-      let itemToSave = { ...capitalizedFormState, userTI: auth._id };
+      let itemToSave = { ...formState, user: auth._id };
 
       const request = await fetch(Global.url + "persons/", {
         method: "POST",

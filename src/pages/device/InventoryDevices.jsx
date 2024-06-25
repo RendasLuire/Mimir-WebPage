@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
 import CardDevice from "../../Components/device/CardDevice";
@@ -39,17 +39,16 @@ const InventoryDevices = () => {
 
       const response = await request.json();
 
-      const { data, pagination } = response;
-
-      const filteredData = data.filter(
+      const filteredData = response.data.filter(
         (device) => device.typeDevice !== "monitor"
       );
 
       setDevices(filteredData);
-      setTotalPages(pagination.totalPages);
+      setTotalPages(response.pagination.totalPages);
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      console.error("Error fetching devices:", error);
     }
   };
 
@@ -79,7 +78,7 @@ const InventoryDevices = () => {
                 className="form-control m-3"
                 value={searchTerm}
                 onChange={handleInputChange}
-                placeholder="Search"
+                placeholder="Buscar"
               />
             </div>
             <div className="my-3">
@@ -87,43 +86,39 @@ const InventoryDevices = () => {
             </div>
           </div>
           <div className="glass m-3">
-            <>
-              {devices.length > 0 ? (
-                <>
-                  <div className="d-flex justify-content-center mt-3">
-                    <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      variant="outlined"
-                      color="primary"
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3">
-                    {devices.map((item) => (
-                      <div key={item._id} className="col-12 col-md-4 col-lg-2">
-                        <CardDevice device={item} />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="d-flex justify-content-center mt-3">
-                    <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      variant="outlined"
-                      color="primary"
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="d-flex justify-content-center m-3">
-                    <label className="label">No hay dispositivos.</label>
-                  </div>
-                </>
-              )}
-            </>
+            {devices.length > 0 ? (
+              <>
+                <div className="d-flex justify-content-center mt-3">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    color="primary"
+                    onChange={handleChangePage}
+                  />
+                </div>
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4 mx-3">
+                  {devices.map((item) => (
+                    <div key={item._id} className="col">
+                      <CardDevice device={item} />
+                    </div>
+                  ))}
+                </div>
+                <div className="d-flex justify-content-center mt-3">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    color="primary"
+                    onChange={handleChangePage}
+                  />
+                </div>
+              </>
+            ) : (
+              <div className="d-flex justify-content-center m-3">
+                <label className="label">No hay dispositivos.</label>
+              </div>
+            )}
           </div>
         </>
       )}

@@ -62,7 +62,7 @@ const ListAllPersons = () => {
   };
 
   return (
-    <div className="m-3 glass">
+    <div className="m-3">
       {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
@@ -82,15 +82,9 @@ const ListAllPersons = () => {
               <ButtonAddPerson setUpdate={setUpdate} />
             </div>
           </div>
-          <div className="constainer glass m-3">
+          <div className="glass m-3">
             <>
-              {users.length < 1 ? (
-                <>
-                  <div className="d-flex justify-content-center m-3">
-                    <label className="label">No hay usuarios.</label>
-                  </div>
-                </>
-              ) : (
+              {users.length > 0 ? (
                 <>
                   <div className="d-flex justify-content-center mt-3">
                     <Pagination
@@ -101,9 +95,9 @@ const ListAllPersons = () => {
                       onChange={handleChangePage}
                     />
                   </div>
-                  <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mx-3">
+                  <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3">
                     {users.map((item) => (
-                      <div className="col-12 col-md-6 col-lg-3" key={item._id}>
+                      <div className="col-12 col-md-4 col-lg-2" key={item._id}>
                         <CardPersons user={item} />
                       </div>
                     ))}
@@ -116,6 +110,12 @@ const ListAllPersons = () => {
                       color="primary"
                       onChange={handleChangePage}
                     />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="d-flex justify-content-center m-3">
+                    <label className="label">No hay usuarios.</label>
                   </div>
                 </>
               )}
