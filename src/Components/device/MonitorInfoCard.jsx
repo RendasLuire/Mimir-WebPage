@@ -33,7 +33,7 @@ const MonitorInfoCard = () => {
       }
 
       const request = await fetch(
-        `${Global.url}device/monitors?page=${currentPage}&limit=${monitorsPerPage}&search=${search}&status=${status}`,
+        `${Global.url}device/monitors/?page=${currentPage}&limit=${monitorsPerPage}&search=${search}&status=${status}`,
         {
           method: "GET",
           headers: {

@@ -22,13 +22,16 @@ export const DeviceProvider = ({ children }) => {
         return false;
       }
 
-      const request = await fetch(Global.url + "device/" + deviceData._id, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const request = await fetch(
+        Global.url + "device/showOne/" + deviceData._id,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       const response = await request.json();
 
