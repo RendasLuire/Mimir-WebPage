@@ -2,6 +2,9 @@ import useDevice from "../../hooks/useDevice";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import DevicesIcon from "@mui/icons-material/Devices";
+import TabletIcon from "@mui/icons-material/Tablet";
+import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
 
 import { useEffect } from "react";
@@ -16,9 +19,12 @@ const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
 
   const iconMap = {
-    computadora: <ComputerOutlinedIcon sx={{ width: 50, height: 50 }} />,
-    printer: <LocalPrintshopOutlinedIcon sx={{ width: 50, height: 50 }} />,
+    desktop: <DevicesIcon sx={{ width: 50, height: 50 }} />,
+    impresora: <LocalPrintshopOutlinedIcon sx={{ width: 50, height: 50 }} />,
     monitor: <MonitorOutlinedIcon sx={{ width: 50, height: 50 }} />,
+    laptop: <ComputerOutlinedIcon sx={{ width: 50, height: 50 }} />,
+    tablet: <TabletIcon sx={{ width: 50, height: 50 }} />,
+    accesorio: <DeviceUnknownIcon sx={{ width: 50, height: 50 }} />,
   };
   const typeDevice = deviceData.typeDevice;
   const icon = iconMap[typeDevice] || null;

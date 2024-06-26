@@ -13,6 +13,7 @@ const InventoryDevices = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const devicesPerPage = 12;
+  const filter = "computo";
 
   const getDevices = async () => {
     try {
@@ -23,7 +24,7 @@ const InventoryDevices = () => {
       }
 
       const request = await fetch(
-        `${Global.url}device?page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
+        `${Global.url}device?filter=${filter}&&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
         {
           method: "GET",
           headers: {
@@ -39,11 +40,7 @@ const InventoryDevices = () => {
 
       const response = await request.json();
 
-      const filteredData = response.data.filter(
-        (device) => device.typeDevice !== "monitor"
-      );
-
-      setDevices(filteredData);
+      setDevices(response.data);
       setTotalPages(response.pagination.totalPages);
       setLoading(false);
     } catch (error) {

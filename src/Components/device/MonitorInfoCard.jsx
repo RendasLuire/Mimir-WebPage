@@ -93,6 +93,7 @@ const MonitorInfoCard = () => {
 
   useEffect(() => {
     getMonitors();
+    console.log(monitors);
   }, [currentPage, search, deviceData]);
 
   return (

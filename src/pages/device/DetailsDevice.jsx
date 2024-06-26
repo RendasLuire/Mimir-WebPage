@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import useDevice from "../../hooks/useDevice";
 import { CircularProgress } from "@mui/material";
 import BarInfoDevice from "../../Components/device/BarInfoDevice";
+import ComentsChatDevice from "../../Components/device/ComentsChatDevice";
 
 const DetailsDevice = () => {
   const { id } = useParams();
@@ -30,7 +31,9 @@ const DetailsDevice = () => {
                 <BarInfoDevice />
               </div>
               <div className="m-3">
-                <div className="row g-0"></div>
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 mx-3">
+                  <ComentsChatDevice className="" />
+                </div>
               </div>
             </>
           )}
