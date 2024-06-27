@@ -4,6 +4,7 @@ import useDevice from "../../hooks/useDevice";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
+import { Tooltip } from "@mui/material";
 
 const UbicationCard = () => {
   const { deviceData, setUpdate } = useDevice({});
@@ -47,7 +48,9 @@ const UbicationCard = () => {
   return (
     <div className="card glass" style={{ maxWidth: "300px" }}>
       <div className="card-body d-flex align-items-center">
-        <MyLocationIcon sx={{ width: 40, height: 40 }} className="me-3" />
+        <Tooltip title={deviceData.phisicRef} arrow>
+          <MyLocationIcon sx={{ width: 40, height: 40 }} className="me-3" />
+        </Tooltip>
         <div className="flex-grow-1">
           <label
             className="card-title d-block text-truncate"

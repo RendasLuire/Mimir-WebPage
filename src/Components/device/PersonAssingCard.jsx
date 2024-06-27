@@ -2,7 +2,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import PersonIcon from "@mui/icons-material/Person";
 import useDevice from "../../hooks/useDevice";
 import { useEffect, useState } from "react";
-import { Pagination } from "@mui/material";
+import { Pagination, Tooltip } from "@mui/material";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
@@ -91,10 +91,22 @@ const PersonAssingCard = () => {
   return (
     <div className="card glass">
       <div className="card-body d-flex align-items-center">
-        <PersonIcon className="me-2" sx={{ width: 50, height: 50 }} />
+        <Tooltip
+          title={
+            deviceData.person.name && deviceData.person.name !== "disponible"
+              ? capitalizeFirstLetterOfEachWord(deviceData.person.name)
+              : "Sin asignar"
+          }
+          arrow
+        >
+          <PersonIcon className="me-2" sx={{ width: 50, height: 50 }} />
+        </Tooltip>
         <div className="flex-grow-1">
-          <label className="card-title">
-            {deviceData.person.name && deviceData.person.name !== "unassigned"
+          <label
+            className="card-title text-truncate d-block"
+            style={{ maxWidth: "200px" }}
+          >
+            {deviceData.person.name && deviceData.person.name !== "disponible"
               ? capitalizeFirstLetterOfEachWord(deviceData.person.name)
               : "Sin asignar"}
           </label>

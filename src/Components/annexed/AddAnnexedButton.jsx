@@ -31,7 +31,7 @@ const AddAnnexedButton = () => {
           typeof value === "string" ? capitalizeField(value) : value,
         ])
       );
-      let itemToSave = { ...capitalizedFormState, userTI: auth._id };
+      let itemToSave = { ...formState, user: auth._id };
 
       const request = await fetch(Global.url + "annexeds/", {
         method: "POST",
@@ -51,7 +51,7 @@ const AddAnnexedButton = () => {
       }
       setMessage("");
       setFormState({
-        annexedNumber: "",
+        number: "",
         startDate: "",
         endDate: "",
         bill: "",
@@ -101,15 +101,15 @@ const AddAnnexedButton = () => {
                   {message && <Alert severity="error">{message}</Alert>}
                 </div>
                 <div className="mb-1">
-                  <label htmlFor="annexedNumber" className="form-label">
+                  <label htmlFor="number" className="form-label">
                     Anexo:
                   </label>
                   <input
-                    id="annexedNumber"
-                    name="annexedNumber"
+                    id="number"
+                    name="number"
                     className="form-control"
                     type="text"
-                    value={formState.annexedNumber}
+                    value={formState.number}
                     onChange={onInputChange}
                   />
                 </div>
