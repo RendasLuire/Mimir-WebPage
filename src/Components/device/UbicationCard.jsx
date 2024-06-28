@@ -1,4 +1,3 @@
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import useDevice from "../../hooks/useDevice";
 import useForm from "../../hooks/useForm";
@@ -46,32 +45,31 @@ const UbicationCard = () => {
   };
 
   return (
-    <div className="card glass" style={{ maxWidth: "300px" }}>
-      <div className="card-body d-flex align-items-center">
-        <Tooltip title={deviceData.phisicRef} arrow>
-          <MyLocationIcon sx={{ width: 40, height: 40 }} className="me-3" />
-        </Tooltip>
-        <div className="flex-grow-1">
-          <label
-            className="card-title d-block text-truncate"
-            style={{ maxWidth: "150px" }}
-          >
-            {deviceData.phisicRef}
-          </label>
-          <p className="card-text">
-            <small className="text-body-secondary">Referencia física</small>
-          </p>
-        </div>
-        <button
-          className="btn btn-outline-primary mx-1"
-          type="button"
+    <div>
+      <Tooltip title={deviceData.phisicRef} arrow>
+        <div
+          className="card glass"
+          style={{ maxWidth: "300px" }}
           data-bs-toggle="modal"
           data-bs-target="#inputUbication"
-          style={{ flexShrink: 0 }}
         >
-          <BorderColorIcon />
-        </button>
-      </div>
+          <div className="card-body d-flex align-items-center">
+            <MyLocationIcon sx={{ width: 40, height: 40 }} className="me-3" />
+
+            <div className="flex-grow-1">
+              <label
+                className="card-title d-block text-truncate"
+                style={{ maxWidth: "150px" }}
+              >
+                {deviceData.phisicRef}
+              </label>
+              <p className="card-text">
+                <small className="text-body-secondary">Referencia física</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </Tooltip>
       <div
         className="modal fade"
         id="inputUbication"

@@ -1,16 +1,21 @@
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useDevice from "../../hooks/useDevice";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import useForm from "../../hooks/useForm";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Tooltip } from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
 import useAuth from "../../hooks/useAuth";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
 
 const StatusInfoCard = () => {
   const { deviceData, setUpdate } = useDevice({});
   const [listSettings, setListSettings] = useState([]);
-  const { formState, onInputChange } = useForm({});
+  const { formState, onInputChange } = useForm({
+    status: {
+      value: deviceData.status.value || "",
+      label: deviceData.status.label || "",
+    },
+  });
   const { auth } = useAuth();
 
   const getStatus = async () => {
@@ -54,7 +59,14 @@ const StatusInfoCard = () => {
         return false;
       }
 
-      const messageToSend = { ...formState, user: auth._id };
+      const messageToSend = {
+        status: {
+          value: formState.status,
+          label: listSettings.find((item) => item.value == formState.status)
+            .label,
+        },
+        user: auth._id,
+      };
 
       const request = await fetch(Global.url + "device/" + deviceData._id, {
         method: "PATCH",
@@ -74,27 +86,42 @@ const StatusInfoCard = () => {
     }
   };
 
+  const deviceColorMap = {
+    disponible: { color: "green", label: "Disponible" },
+    asignado: { color: "blue", label: "Asignado" },
+    remplazo_requerido: { color: "orange", label: "Remplazo requerido" },
+    perdido: { color: "grey", label: "Perdido" },
+    descompuesto: { color: "red", label: "Descompuesto" },
+    en_reparacion: { color: "yellow", label: "En reparación" },
+  };
+  const defaultConfig = { color: "grey", label: "Desconocido" };
+  const { color, label } =
+    deviceColorMap[deviceData.status.value] || defaultConfig;
+
   return (
-    <div className="card glass">
-      <div className="card-body d-flex justify-content-between align-items-center">
-        <div className="d-flex flex-column flex-grow-1">
-          <label className="card-title">
-            {capitalizeFirstLetterOfEachWord(deviceData.status.label)}
-          </label>
-          <p className="card-text">
-            <small className="text-body-secondary">Estatus</small>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="btn btn-outline-primary mx-1"
+    <div>
+      <Tooltip title={label} arrow>
+        <div
+          className="card glass text-center"
           data-bs-toggle="modal"
           data-bs-target="#listStatus"
-          style={{ flexShrink: 0 }}
         >
-          <BorderColorIcon />
-        </button>
-      </div>
+          <div className="card-body d-flex justify-content-between align-items-center">
+            <CircleIcon
+              sx={{ color, width: 40, height: 40 }}
+              className="me-3"
+            />
+            <div className="d-flex flex-column flex-grow-1">
+              <label className="card-title">
+                {capitalizeFirstLetterOfEachWord(deviceData.status.label)}
+              </label>
+              <p className="card-text">
+                <small className="text-body-secondary">Estatus</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </Tooltip>
 
       <div
         className="modal fade"
@@ -122,6 +149,7 @@ const StatusInfoCard = () => {
                   className="form-select"
                   name="status"
                   id="status"
+                  value={formState.status.value}
                   onChange={onInputChange}
                 >
                   {listSettings.map((item) => (

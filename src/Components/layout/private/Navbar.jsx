@@ -7,12 +7,13 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import DevicesIcon from "@mui/icons-material/Devices";
 import GroupIcon from "@mui/icons-material/Group";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
+import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 const Navbar = () => {
   return (
-    <div className="d-flex">
+    <div className="d-flex h-100">
       <nav className="navbar glass flex-column vh-100">
         <div className="d-flex flex-column align-items-center mb-3">
           <PsychologyIcon />
@@ -32,6 +33,11 @@ const Navbar = () => {
           <li className="nav-item">
             <NavLink to="/inventory/devices" className="nav-link">
               <DevicesIcon sx={{ width: 40, height: 40 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/monitors" className="nav-link">
+              <MonitorOutlinedIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">

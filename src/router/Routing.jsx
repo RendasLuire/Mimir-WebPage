@@ -9,6 +9,7 @@ import UsersRoutes from "./UsersRoutes";
 import InventoryWarehouse from "../pages/warehouse/InventoryWarehouse";
 import ShowDashBoard from "../pages/dashboard/ShowDashBoard";
 import AnnexedRoutes from "./AnnexedRoutes";
+import MonitorsRoutes from "./MonitorsRoutes";
 
 const Routing = () => {
   return (
@@ -23,6 +24,7 @@ const Routing = () => {
           <Route path="/inventory" element={<PrivateLayout />}>
             <Route path="/inventory/dashboard/*" element={<ShowDashBoard />} />
             <Route path="/inventory/devices/*" element={<DevicesRoutes />} />
+            <Route path="/inventory/monitors/*" element={<MonitorsRoutes />} />
             <Route path="/inventory/users/*" element={<UsersRoutes />} />
             <Route path="/inventory/annexeds/*" element={<AnnexedRoutes />} />
             <Route

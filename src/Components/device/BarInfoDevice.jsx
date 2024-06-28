@@ -56,9 +56,12 @@ const BarInfoDevice = () => {
         <div className="col-auto m-3">
           <UbicationCard />
         </div>
-        <div className="col-auto m-3">
-          <MonitorInfoCard />
-        </div>
+        {(deviceData.typeDevice == "desktop" ||
+          deviceData.typeDevice == "laptop") && (
+          <div className="col-auto m-3">
+            <MonitorInfoCard />
+          </div>
+        )}
         <div className="col-auto m-3">
           <PrintResponsiveCard />
         </div>

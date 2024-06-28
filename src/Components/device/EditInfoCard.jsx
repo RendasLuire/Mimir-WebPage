@@ -177,81 +177,89 @@ const EditInfoCard = () => {
                     onChange={onInputChange}
                   />
                 </div>
-                <div className="mb-3">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="custom"
-                      id="custom"
-                      checked={formState.custom}
-                      onChange={() => handleCustomChange(true)}
-                    />
-                    <label className="form-check-label" htmlFor="custom">
-                      Personalizado
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="custom"
-                      id="shared"
-                      checked={!formState.custom}
-                      onChange={() => handleCustomChange(false)}
-                    />
-                    <label className="form-check-label" htmlFor="shared">
-                      Compartido
-                    </label>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="headphones"
-                      name="headphones"
-                      checked={formState.headphones}
-                      onChange={(e) =>
-                        handleCheckboxChange("headphones", e.target.checked)
-                      }
-                    />
-                    <label className="form-check-label" htmlFor="headphones">
-                      Audífonos
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="adaptVGA"
-                      name="adaptVGA"
-                      checked={formState.adaptVGA}
-                      onChange={(e) =>
-                        handleCheckboxChange("adaptVGA", e.target.checked)
-                      }
-                    />
-                    <label className="form-check-label" htmlFor="adaptVGA">
-                      Adaptador VGA
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="mouse"
-                      name="mouse"
-                      checked={formState.mouse}
-                      onChange={(e) =>
-                        handleCheckboxChange("mouse", e.target.checked)
-                      }
-                    />
-                    <label className="form-check-label" htmlFor="mouse">
-                      Mouse
-                    </label>
-                  </div>
-                </div>
+                {(deviceData.typeDevice == "desktop" ||
+                  deviceData.typeDevice == "laptop") && (
+                  <>
+                    <div className="mb-3">
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="custom"
+                          id="custom"
+                          checked={formState.custom}
+                          onChange={() => handleCustomChange(true)}
+                        />
+                        <label className="form-check-label" htmlFor="custom">
+                          Personalizado
+                        </label>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="custom"
+                          id="shared"
+                          checked={!formState.custom}
+                          onChange={() => handleCustomChange(false)}
+                        />
+                        <label className="form-check-label" htmlFor="shared">
+                          Compartido
+                        </label>
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="headphones"
+                          name="headphones"
+                          checked={formState.headphones}
+                          onChange={(e) =>
+                            handleCheckboxChange("headphones", e.target.checked)
+                          }
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="headphones"
+                        >
+                          Audífonos
+                        </label>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="adaptVGA"
+                          name="adaptVGA"
+                          checked={formState.adaptVGA}
+                          onChange={(e) =>
+                            handleCheckboxChange("adaptVGA", e.target.checked)
+                          }
+                        />
+                        <label className="form-check-label" htmlFor="adaptVGA">
+                          Adaptador VGA
+                        </label>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="mouse"
+                          name="mouse"
+                          checked={formState.mouse}
+                          onChange={(e) =>
+                            handleCheckboxChange("mouse", e.target.checked)
+                          }
+                        />
+                        <label className="form-check-label" htmlFor="mouse">
+                          Mouse
+                        </label>
+                      </div>
+                    </div>
+                  </>
+                )}
               </form>
             </div>
             <div className="modal-footer">

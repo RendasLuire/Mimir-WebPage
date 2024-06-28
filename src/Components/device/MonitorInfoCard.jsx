@@ -1,8 +1,7 @@
 import MonitorIcon from "@mui/icons-material/Monitor";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import useDevice from "../../hooks/useDevice";
 import { useEffect, useState } from "react";
-import { Pagination } from "@mui/material";
+import { Pagination, Tooltip } from "@mui/material";
 import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 
@@ -97,31 +96,31 @@ const MonitorInfoCard = () => {
   }, [currentPage, search, deviceData]);
 
   return (
-    <div className="card glass">
-      <div className="card-body d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center">
-          <MonitorIcon sx={{ width: 50, height: 50 }} />
-          <div className="d-flex flex-column px-2">
-            <label className="card-title">
-              {deviceData.monitor.serialNumber &&
-              deviceData.monitor.serialNumber !== "disponible"
-                ? deviceData.monitor.serialNumber.toUpperCase()
-                : "Sin asignar"}
-            </label>
-            <p className="card-text">
-              <small className="text-body-secondary">Monitor</small>
-            </p>
-          </div>
-        </div>
-        <button
-          className="btn btn-outline-primary mx-1"
-          type="button"
+    <div>
+      <Tooltip title={deviceData.monitor.serialNumber} arrow>
+        <div
+          className="card glass"
           data-bs-toggle="modal"
           data-bs-target="#selectMonitor"
         >
-          <BorderColorIcon />
-        </button>
-      </div>
+          <div className="card-body d-flex justify-content-between align-items-center">
+            <div className="d-flex align-items-center">
+              <MonitorIcon sx={{ width: 50, height: 50 }} />
+              <div className="d-flex flex-column px-2">
+                <label className="card-title">
+                  {deviceData.monitor.serialNumber &&
+                  deviceData.monitor.serialNumber !== "disponible"
+                    ? deviceData.monitor.serialNumber.toUpperCase()
+                    : "Sin asignar"}
+                </label>
+                <p className="card-text">
+                  <small className="text-body-secondary">Monitor</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Tooltip>
 
       <div
         className="modal fade"

@@ -82,7 +82,7 @@ const InventoryDevices = () => {
               <AddDeviceButton setUpdate={setUpdate} />
             </div>
           </div>
-          <div className="glass m-3">
+          <div className="glass m-3 h-100 w-100">
             {devices.length > 0 ? (
               <>
                 <div className="d-flex justify-content-center mt-3">
@@ -95,11 +95,14 @@ const InventoryDevices = () => {
                   />
                 </div>
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4 mx-3">
-                  {devices.map((item) => (
-                    <div key={item._id} className="col">
-                      <CardDevice device={item} />
-                    </div>
-                  ))}
+                  {devices
+                    .slice(0)
+                    .reverse()
+                    .map((item) => (
+                      <div key={item._id} className="col">
+                        <CardDevice device={item} />
+                      </div>
+                    ))}
                 </div>
                 <div className="d-flex justify-content-center mt-3">
                   <Pagination
