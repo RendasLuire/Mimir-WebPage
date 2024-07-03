@@ -12,7 +12,7 @@ const ListAllPersons = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const devicesPerPage = 10;
+  const devicesPerPage = 12;
 
   const getUsers = async () => {
     try {
