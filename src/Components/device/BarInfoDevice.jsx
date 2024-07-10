@@ -11,9 +11,9 @@ import { useEffect } from "react";
 import StatusInfoCard from "./StatusInfoCard";
 import UbicationCard from "./UbicationCard";
 import PersonAssingCard from "./PersonAssingCard";
-import EditInfoCard from "./EditInfoCard";
 import PrintResponsiveCard from "./PrintResponsiveCard";
 import MonitorInfoCard from "./MonitorInfoCard";
+import EditDeviceInfoCard from "./EditDeviceInfoCard.jsx";
 
 const BarInfoDevice = () => {
   const { deviceData } = useDevice({});
@@ -40,6 +40,7 @@ const BarInfoDevice = () => {
         <div className="col-auto">
           <div className="card-body">
             <h5 className="card-title">{deviceData.hostname.toUpperCase()}</h5>
+            <p className="card-text">{deviceData.serialNumber.toUpperCase()}</p>
             <p className="card-text">
               {capitalizeFirstLetterOfEachWord(deviceData.brand) +
                 " " +
@@ -66,7 +67,7 @@ const BarInfoDevice = () => {
           <PrintResponsiveCard />
         </div>
         <div className="col-auto m-3">
-          <EditInfoCard />
+          <EditDeviceInfoCard />
         </div>
       </div>
     </div>

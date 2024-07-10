@@ -5,13 +5,11 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Alert from "@mui/material/Alert";
 import Global from "../../helpers/Global";
-import useAnnexed from "../../hooks/useAnnexed";
 
-const AddAnnexedButton = () => {
+const AddAnnexedButton = ({ setUpdate }) => {
   const { formState, onInputChange, setFormState } = useForm({});
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const { setUpdate } = useAnnexed();
   const { auth } = useAuth();
 
   const handleSaveData = async (e) => {
@@ -21,16 +19,6 @@ const AddAnnexedButton = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const capitalizeField = (value) => {
-        return value.replace(/\b\w/g, (char) => char.toUpperCase());
-      };
-
-      const capitalizedFormState = Object.fromEntries(
-        Object.entries(formState).map(([key, value]) => [
-          key,
-          typeof value === "string" ? capitalizeField(value) : value,
-        ])
-      );
       let itemToSave = { ...formState, user: auth._id };
 
       const request = await fetch(Global.url + "annexeds/", {
@@ -44,7 +32,6 @@ const AddAnnexedButton = () => {
 
       const response = await request.json();
       setMessage(response.message);
-      console.log(response.message);
 
       if (!request.ok) {
         setLoading(false);
@@ -56,14 +43,15 @@ const AddAnnexedButton = () => {
         endDate: "",
         bill: "",
       });
-      setUpdate(true);
       setLoading(false);
+      setUpdate(true);
     } catch (error) {
       console.error("Error saving data:", error);
       setMessage("Error al guardar los datos");
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="my-3 container">

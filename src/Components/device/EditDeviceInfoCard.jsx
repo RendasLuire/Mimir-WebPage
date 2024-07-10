@@ -5,7 +5,7 @@ import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
 
-const EditInfoCard = () => {
+const EditDeviceInfoCard = () => {
   const { deviceData, setUpdate } = useDevice({});
   const { formState, onInputChange, setFormState } = useForm({
     hostname: deviceData.hostname || "",
@@ -285,4 +285,4 @@ const EditInfoCard = () => {
   );
 };
 
-export default EditInfoCard;
+export default EditDeviceInfoCard;

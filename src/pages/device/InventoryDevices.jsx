@@ -12,7 +12,7 @@ const InventoryDevices = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const devicesPerPage = 12;
+  const devicesPerPage = 10;
   const filter = "computo";
 
   const getDevices = async () => {
@@ -94,7 +94,7 @@ const InventoryDevices = () => {
                     onChange={handleChangePage}
                   />
                 </div>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4 mx-3">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mx-3">
                   {devices
                     .slice(0)
                     .reverse()

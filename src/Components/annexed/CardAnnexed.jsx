@@ -8,10 +8,10 @@ const CardAnnexed = ({ annexed }) => {
   return (
     <Link
       to={`/inventory/annexeds/details/${annexed._id}`}
-      className="card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
+      className="card device-card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
       <div className="glass m-2">
-        <TextSnippetOutlinedIcon sx={{ width: 150, height: 150 }} />
+        <TextSnippetOutlinedIcon sx={{ width: 100, height: 100 }} />
       </div>
       <div className="card-body text-center">
         <h5 className="card-title">{annexed.number}</h5>
