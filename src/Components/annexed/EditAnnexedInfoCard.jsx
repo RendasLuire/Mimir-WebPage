@@ -11,8 +11,6 @@ const EditAnnexedInfoCard = () => {
   const { formState, onInputChange } = useForm(annexedData);
   const { auth } = useAuth();
 
-  useEffect(() => {}, [annexedData]);
-
   const handleSaveClick = async (e) => {
     e.preventDefault();
     try {
@@ -33,7 +31,7 @@ const EditAnnexedInfoCard = () => {
 
       const dataToUpdate = { ...formState, user: auth._id };
 
-      const request = fetch(`${Global.url}annexeds/${annexedData._id}`, {
+      const request = await fetch(`${Global.url}annexeds/${annexedData._id}`, {
         method: "PATCH",
         body: JSON.stringify(dataToUpdate),
         headers: {
@@ -42,17 +40,15 @@ const EditAnnexedInfoCard = () => {
         },
       });
 
-      await request.json();
-
-      if (!request.ok) {
-        return false;
+      if (request.ok) {
+        setUpdate(true);
       }
-
-      setUpdate(true);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {}, [annexedData]);
 
   return (
     <div className="card glass">

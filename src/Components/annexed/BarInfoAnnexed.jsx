@@ -2,9 +2,13 @@ import { TextSnippetOutlined } from "@mui/icons-material";
 import useAnnexed from "../../hooks/useAnnexed";
 import moment from "moment";
 import EditAnnexedInfoCard from "./EditAnnexedInfoCard";
+import { useEffect } from "react";
+import LoadDevicesCard from "./LoadDevicesCard";
 
 const BarInfoAnnexed = () => {
   const { annexedData } = useAnnexed({});
+
+  useEffect(() => {}, [annexedData]);
 
   return (
     <div className="card glass">
@@ -26,6 +30,9 @@ const BarInfoAnnexed = () => {
               {moment(annexedData.endDate).format("L")}
             </p>
           </div>
+        </div>
+        <div className="col-auto m-3">
+          <LoadDevicesCard />
         </div>
         <div className="col-auto m-3">
           <EditAnnexedInfoCard />
