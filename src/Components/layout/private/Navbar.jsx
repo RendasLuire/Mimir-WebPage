@@ -4,6 +4,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import DevicesIcon from "@mui/icons-material/Devices";
 import GroupIcon from "@mui/icons-material/Group";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
@@ -38,6 +39,11 @@ const Navbar = () => {
           <li className="nav-item">
             <NavLink to="/inventory/monitors" className="nav-link">
               <MonitorOutlinedIcon sx={{ width: 40, height: 40 }} />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/inventory/printers" className="nav-link">
+              <LocalPrintshopOutlinedIcon sx={{ width: 40, height: 40 }} />
             </NavLink>
           </li>
           <li className="nav-item">
