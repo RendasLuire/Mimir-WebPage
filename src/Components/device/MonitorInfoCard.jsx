@@ -14,6 +14,7 @@ const MonitorInfoCard = () => {
   const monitorsPerPage = 5;
   const status = "disponible";
   const { auth } = useAuth();
+  const monitor = deviceData.monitor.id;
 
   const handleInputChange = (event) => {
     setSearch(event.target.value);
@@ -90,14 +91,45 @@ const MonitorInfoCard = () => {
     }
   };
 
+  const handleUnnasingClick = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const messageUpdateMonitor = {
+        user: auth._id,
+      };
+
+      const request = await fetch(
+        `${Global.url}device/unassing/${deviceData._id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdateMonitor),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      await request.json();
+
+      setUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getMonitors();
-    console.log(monitors);
   }, [currentPage, search, deviceData]);
 
   return (
     <div>
-      <Tooltip title={deviceData.monitor.serialNumber} arrow>
+      <Tooltip title={monitor?.serialNumber || "Libre"} arrow>
         <div
           className="card glass"
           data-bs-toggle="modal"
@@ -107,12 +139,17 @@ const MonitorInfoCard = () => {
             <div className="d-flex align-items-center">
               <MonitorIcon sx={{ width: 50, height: 50 }} />
               <div className="d-flex flex-column px-2">
-                <label className="card-title">
-                  {deviceData.monitor.serialNumber &&
-                  deviceData.monitor.serialNumber !== "disponible"
-                    ? deviceData.monitor.serialNumber.toUpperCase()
-                    : "Sin asignar"}
+                <label className="card-text">
+                  {(monitor?.brand || "Disponible") +
+                    " " +
+                    (monitor?.model || "")}
                 </label>
+
+                <p className="card-text">
+                  <label className="">
+                    {monitor?.serialNumber.toUpperCase() || ""}
+                  </label>
+                </p>
                 <p className="card-text">
                   <small className="text-body-secondary">Monitor</small>
                 </p>
@@ -143,13 +180,17 @@ const MonitorInfoCard = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="card m-3 text-center">
+              <div
+                className="card m-3 text-center"
+                onClick={handleUnnasingClick}
+              >
                 <div className="card-body">
                   <label className="card-text">
-                    {deviceData.monitor.serialNumber
-                      ? deviceData.monitor.serialNumber.toUpperCase()
-                      : "Sin monitor"}
+                    {(monitor?.brand || "Libre") + " " + (monitor?.model || "")}
                   </label>
+                  <p className="card-text">
+                    {monitor?.serialNumber.toUpperCase() || ""}
+                  </p>
                   <p className="card-text">
                     <small className="text-body-secondary">
                       Monitor actual

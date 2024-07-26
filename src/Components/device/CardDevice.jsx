@@ -19,6 +19,7 @@ const CardDevice = ({ device }) => {
     brand,
     status,
     typeDevice,
+    monitor,
     serialNumber,
   } = device;
 
@@ -50,11 +51,18 @@ const CardDevice = ({ device }) => {
       to={`/inventory/devices/details/${_id}`}
       className="card device-card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
-      <div className="glass m-2">{icon}</div>
+      <div className="m-2">{icon}</div>
       <div className="position-absolute top-0 start-0">
         <Tooltip title={label} arrow>
           <CircleIcon sx={{ color }} />
         </Tooltip>
+      </div>
+      <div className="position-absolute top-0 end-0">
+        {monitor.id && (
+          <Tooltip title={monitor?.id}>
+            <MonitorOutlinedIcon />
+          </Tooltip>
+        )}
       </div>
       <div className="card-body text-center">
         <h5 className="card-title">{hostname.toUpperCase()}</h5>
