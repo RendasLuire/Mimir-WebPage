@@ -79,7 +79,7 @@ const InventoryDevices = () => {
               />
             </div>
             <div className="my-3">
-              <AddDeviceButton setUpdate={setUpdate} />
+              <AddDeviceButton setUpdate={setUpdate} option={"computer"} />
             </div>
           </div>
           <div className="glass m-3 h-100 w-100">

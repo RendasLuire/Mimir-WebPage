@@ -40,7 +40,10 @@ const BarInfoDevice = () => {
         <div className="col-auto">
           <div className="card-body">
             <h5 className="card-title">{deviceData.hostname.toUpperCase()}</h5>
-            <p className="card-text">{deviceData.serialNumber.toUpperCase()}</p>
+            <p className="card-text">
+              {" "}
+              {deviceData.serialNumber.toUpperCase()}
+            </p>
             <p className="card-text">
               {capitalizeFirstLetterOfEachWord(deviceData.brand) +
                 " " +

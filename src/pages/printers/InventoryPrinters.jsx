@@ -2,10 +2,12 @@ import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import CardDevice from "../../Components/device/CardDevice";
+import AddDeviceButton from "../../Components/device/AddDeviceButton";
 
 const InventoryPrinters = () => {
   const [printers, setPrinters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [update, setUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const printersPerPages = 12;
@@ -46,7 +48,7 @@ const InventoryPrinters = () => {
 
   useEffect(() => {
     getPrintes();
-  }, [currentPage, searchTerm]);
+  }, [update, currentPage, searchTerm]);
 
   const handleChangePage = (event, value) => {
     setCurrentPage(value);
@@ -68,7 +70,7 @@ const InventoryPrinters = () => {
           />
         </div>
         <div className="my-3">
-          <button>+</button>
+          <AddDeviceButton setUpdate={setUpdate} option={"impresora"} />
         </div>
       </div>
       <div className="glass m-3 h-100 w-100">

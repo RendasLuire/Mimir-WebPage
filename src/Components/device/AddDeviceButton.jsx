@@ -6,7 +6,7 @@ import Alert from "@mui/material/Alert";
 import { CircularProgress } from "@mui/material";
 import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
 
-const AddDeviceButton = ({ setUpdate }) => {
+const AddDeviceButton = ({ setUpdate, option }) => {
   const { formState, onInputChange, setFormState } = useForm({
     brand: "",
     model: "",
@@ -23,8 +23,13 @@ const AddDeviceButton = ({ setUpdate }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
+      let itemToSave;
 
-      let itemToSave = { ...formState, user: auth._id };
+      if (option == "computer") {
+        itemToSave = { ...formState, user: auth._id };
+      } else {
+        itemToSave = { ...formState, typeDevice: option, user: auth._id };
+      }
 
       const request = await fetch(Global.url + "device/", {
         method: "POST",
@@ -135,26 +140,26 @@ const AddDeviceButton = ({ setUpdate }) => {
                     onChange={onInputChange}
                   />
                 </div>
-                <div className="mb-1">
-                  <label htmlFor="type" className="form-label">
-                    Tipo:
-                  </label>
-                  <select
-                    id="typeDevice"
-                    name="typeDevice"
-                    onChange={onInputChange}
-                    className="form-select"
-                    value={formState.typeDevice}
-                  >
-                    <option value={""}>Selecciona un tipo</option>
-                    <option value={"desktop"}>Desktop</option>
-                    <option value={"impresora"}>Impresora</option>
-                    <option value={"monitor"}>Monitor</option>
-                    <option value={"laptop"}>Laptop</option>
-                    <option value={"tablet"}>Tablet</option>
-                    <option value={"accesorio"}>Accesorio</option>
-                  </select>
-                </div>
+                {option == "computer" && (
+                  <div className="mb-1">
+                    <label htmlFor="type" className="form-label">
+                      Tipo:
+                    </label>
+                    <select
+                      id="typeDevice"
+                      name="typeDevice"
+                      onChange={onInputChange}
+                      className="form-select"
+                      value={formState.typeDevice}
+                    >
+                      <option value={""}>Selecciona un tipo</option>
+                      <option value={"desktop"}>Desktop</option>
+                      <option value={"laptop"}>Laptop</option>
+                      <option value={"tablet"}>Tablet</option>
+                      <option value={"accesorio"}>Accesorio</option>
+                    </select>
+                  </div>
+                )}
               </div>
               <div className="modal-footer">
                 <button

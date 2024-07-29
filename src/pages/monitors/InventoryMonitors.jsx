@@ -2,10 +2,12 @@ import { CircularProgress, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import CardDevice from "../../Components/device/CardDevice";
+import AddDeviceButton from "../../Components/device/AddDeviceButton";
 
 const InventoryMonitors = () => {
   const [loading, setLoading] = useState(false);
   const [monitors, setMonitors] = useState([]);
+  const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -47,7 +49,7 @@ const InventoryMonitors = () => {
 
   useEffect(() => {
     getMonitors();
-  }, [currentPage, searchTerm]);
+  }, [update, currentPage, searchTerm]);
 
   const handleChangePage = (event, value) => {
     setCurrentPage(value);
@@ -75,7 +77,7 @@ const InventoryMonitors = () => {
               />
             </div>
             <div className="my-3">
-              <button>boton</button>
+              <AddDeviceButton setUpdate={setUpdate} option={"monitor"} />
             </div>
           </div>
           <div className="glass m-3 h-100 w-100">
