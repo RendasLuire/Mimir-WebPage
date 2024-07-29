@@ -140,7 +140,7 @@ const MonitorInfoCard = () => {
               <MonitorIcon sx={{ width: 50, height: 50 }} />
               <div className="d-flex flex-column px-2">
                 <label className="card-text">
-                  {(monitor?.brand || "Disponible") +
+                  {(monitor?.brand.toUpperCase() || "Disponible") +
                     " " +
                     (monitor?.model || "")}
                 </label>
@@ -235,7 +235,7 @@ const MonitorInfoCard = () => {
                           >
                             <td>{item.brand}</td>
                             <td>{item.model}</td>
-                            <td>{item.serialNumber}</td>
+                            <td>{item.serialNumber.toUpperCase()}</td>
                           </tr>
                         ))}
                       </tbody>

@@ -2,6 +2,7 @@ import usePerson from "../../hooks/usePerson";
 import PersonIcon from "@mui/icons-material/Person";
 import ManagerAssingCard from "./ManagerAssingCard";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
+import EditPersonInfoCard from "./EditPersonInfoCard.jsx";
 
 const BarInfoPerson = () => {
   const { personData } = usePerson();
@@ -24,8 +25,11 @@ const BarInfoPerson = () => {
             </p>
           </div>
         </div>
-        <div className="col-3 m-1 py-3">
+        <div className="col-auto m-3">
           <ManagerAssingCard />
+        </div>
+        <div className="col-auto m-3">
+          <EditPersonInfoCard />
         </div>
       </div>
     </div>

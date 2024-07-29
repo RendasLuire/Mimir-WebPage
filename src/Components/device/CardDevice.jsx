@@ -59,7 +59,7 @@ const CardDevice = ({ device }) => {
       </div>
       <div className="position-absolute top-0 end-0">
         {monitor.id && (
-          <Tooltip title={monitor?.id}>
+          <Tooltip title={monitor?.serialNumber.toUpperCase()}>
             <MonitorOutlinedIcon />
           </Tooltip>
         )}

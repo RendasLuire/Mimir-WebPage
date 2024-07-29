@@ -147,7 +147,7 @@ const PersonAssingCard = () => {
                 <div className="card-body">
                   <label className="card-text">
                     {deviceData.person.name
-                      ? deviceData.person.name
+                      ? capitalizeFirstLetterOfEachWord(deviceData.person.name)
                       : "Sin asignar"}
                   </label>
                   <p className="card-text">
@@ -189,8 +189,10 @@ const PersonAssingCard = () => {
                         key={item._id}
                         onClick={() => handleSelectClick(item)}
                       >
-                        <td>{item.name}</td>
-                        <td>{item.position}</td>
+                        <td>{capitalizeFirstLetterOfEachWord(item.name)}</td>
+                        <td>
+                          {capitalizeFirstLetterOfEachWord(item.position)}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
