@@ -94,7 +94,12 @@ const ManagerAssingCard = () => {
 
   return (
     <div className="card glass">
-      <div className="card-body d-flex justify-content-between align-items-center">
+      <div
+        className="card-body d-flex justify-content-between align-items-center"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#selectManager"
+      >
         <div className="col-2">
           <PersonIcon
             className="img-fluid rounded-start"
@@ -110,16 +115,6 @@ const ManagerAssingCard = () => {
           <p className="card-text">
             <small className="text-body-secondary">Gerente / Director</small>
           </p>
-        </div>
-        <div className="col-1">
-          <button
-            className="btn"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#selectManager"
-          >
-            <BorderColorIcon />
-          </button>
         </div>
 
         <div

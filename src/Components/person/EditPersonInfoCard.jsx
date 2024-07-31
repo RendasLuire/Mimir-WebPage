@@ -2,8 +2,8 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import usePerson from "../../hooks/usePerson";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
-import { Global } from "@emotion/react";
 import { useEffect } from "react";
+import Global from "../../helpers/Global";
 
 const EditPersonInfoCard = () => {
   const { personData, setUpdate } = usePerson({});
@@ -85,6 +85,7 @@ const EditPersonInfoCard = () => {
                     type="text"
                     className="form-control"
                     id="name"
+                    name="name"
                     value={formState.name}
                     onChange={onInputChange}
                   />

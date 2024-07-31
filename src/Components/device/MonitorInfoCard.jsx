@@ -104,7 +104,7 @@ const MonitorInfoCard = () => {
       };
 
       const request = await fetch(
-        `${Global.url}device/unassing/${deviceData._id}`,
+        `${Global.url}device/unassingMonitor/${deviceData._id}`,
         {
           method: "PATCH",
           body: JSON.stringify(messageUpdateMonitor),
