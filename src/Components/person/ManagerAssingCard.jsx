@@ -116,91 +116,88 @@ const ManagerAssingCard = () => {
             <small className="text-body-secondary">Gerente / Director</small>
           </p>
         </div>
-
-        <div
-          className="modal fade"
-          id="selectManager"
-          tabIndex={"-1"}
-          aria-labelledby="selectManager"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content glass">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id="selectManager">
-                  Selecciona al Gerente o Director:
-                </h1>
-                <button
-                  className="btn-close"
-                  type="button"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="card m-3 text-center">
-                  <div className="card-body">
-                    <label className="card-text">
-                      {personData.manager.name
-                        ? capitalizeFirstLetterOfEachWord(
-                            personData.manager.name
-                          )
-                        : "Sin seleccionar"}
-                    </label>
-                    <p className="card-text">
-                      <small className="text-body-secondary">
-                        Gerente / Director Actual
-                      </small>
-                    </p>
-                  </div>
+      </div>
+      <div
+        className="modal fade"
+        id="selectManager"
+        tabIndex="-1"
+        aria-labelledby="selectManager"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content glass">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="selectManager">
+                Selecciona al Gerente o Director:
+              </h1>
+              <button
+                className="btn-close"
+                type="button"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <div className="card m-3 text-center">
+                <div className="card-body">
+                  <label className="card-text">
+                    {personData.manager.name
+                      ? capitalizeFirstLetterOfEachWord(personData.manager.name)
+                      : "Sin seleccionar"}
+                  </label>
+                  <p className="card-text">
+                    <small className="text-body-secondary">
+                      Gerente / Director Actual
+                    </small>
+                  </p>
                 </div>
-                <div className="m-3">
-                  <input
-                    className="form-control"
-                    placeholder="Buscar personas"
-                    value={search}
-                    onChange={handleInputChange}
+              </div>
+              <div className="m-3">
+                <input
+                  className="form-control"
+                  placeholder="Buscar personas"
+                  value={search}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="m-3">
+                <div className="d-flex justify-content-around mt-3">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    color="primary"
+                    onChange={handleChangePage}
                   />
                 </div>
-                <div className="m-3">
-                  <div className="d-flex justify-content-around mt-3">
-                    <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      variant="outlined"
-                      color="primary"
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                  <table className="table table-striped glass">
-                    <thead>
-                      <tr>
-                        <th className="col">Nombre</th>
-                        <th className="col">Departamento</th>
-                        <th className="col">Posicion</th>
+                <table className="table table-striped glass">
+                  <thead>
+                    <tr>
+                      <th className="col">Nombre</th>
+                      <th className="col">Departamento</th>
+                      <th className="col">Posicion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {persons.map((item) => (
+                      <tr
+                        className="glass"
+                        key={item._id}
+                        onClick={() => handleSelectClick(item)}
+                      >
+                        <td>{capitalizeFirstLetterOfEachWord(item.name)}</td>
+                        <td>
+                          {capitalizeFirstLetterOfEachWord(
+                            item.department.name
+                          )}
+                        </td>
+                        <td>
+                          {capitalizeFirstLetterOfEachWord(item.position)}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {persons.map((item) => (
-                        <tr
-                          className="glass"
-                          key={item._id}
-                          onClick={() => handleSelectClick(item)}
-                        >
-                          <td>{capitalizeFirstLetterOfEachWord(item.name)}</td>
-                          <td>
-                            {capitalizeFirstLetterOfEachWord(
-                              item.department.name
-                            )}
-                          </td>
-                          <td>
-                            {capitalizeFirstLetterOfEachWord(item.position)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

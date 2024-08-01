@@ -52,6 +52,11 @@ const EditDeviceInfoCard = () => {
 
       if (request.ok) {
         setUpdate(true);
+        const modalElement = document.getElementById("formInfoDevice");
+        const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
       }
     } catch (error) {
       console.log("Error: ", error);
