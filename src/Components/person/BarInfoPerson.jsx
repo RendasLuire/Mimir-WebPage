@@ -3,6 +3,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ManagerAssingCard from "./ManagerAssingCard";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
 import EditPersonInfoCard from "./EditPersonInfoCard.jsx";
+import ChangeDeviceCard from "./ChangeDeviceCard.jsx";
 
 const BarInfoPerson = () => {
   const { personData } = usePerson();
@@ -24,6 +25,9 @@ const BarInfoPerson = () => {
               {capitalizeFirstLetterOfEachWord(personData.position)}
             </p>
           </div>
+        </div>
+        <div className="col-auto m-3">
+          <ChangeDeviceCard />
         </div>
         <div className="col-auto m-3">
           <ManagerAssingCard />
