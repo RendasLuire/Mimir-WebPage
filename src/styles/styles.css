@@ -95,3 +95,9 @@ border: 1px solid rgba(255, 255, 255, 1);
   display: flex;
   justify-content: space-between;
 }
+}
+
+.selected-card {
+  border: 2px solid rgb(193, 203, 223);
+  background-color: rgba(0, 0, 255, 0.1);
+}

@@ -3,14 +3,20 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import usePerson from "../../hooks/usePerson";
 import Global from "../../helpers/Global";
 import { useEffect, useState } from "react";
+import CardDeviceSmall from "../device/CardDeviceSmall";
+import { Pagination } from "@mui/material";
 
 const ChangeDeviceCard = () => {
   const { personData } = usePerson();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const devicesPerPage = 6;
+  const devicesPerPage = 3;
   const [devicesAssigned, setDevicesAssigned] = useState([]);
   const [deviceAvailable, setDeviceAvailable] = useState([]);
+  const [selection, setSelection] = useState({
+    oldDevice: "",
+    newDevice: "",
+  });
   const filter = "dispositivos";
   const status = "disponible";
 
@@ -75,10 +81,19 @@ const ChangeDeviceCard = () => {
     }
   };
 
+  const handleSelectedOld = async (deviceId) => {
+    setSelection({ ...selection, oldDevice: deviceId });
+  };
+
+  const handleSelectedNew = async (deviceId) => {
+    setSelection({ ...selection, newDevice: deviceId });
+  };
+
   useEffect(() => {
     getDevicesAssign();
     getDevicesAvailables();
-  }, []);
+    console.log(selection);
+  }, [selection]);
   return (
     <div className="card glass">
       <div
@@ -112,15 +127,19 @@ const ChangeDeviceCard = () => {
                 <div className="card col">
                   <h5 className="card-title text-center">Equipo Actual</h5>
                   <div className="card-body">
-                    <table className="table table-hover">
-                      <tbody>
-                        {devicesAssigned.map((item) => (
-                          <tr key={item._id} className="glass">
-                            <th>{item.hostname}</th>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <div className=" align-self-center text-center align-items-center">
+                      <Pagination />
+                    </div>
+                    <div>
+                      {devicesAssigned.map((item) => (
+                        <CardDeviceSmall
+                          device={item}
+                          key={item._id}
+                          isSelected={selection.oldDevice === item._id}
+                          onClick={() => handleSelectedOld(item._id)}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className="d-flex justify-content-center align-items-center mx-3">
@@ -129,15 +148,19 @@ const ChangeDeviceCard = () => {
                 <div className="card col">
                   <h5 className="card-title text-center">Equipo Nuevo</h5>
                   <div className="card-body">
-                    <table className="table table-hover">
-                      <tbody>
-                        {deviceAvailable.map((item) => (
-                          <tr key={item._id} className="glass">
-                            <th>{item.hostname}</th>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <div>
+                      <Pagination />
+                    </div>
+                    <div>
+                      {deviceAvailable.map((item) => (
+                        <CardDeviceSmall
+                          device={item}
+                          key={item._id}
+                          isSelected={selection.newDevice === item._id}
+                          onClick={() => handleSelectedNew(item._id)}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
