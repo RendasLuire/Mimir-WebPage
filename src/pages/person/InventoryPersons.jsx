@@ -55,7 +55,7 @@ const ListAllPersons = () => {
   }, [update, currentPage, searchTerm]);
 
   const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value.trim());
   };
   const handleChangePage = (event, value) => {
     setCurrentPage(value);

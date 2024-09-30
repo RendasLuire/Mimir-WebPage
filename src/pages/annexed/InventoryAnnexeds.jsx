@@ -50,7 +50,7 @@ const InventoryAnnexeds = () => {
   };
 
   const handleInputChange = (event) => {
-    setSearchTerm(event.target.evalue);
+    setSearchTerm(event.target.value.trim());
   };
 
   const handleChangePage = (event, value) => {

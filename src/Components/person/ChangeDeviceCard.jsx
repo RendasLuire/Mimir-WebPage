@@ -8,8 +8,10 @@ import { Pagination } from "@mui/material";
 
 const ChangeDeviceCard = () => {
   const { personData } = usePerson();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [currentPageAssign, setCurrentPageAssign] = useState(1);
+  const [currentPageAvailable, setCurrentPageAvailable] = useState(1);
+  const [totalPagesAssign, setTotalPagesAssign] = useState(1);
+  const [totalPagesAvailables, setTotalPagesAvailables] = useState(1);
   const devicesPerPage = 3;
   const [devicesAssigned, setDevicesAssigned] = useState([]);
   const [deviceAvailable, setDeviceAvailable] = useState([]);
@@ -29,7 +31,7 @@ const ChangeDeviceCard = () => {
       }
 
       const request = await fetch(
-        `${Global.url}persons/assigned/${personData._id}?page=${currentPage}&limit=${devicesPerPage}`,
+        `${Global.url}persons/assigned/${personData._id}?page=${currentPageAssign}&limit=${devicesPerPage}`,
         {
           method: "GET",
           headers: {
@@ -42,7 +44,7 @@ const ChangeDeviceCard = () => {
       const response = await request.json();
       const { data, pagination } = response;
 
-      setTotalPages(pagination.totalPages);
+      setTotalPagesAssign(pagination.totalPages);
       setDevicesAssigned(data);
     } catch (error) {
       console.log("Error: ", error);
@@ -58,7 +60,7 @@ const ChangeDeviceCard = () => {
       }
 
       const request = await fetch(
-        `${Global.url}device?filter=${filter}&&page=${currentPage}&limit=${devicesPerPage}&status=${status}`,
+        `${Global.url}device?filter=${filter}&&page=${currentPageAvailable}&limit=${devicesPerPage}&status=${status}`,
         {
           method: "GET",
           headers: {
@@ -75,7 +77,7 @@ const ChangeDeviceCard = () => {
       const response = await request.json();
 
       setDeviceAvailable(response.data);
-      setTotalPages(response.pagination.totalPages);
+      setTotalPagesAvailables(response.pagination.totalPages);
     } catch (error) {
       console.error("Error fetching devices:", error);
     }
@@ -89,11 +91,19 @@ const ChangeDeviceCard = () => {
     setSelection({ ...selection, newDevice: deviceId });
   };
 
+  const handleChangePageAssign = (event, value) => {
+    setCurrentPageAssign(value);
+  };
+
+  const handleChangePageAvailable = (event, value) => {
+    setCurrentPageAvailable(value);
+  };
+
   useEffect(() => {
     getDevicesAssign();
     getDevicesAvailables();
-    console.log(selection);
-  }, [selection]);
+  }, [selection, currentPageAssign, currentPageAvailable]);
+
   return (
     <div className="card glass">
       <div
@@ -128,7 +138,13 @@ const ChangeDeviceCard = () => {
                   <h5 className="card-title text-center">Equipo Actual</h5>
                   <div className="card-body">
                     <div className=" align-self-center text-center align-items-center">
-                      <Pagination />
+                      <Pagination
+                        count={totalPagesAssign}
+                        page={currentPageAssign}
+                        variant="outlined"
+                        color="primary"
+                        onChange={handleChangePageAssign}
+                      />
                     </div>
                     <div>
                       {devicesAssigned.map((item) => (
@@ -149,7 +165,13 @@ const ChangeDeviceCard = () => {
                   <h5 className="card-title text-center">Equipo Nuevo</h5>
                   <div className="card-body">
                     <div>
-                      <Pagination />
+                      <Pagination
+                        count={totalPagesAvailables}
+                        page={currentPageAvailable}
+                        variant="outlined"
+                        color="primary"
+                        onChange={handleChangePageAvailable}
+                      />
                     </div>
                     <div>
                       {deviceAvailable.map((item) => (
