@@ -6,9 +6,12 @@ import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import DevicesIcon from "@mui/icons-material/Devices";
 import TabletIcon from "@mui/icons-material/Tablet";
 import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
+import moment from "moment";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
+
+moment.locale("es-mx");
 
 const CardDevice = ({ device }) => {
   const {
@@ -51,7 +54,7 @@ const CardDevice = ({ device }) => {
       to={`/inventory/devices/details/${_id}`}
       className="card device-card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
-      <div className="m-2">{icon}</div>
+      <div className="mx-2">{icon}</div>
       <div className="position-absolute top-0 start-0">
         <Tooltip title={label} arrow>
           <CircleIcon sx={{ color }} />
@@ -74,6 +77,11 @@ const CardDevice = ({ device }) => {
           {person.name && person.name !== "unassigned"
             ? capitalizeFirstLetterOfEachWord(person.name)
             : "Sin asignar"}
+        </p>
+        <p className="card-text">
+          <small className="text-body-secondary">
+            {moment(device.lastChange).format("LL")}
+          </small>
         </p>
       </div>
     </Link>

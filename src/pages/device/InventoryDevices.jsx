@@ -62,14 +62,14 @@ const InventoryDevices = () => {
   };
 
   return (
-    <div className="m-3">
+    <div className="mx-3">
       {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center m-3 glass">
+          <div className="d-flex justify-content-center align-items-center mx-3 glass">
             <div className="col-6">
               <input
                 className="form-control m-3"
