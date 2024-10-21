@@ -52,7 +52,7 @@ const InventoryMonitors = () => {
   }, [update, currentPage, searchTerm]);
 
   const handleChangePage = (event, value) => {
-    setCurrentPage(value.trim());
+    setCurrentPage(value);
   };
 
   const handleInputChange = (event) => {
