@@ -182,7 +182,7 @@ const MonitorInfoCard = () => {
             <div className="modal-body">
               <div
                 className="card m-3 text-center"
-                onClick={handleUnnasingClick}
+                onDoubleClick={handleUnnasingClick}
               >
                 <div className="card-body">
                   <label className="card-text">

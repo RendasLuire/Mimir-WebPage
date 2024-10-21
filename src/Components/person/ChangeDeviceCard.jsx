@@ -7,12 +7,13 @@ import CardDeviceSmall from "../device/CardDeviceSmall";
 import { Pagination } from "@mui/material";
 
 const ChangeDeviceCard = () => {
-  const { personData } = usePerson();
+  const { personData, setUpdate } = usePerson();
   const [currentPageAssign, setCurrentPageAssign] = useState(1);
   const [currentPageAvailable, setCurrentPageAvailable] = useState(1);
   const [totalPagesAssign, setTotalPagesAssign] = useState(1);
   const [totalPagesAvailables, setTotalPagesAvailables] = useState(1);
   const devicesPerPage = 3;
+  const [buttonState, setButtonState] = useState(true);
   const [devicesAssigned, setDevicesAssigned] = useState([]);
   const [deviceAvailable, setDeviceAvailable] = useState([]);
   const [selection, setSelection] = useState({
@@ -41,6 +42,7 @@ const ChangeDeviceCard = () => {
         }
       );
 
+      console.log(request);
       const response = await request.json();
       const { data, pagination } = response;
 
@@ -99,9 +101,48 @@ const ChangeDeviceCard = () => {
     setCurrentPageAvailable(value);
   };
 
+  const isButtonAvailable = () => {
+    if (selection.oldDevice !== "" && selection.newDevice !== "") {
+      console.log("hola");
+      setButtonState(false);
+    }
+  };
+
+  const handleChangeDevice = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !personData._id) {
+        return false;
+      }
+
+      const messageChangeDevice = {
+        idOldDevice: selection.oldDevice,
+        idNewDevice: selection.newDevice,
+        idPerson: personData._id,
+      };
+
+      const request = await fetch(`${Global.url}persons/changeDevice`, {
+        method: "PATCH",
+        body: JSON.stringify(messageChangeDevice),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      await request.json();
+
+      setUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getDevicesAssign();
     getDevicesAvailables();
+    isButtonAvailable();
   }, [selection, currentPageAssign, currentPageAvailable]);
 
   return (
@@ -185,6 +226,15 @@ const ChangeDeviceCard = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="d-flex justify-content-center align-items-center mx-3">
+                <button
+                  className="btn btn-success btn-lg"
+                  disabled={buttonState}
+                  onClick={handleChangeDevice}
+                >
+                  Cambiar equipo
+                </button>
               </div>
             </div>
           </div>

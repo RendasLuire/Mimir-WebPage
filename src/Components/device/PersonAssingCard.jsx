@@ -51,6 +51,37 @@ const PersonAssingCard = () => {
     }
   };
 
+  const handleUnnasingClick = async (item) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const messageUpdateDevice = {
+        user: auth._id,
+      };
+
+      const request = await fetch(
+        `${Global.url}device/unassing/${deviceData._id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdateDevice),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      await request.json();
+
+      setUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPerson();
   }, [deviceData, search, currentPage]);
@@ -143,7 +174,10 @@ const PersonAssingCard = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <div className="card m-3 text-center">
+              <div
+                className="card m-3 text-center"
+                onDoubleClick={handleUnnasingClick}
+              >
                 <div className="card-body">
                   <label className="card-text">
                     {deviceData.person.name
