@@ -91,17 +91,36 @@ const UbicationCard = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <label className="form-label" htmlFor="phisicRef">
-                Referencia física
+              <label className="form-label" htmlFor="complex">
+                Complejo
               </label>
-              <input
-                type="text"
-                className="form-control"
-                id="phisicRef"
-                name="phisicRef"
-                onChange={onInputChange}
-                value={formState.phisicRef}
-              />
+              <select
+                className="form-select"
+                aria-label="Selecciona un complejo..."
+                name="complex"
+                id="complex"
+              >
+                <option>CSM</option>
+              </select>
+              <label className="form-label" htmlFor="building">
+                Eficifio
+              </label>
+              <select
+                className="form-select"
+                id="building"
+                name="building"
+                disabled
+              ></select>
+
+              <label className="form-label" htmlFor="place">
+                Ubicacion
+              </label>
+              <select
+                className="form-select"
+                id="place"
+                name="place"
+                disabled
+              ></select>
             </div>
             <div className="modal-footer">
               <button
