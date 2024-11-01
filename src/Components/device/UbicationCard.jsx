@@ -1,22 +1,19 @@
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import useDevice from "../../hooks/useDevice";
-import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
 import { Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const UbicationCard = () => {
   const { deviceData, setUpdate } = useDevice({});
-  const { formState, onInputChange } = useForm({
-    phisicRef: deviceData.phisicRef,
-  });
   const { auth } = useAuth();
+  const [complex, setComplex] = useState("");
+  const [building, setBuilding] = useState("");
+  const [ubication, setUbication] = useState("");
+  const [storages, setStorages] = useState([]);
 
   const handleClickSave = async () => {
-    if (!formState || Object.keys(formState).length === 0) {
-      return;
-    }
-
     try {
       const token = localStorage.getItem("token");
 
@@ -24,7 +21,7 @@ const UbicationCard = () => {
         return false;
       }
 
-      const messageToSend = { ...formState, user: auth._id };
+      const messageToSend = { phisicRef: ubication, user: auth._id };
 
       const request = await fetch(`${Global.url}device/${deviceData._id}`, {
         method: "PATCH",
@@ -42,6 +39,53 @@ const UbicationCard = () => {
     } catch (error) {
       console.log("Error: " + error);
     }
+  };
+
+  const getStorages = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData) {
+        return false;
+      }
+
+      const request = await fetch(`${Global.url}storages/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+
+      if (request.ok) {
+        setStorages(response.data);
+        setUpdate(true);
+        console.log(storages);
+      }
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  useEffect(() => {
+    getStorages();
+  }, []);
+
+  const handleComplexChange = (e) => {
+    setComplex(e.target.value);
+    setBuilding("");
+    setUbication("");
+  };
+
+  const handleBuildingChange = (e) => {
+    setBuilding(e.target.value);
+    setUbication("");
+  };
+
+  const handleUbicationChange = (e) => {
+    setUbication(e.target.value);
   };
 
   return (
@@ -99,28 +143,65 @@ const UbicationCard = () => {
                 aria-label="Selecciona un complejo..."
                 name="complex"
                 id="complex"
+                value={complex}
+                onChange={handleComplexChange}
               >
-                <option>CSM</option>
+                <option value="">Selecciona un complejo...</option>
+                {storages.map((item) => (
+                  <option key={item._id} value={item._id}>
+                    {item.complex}
+                  </option>
+                ))}
               </select>
               <label className="form-label" htmlFor="building">
-                Eficifio
+                Edificio
               </label>
               <select
                 className="form-select"
                 id="building"
                 name="building"
-                disabled
-              ></select>
+                value={building}
+                onChange={handleBuildingChange}
+                disabled={complex === ""}
+              >
+                <option value="">Selecciona un edificio...</option>
+                {storages
+                  .filter((item) => item._id === complex)
+                  .map((item) =>
+                    item.buildings.map((bld) => (
+                      <option key={bld._id} value={bld._id}>
+                        {bld.name}
+                      </option>
+                    ))
+                  )}
+              </select>
 
               <label className="form-label" htmlFor="place">
-                Ubicacion
+                Ubicación
               </label>
               <select
                 className="form-select"
                 id="place"
                 name="place"
-                disabled
-              ></select>
+                value={ubication}
+                onChange={handleUbicationChange}
+                disabled={building === ""}
+              >
+                <option value="">Selecciona una ubicación...</option>
+                {storages
+                  .filter((item) => item._id === complex)
+                  .flatMap((item) =>
+                    item.buildings
+                      .filter((bld) => bld._id === building)
+                      .flatMap((bld) =>
+                        bld.ubications.map((place) => (
+                          <option key={place._id} value={place.complete}>
+                            {place.ubication}
+                          </option>
+                        ))
+                      )
+                  )}
+              </select>
             </div>
             <div className="modal-footer">
               <button
@@ -128,14 +209,14 @@ const UbicationCard = () => {
                 type="button"
                 data-bs-dismiss="modal"
               >
-                Close
+                Cerrar
               </button>
               <button
                 type="button"
                 className="btn btn-primary"
                 onClick={handleClickSave}
               >
-                Save changes
+                Guardar cambios
               </button>
             </div>
           </div>
