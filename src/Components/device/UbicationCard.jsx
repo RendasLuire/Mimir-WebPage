@@ -62,7 +62,6 @@ const UbicationCard = () => {
       if (request.ok) {
         setStorages(response.data);
         setUpdate(true);
-        console.log(storages);
       }
     } catch (error) {
       console.log("Error: " + error);
