@@ -61,7 +61,39 @@ const UbicationCard = () => {
 
       if (request.ok) {
         setStorages(response.data);
-        setUpdate(true);
+      }
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  const loadSelection = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData) {
+        return false;
+      }
+
+      const messageToSend = { complete: deviceData.phisicRef };
+
+      console.log(messageToSend);
+
+      const request = await fetch(`${Global.url}storages/ubication/`, {
+        method: "POST",
+        body: JSON.stringify(messageToSend),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+
+      if (request.ok) {
+        setComplex(response.complexId);
+        setBuilding(response.buildingId);
+        setUbication(response.ubication.ubicationId);
       }
     } catch (error) {
       console.log("Error: " + error);
@@ -71,6 +103,12 @@ const UbicationCard = () => {
   useEffect(() => {
     getStorages();
   }, []);
+
+  useEffect(() => {
+    if (storages.length > 0) {
+      loadSelection();
+    }
+  }, [storages]);
 
   const handleComplexChange = (e) => {
     setComplex(e.target.value);
@@ -161,12 +199,12 @@ const UbicationCard = () => {
                 name="building"
                 value={building}
                 onChange={handleBuildingChange}
-                disabled={complex === ""}
+                disabled={!complex}
               >
                 <option value="">Selecciona un edificio...</option>
                 {storages
                   .filter((item) => item._id === complex)
-                  .map((item) =>
+                  .flatMap((item) =>
                     item.buildings.map((bld) => (
                       <option key={bld._id} value={bld._id}>
                         {bld.name}
@@ -184,7 +222,7 @@ const UbicationCard = () => {
                 name="place"
                 value={ubication}
                 onChange={handleUbicationChange}
-                disabled={building === ""}
+                disabled={!building}
               >
                 <option value="">Selecciona una ubicación...</option>
                 {storages
@@ -194,7 +232,7 @@ const UbicationCard = () => {
                       .filter((bld) => bld._id === building)
                       .flatMap((bld) =>
                         bld.ubications.map((place) => (
-                          <option key={place._id} value={place.complete}>
+                          <option key={place._id} value={place._id}>
                             {place.ubication}
                           </option>
                         ))
