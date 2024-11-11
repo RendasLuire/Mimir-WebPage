@@ -11,6 +11,7 @@ const UbicationCard = () => {
   const [complex, setComplex] = useState("");
   const [building, setBuilding] = useState("");
   const [ubication, setUbication] = useState("");
+  const [ubicationText, setUbicationText] = useState("");
   const [storages, setStorages] = useState([]);
 
   const handleClickSave = async () => {
@@ -21,7 +22,7 @@ const UbicationCard = () => {
         return false;
       }
 
-      const messageToSend = { phisicRef: ubication, user: auth._id };
+      const messageToSend = { phisicRef: ubicationText, user: auth._id };
 
       const request = await fetch(`${Global.url}device/${deviceData._id}`, {
         method: "PATCH",
@@ -94,6 +95,7 @@ const UbicationCard = () => {
         setComplex(response.complexId);
         setBuilding(response.buildingId);
         setUbication(response.ubication.ubicationId);
+        setUbicationText(response.ubication.complete);
       }
     } catch (error) {
       console.log("Error: " + error);
@@ -114,15 +116,19 @@ const UbicationCard = () => {
     setComplex(e.target.value);
     setBuilding("");
     setUbication("");
+    setUbicationText("");
   };
 
   const handleBuildingChange = (e) => {
     setBuilding(e.target.value);
     setUbication("");
+    setUbicationText("");
   };
 
   const handleUbicationChange = (e) => {
-    setUbication(e.target.value);
+    const [ubicationId, completeText] = e.target.value.split("|");
+    setUbication(ubicationId);
+    setUbicationText(completeText);
   };
 
   return (
@@ -220,7 +226,7 @@ const UbicationCard = () => {
                 className="form-select"
                 id="place"
                 name="place"
-                value={ubication}
+                value={`${ubication}|${ubicationText}`}
                 onChange={handleUbicationChange}
                 disabled={!building}
               >
@@ -232,7 +238,10 @@ const UbicationCard = () => {
                       .filter((bld) => bld._id === building)
                       .flatMap((bld) =>
                         bld.ubications.map((place) => (
-                          <option key={place._id} value={place._id}>
+                          <option
+                            key={place._id}
+                            value={`${place._id}|${place.complete}`}
+                          >
                             {place.ubication}
                           </option>
                         ))
