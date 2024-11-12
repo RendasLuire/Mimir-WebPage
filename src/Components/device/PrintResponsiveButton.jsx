@@ -14,7 +14,7 @@ const PrintResponsiveButton = ({ validationResponsive }) => {
       }
 
       const request = await fetch(
-        `${Global.url}reports/responsiveCSM/${deviceData._id}`,
+        `${Global.url}reports-v2/responsivepc/${deviceData._id}`,
         {
           method: "GET",
           headers: {
@@ -26,11 +26,24 @@ const PrintResponsiveButton = ({ validationResponsive }) => {
 
       const blob = await request.blob();
       const url = window.URL.createObjectURL(blob);
-      window.open(url, "_blank");
+
+      // Crear un enlace de descarga temporal
+      const a = document.createElement("a");
+      a.href = url;
+      // Nombre del archivo dinámico
+      const fileName = `${deviceData.serialNumber} - ${deviceData.person.name}.pdf`;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      // Liberar el objeto URL
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <button
       className={`btn ${
