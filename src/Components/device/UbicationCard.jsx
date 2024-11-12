@@ -12,6 +12,7 @@ const UbicationCard = () => {
   const [building, setBuilding] = useState("");
   const [ubication, setUbication] = useState("");
   const [ubicationText, setUbicationText] = useState("");
+  const [bussinesUnit, setBussinesUnit] = useState("");
   const [storages, setStorages] = useState([]);
 
   const handleClickSave = async () => {
@@ -22,7 +23,11 @@ const UbicationCard = () => {
         return false;
       }
 
-      const messageToSend = { phisicRef: ubicationText, user: auth._id };
+      const messageToSend = {
+        phisicRef: ubicationText,
+        bussinesUnit,
+        user: auth._id,
+      };
 
       const request = await fetch(`${Global.url}device/${deviceData._id}`, {
         method: "PATCH",
@@ -93,6 +98,7 @@ const UbicationCard = () => {
 
       if (request.ok) {
         setComplex(response.complexId);
+        setBussinesUnit(response.complex);
         setBuilding(response.buildingId);
         setUbication(response.ubication.ubicationId);
         setUbicationText(response.ubication.complete);
@@ -113,7 +119,9 @@ const UbicationCard = () => {
   }, [storages]);
 
   const handleComplexChange = (e) => {
-    setComplex(e.target.value);
+    const [complexId, complexText] = e.target.value.split("|");
+    setComplex(complexId);
+    setBussinesUnit(complexText);
     setBuilding("");
     setUbication("");
     setUbicationText("");
@@ -129,6 +137,7 @@ const UbicationCard = () => {
     const [ubicationId, completeText] = e.target.value.split("|");
     setUbication(ubicationId);
     setUbicationText(completeText);
+    setBussinesUnit(bussinesUnit);
   };
 
   return (
@@ -186,12 +195,12 @@ const UbicationCard = () => {
                 aria-label="Selecciona un complejo..."
                 name="complex"
                 id="complex"
-                value={complex}
+                value={`${complex}|${bussinesUnit}`}
                 onChange={handleComplexChange}
               >
                 <option value="">Selecciona un complejo...</option>
                 {storages.map((item) => (
-                  <option key={item._id} value={item._id}>
+                  <option key={item._id} value={`${item._id}|${item.complex}`}>
                     {item.complex}
                   </option>
                 ))}
