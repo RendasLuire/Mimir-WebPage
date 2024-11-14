@@ -24,7 +24,9 @@ const InventoryDevices = () => {
       }
 
       const request = await fetch(
-        `${Global.url}device?filter=${filter}&&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
+        `${
+          Global.url
+        }device?filter=${filter}&&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm.toLocaleLowerCase()}`,
         {
           method: "GET",
           headers: {

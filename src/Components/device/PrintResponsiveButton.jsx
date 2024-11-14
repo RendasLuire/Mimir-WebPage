@@ -13,16 +13,23 @@ const PrintResponsiveButton = ({ validationResponsive }) => {
         throw new Error("No se encontró el token de autenticación.");
       }
 
-      const request = await fetch(
-        `${Global.url}reports-v2/responsivepc/${deviceData._id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      let link;
+      if (
+        deviceData.typeDevice == "desktop" ||
+        deviceData.typeDevice == "laptop"
+      ) {
+        link = `${Global.url}reports-v2/responsivepc/${deviceData._id}`;
+      } else {
+        link = `${Global.url}reports-v2/responsivePrint/${deviceData._id}`;
+      }
+
+      const request = await fetch(link, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       const blob = await request.blob();
       const url = window.URL.createObjectURL(blob);
