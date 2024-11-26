@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
 import CardDevice from "../../Components/device/CardDevice";
+import FilterBarDevice from "../../Components/device/FilterBarDevice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 
@@ -71,20 +72,20 @@ const InventoryDevices = () => {
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center mx-3 glass">
-            <div className="col-6">
+          <div className="d-flex flex-wrap justify-content-center align-items-center my-3 glass p-3">
+            <FilterBarDevice />
+            <div className="d-flex flex-wrap justify-content-end align-items-center">
               <input
-                className="form-control m-3"
+                className="form-control mx-2 my-2"
                 value={searchTerm}
                 onChange={handleInputChange}
                 placeholder="Buscar"
+                style={{ maxWidth: "300px" }}
               />
             </div>
-            <div className="my-3">
-              <AddDeviceButton setUpdate={setUpdate} option={"computer"} />
-            </div>
+            <AddDeviceButton setUpdate={setUpdate} option={"computer"} />
           </div>
-          <div className="glass m-3 h-100 w-100">
+          <div className="glass m-3 p-3 w-100">
             {devices.length > 0 ? (
               <>
                 <div className="d-flex justify-content-center mt-3">

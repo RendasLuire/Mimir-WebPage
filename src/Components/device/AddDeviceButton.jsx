@@ -65,7 +65,7 @@ const AddDeviceButton = ({ setUpdate, option }) => {
   };
 
   return (
-    <>
+    <div className="d-flex flex-wrap justify-content-start align-items-center">
       <div className="my-3 container">
         <button
           type="button"
@@ -181,7 +181,7 @@ const AddDeviceButton = ({ setUpdate, option }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
