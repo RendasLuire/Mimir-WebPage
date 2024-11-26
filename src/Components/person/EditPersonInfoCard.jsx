@@ -2,17 +2,19 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import usePerson from "../../hooks/usePerson";
 import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 
 const EditPersonInfoCard = () => {
   const { personData, setUpdate } = usePerson({});
-  const { formState, onInputChange } = useForm({
-    name: personData.name || "",
-    department: personData.department.name || "",
-    position: personData.position || "",
+  const { formState, onInputChange, setFormState } = useForm({
+    name: personData?.name || "",
+    department: personData?.department.name || "",
+    position: personData?.position || "",
+    bussinesUnit: personData?.bussinesUnit || "",
   });
   const { auth } = useAuth();
+  const [storages, setStorages] = useState([]);
 
   const handleSaveClick = async (e) => {
     e.preventDefault();
@@ -32,13 +34,55 @@ const EditPersonInfoCard = () => {
 
       if (request.ok) {
         setUpdate(true);
+        const modalElement = document.getElementById("formInfoPerson");
+        const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
       }
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
-  useEffect(() => {}, [personData]);
+  const getStorages = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const request = await fetch(`${Global.url}storages/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+      const response = await request.json();
+
+      if (request.ok) {
+        setStorages(response.data);
+      }
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  useEffect(() => {
+    if (personData) {
+      getStorages();
+    }
+  }, [personData]);
+
+  const handleBussinessUnitChange = (e) => {
+    const [id, name] = e.target.value.split("|");
+    setFormState((prevState) => ({
+      ...prevState,
+      bussinesUnit: { id, name },
+    }));
+  };
 
   return (
     <div className="card glass">
@@ -115,6 +159,30 @@ const EditPersonInfoCard = () => {
                     value={formState.position}
                     onChange={onInputChange}
                   />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label" htmlFor="bussinessUnit">
+                    Unidad de Negocio:
+                  </label>
+                  <select
+                    className="form-select"
+                    id="bussinessUnit"
+                    name="bussinessUnit"
+                    value={`${formState.bussinesUnit.id}|${formState.bussinesUnit.name}`}
+                    onChange={handleBussinessUnitChange}
+                  >
+                    <option value="">
+                      Selecciona una unidad de negocio...
+                    </option>
+                    {storages.map((item) => (
+                      <option
+                        key={item._id}
+                        value={`${item._id}|${item.complex}`}
+                      >
+                        {item.complex}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </form>
             </div>

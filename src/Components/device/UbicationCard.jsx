@@ -83,8 +83,6 @@ const UbicationCard = () => {
 
       const messageToSend = { complete: deviceData.phisicRef };
 
-      console.log(messageToSend);
-
       const request = await fetch(`${Global.url}storages/ubication/`, {
         method: "POST",
         body: JSON.stringify(messageToSend),
