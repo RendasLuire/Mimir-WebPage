@@ -80,9 +80,9 @@ const InventoryMonitors = () => {
               <AddDeviceButton setUpdate={setUpdate} option={"monitor"} />
             </div>
           </div>
-          <div className="glass m-3 h-100 w-100">
+          <div className="m-3 h-100 w-100">
             <>
-              <div className="d-flex justify-content-center mt-3">
+              <div className="glass d-flex justify-content-center">
                 <Pagination
                   variant="outlined"
                   color="primary"
@@ -98,7 +98,7 @@ const InventoryMonitors = () => {
                   </div>
                 ))}
               </div>
-              <div className="d-flex justify-content-center mt-3">
+              <div className="glass d-flex justify-content-center mt-3">
                 <Pagination
                   variant="outlined"
                   color="primary"

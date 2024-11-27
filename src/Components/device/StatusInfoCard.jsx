@@ -52,7 +52,7 @@ const StatusInfoCard = () => {
     const status = listSettings.find((item) => item.value === statusValue);
     return status
       ? { color: status.option, label: status.label }
-      : { color: "orange", label: "Desconocido" };
+      : { color: "#F44336", label: "Desconocido" };
   };
 
   const { color, label } = getColorAndLabel(deviceData.status.value);

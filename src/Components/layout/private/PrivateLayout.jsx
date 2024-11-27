@@ -2,6 +2,7 @@ import { CircularProgress } from "@mui/material";
 import useAuth from "../../../hooks/useAuth";
 import Navbar from "./Navbar";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
+import "../../../styles/Layout_Styles.css";
 
 const PrivateLayout = () => {
   const { auth, loading } = useAuth();
@@ -9,16 +10,16 @@ const PrivateLayout = () => {
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center align-items-center h-100">
         <CircularProgress />
       </div>
     );
   }
 
   return (
-    <div className="d-flex">
+    <div className="d-flex h-100">
       <Navbar />
-      <div className="flex-grow-1 p-3 layout_content">
+      <div className="layout_content">
         {auth._id ? (
           <Outlet />
         ) : (

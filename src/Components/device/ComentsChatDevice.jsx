@@ -3,6 +3,7 @@ import useDevice from "../../hooks/useDevice";
 import CommentCard from "./CommentCard";
 import AddCommentBar from "./AddCommentBar";
 import useAuth from "../../hooks/useAuth";
+import "../../styles/Chat_Omment.css";
 
 const ComentsChatDevice = () => {
   const chatContainerRef = useRef(null);

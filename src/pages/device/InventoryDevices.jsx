@@ -86,10 +86,10 @@ const InventoryDevices = () => {
             </div>
             <AddDeviceButton setUpdate={setUpdate} option={"computer"} />
           </div>
-          <div className="glass m-3 p-3 w-100">
+          <div className="w-100">
             {devices.length > 0 ? (
               <>
-                <div className="d-flex justify-content-center mt-3">
+                <div className="glass d-flex justify-content-center">
                   <Pagination
                     count={totalPages}
                     page={currentPage}
@@ -108,7 +108,7 @@ const InventoryDevices = () => {
                       </div>
                     ))}
                 </div>
-                <div className="d-flex justify-content-center mt-3">
+                <div className="glass d-flex justify-content-center mt-3">
                   <Pagination
                     count={totalPages}
                     page={currentPage}

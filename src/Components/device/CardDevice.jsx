@@ -1,17 +1,19 @@
 import PropTypes from "prop-types";
-import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import CircleIcon from "@mui/icons-material/Circle";
 import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
 import DevicesIcon from "@mui/icons-material/Devices";
 import TabletIcon from "@mui/icons-material/Tablet";
 import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
+import CircleIcon from "@mui/icons-material/Circle";
+import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
+
 import moment from "moment";
-import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
+import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
-import Global from "../../helpers/Global.jsx";
+import Global from "../../helpers/Global";
 import { useEffect, useState } from "react";
+import "../../styles/Card_Device.css"; // Asegúrate de importar el CSS específico del componente
 
 moment.locale("es-mx");
 
@@ -81,7 +83,7 @@ const CardDevice = ({ device }) => {
   return (
     <Link
       to={`/inventory/devices/details/${_id}`}
-      className="card device-card w-100 glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
+      className="card device-card glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
       <div className="mx-2">{icon}</div>
       <div className="position-absolute top-0 start-0">
