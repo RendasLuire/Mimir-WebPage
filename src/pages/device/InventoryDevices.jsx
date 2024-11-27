@@ -57,6 +57,7 @@ const InventoryDevices = () => {
   }, [update, currentPage, searchTerm]);
 
   const handleInputChange = (event) => {
+    setCurrentPage(1);
     setSearchTerm(event.target.value.trim());
   };
 

@@ -38,6 +38,7 @@ const StatusInfoCard = () => {
       const { data } = response;
 
       setListSettings(data);
+      console.log(listSettings);
     } catch (error) {
       console.log("Error:" + error);
     }
@@ -46,6 +47,15 @@ const StatusInfoCard = () => {
   useEffect(() => {
     getStatus();
   }, [deviceData]);
+
+  const getColorAndLabel = (statusValue) => {
+    const status = listSettings.find((item) => item.value === statusValue);
+    return status
+      ? { color: status.option, label: status.label }
+      : { color: "orange", label: "Desconocido" };
+  };
+
+  const { color, label } = getColorAndLabel(deviceData.status.value);
 
   const handleClickSave = async () => {
     if (!formState || Object.keys(formState).length === 0) {
@@ -85,18 +95,6 @@ const StatusInfoCard = () => {
       console.log("Error: " + error);
     }
   };
-
-  const deviceColorMap = {
-    disponible: { color: "green", label: "Disponible" },
-    asignado: { color: "blue", label: "Asignado" },
-    remplazo_requerido: { color: "orange", label: "Remplazo requerido" },
-    perdido: { color: "grey", label: "Perdido" },
-    descompuesto: { color: "red", label: "Descompuesto" },
-    en_reparacion: { color: "yellow", label: "En reparación" },
-  };
-  const defaultConfig = { color: "grey", label: "Desconocido" };
-  const { color, label } =
-    deviceColorMap[deviceData.status.value] || defaultConfig;
 
   return (
     <div>

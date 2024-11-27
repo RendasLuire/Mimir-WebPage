@@ -10,6 +10,8 @@ import moment from "moment";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
+import Global from "../../helpers/Global.jsx";
+import { useEffect, useState } from "react";
 
 moment.locale("es-mx");
 
@@ -26,6 +28,45 @@ const CardDevice = ({ device }) => {
     serialNumber,
   } = device;
 
+  const [listSettings, setListSettings] = useState([]);
+
+  const getStatus = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const request = await fetch(`${Global.url}settings/statusDevice`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+      const { data } = response;
+      setListSettings(data);
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  useEffect(() => {
+    getStatus();
+  }, [device]);
+
+  const getColorAndLabel = (statusValue) => {
+    const status = listSettings.find((item) => item.value === statusValue);
+    return status
+      ? { color: status.option, label: status.label }
+      : { color: "#F44336", label: "Desconocido" };
+  };
+
+  const { color, label } = getColorAndLabel(status.value);
+
   const deviceIconMap = {
     desktop: <DevicesIcon sx={{ width: 100, height: 100 }} />,
     impresora: <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
@@ -35,19 +76,7 @@ const CardDevice = ({ device }) => {
     accesorio: <DeviceUnknownIcon sx={{ width: 100, height: 100 }} />,
   };
 
-  const deviceColorMap = {
-    disponible: { color: "green", label: "Disponible" },
-    asignado: { color: "blue", label: "Asignado" },
-    remplazo_requerido: { color: "orange", label: "Remplazo requerido" },
-    perdido: { color: "grey", label: "Perdido" },
-    descompuesto: { color: "red", label: "Descompuesto" },
-    en_reparacion: { color: "yellow", label: "En reparación" },
-  };
-
-  const defaultConfig = { color: "grey", label: "Desconocido" };
-
   const icon = deviceIconMap[typeDevice] || null;
-  const { color, label } = deviceColorMap[status.value] || defaultConfig;
 
   return (
     <Link
