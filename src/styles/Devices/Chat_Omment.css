@@ -1,14 +1,13 @@
 /* Chat_Omment.css */
 .chat-card {
- background-color: #ffffff;
  border-radius: 12px;
  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
- width: 33%; /* Ocupa el 1/3 del ancho de la pantalla */
+ width: 33%;
  display: flex;
  flex-direction: column;
- margin-top: 20px; /* Separación desde la barra de información */
- height: calc(100vh - 60px); /* Ocupa toda la altura disponible */
- padding: 10px; /* Espaciado interior */
+ margin-top: 20px;
+ height: calc(80vh - 60px); 
+ padding: 10px;
 }
 
 .chat-header {
@@ -36,7 +35,7 @@
  cursor: pointer;
 }
 
-.sent .message-bubble {
+.message-bubble.sent {
  background-color: #007bff;
  color: white;
  align-self: flex-end;
@@ -47,7 +46,7 @@
  max-width: 80%;
 }
 
-.received .message-bubble {
+.message-bubble.received {
  background-color: #f1f1f1;
  color: #333;
  align-self: flex-start;

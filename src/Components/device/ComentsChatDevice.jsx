@@ -59,7 +59,7 @@ const ComentsChatDevice = () => {
   }, [deviceData.comments]);
 
   return (
-    <div className="card glass chat-card h-100 d-flex flex-column">
+    <div className="card glass chat-card">
       <div className="card-header chat-header">Comentarios</div>
       <div className="card-body flex-grow-1 d-flex flex-column p-3">
         <div className="chat-container flex-grow-1" ref={chatContainerRef}>
