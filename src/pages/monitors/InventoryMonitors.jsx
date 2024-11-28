@@ -5,7 +5,7 @@ import CardDevice from "../../Components/device/CardDevice";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
 
 const InventoryMonitors = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [monitors, setMonitors] = useState([]);
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,6 +42,7 @@ const InventoryMonitors = () => {
 
       setMonitors(data);
       setTotalPages(pagination.totalPages);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +63,7 @@ const InventoryMonitors = () => {
   return (
     <div className="m-3">
       {loading ? (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center w-100 h-100">
           <CircularProgress />
         </div>
       ) : (
