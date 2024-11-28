@@ -19,7 +19,7 @@ const PrivateLayout = () => {
   return (
     <div className="d-flex h-100">
       <Navbar />
-      <div className="layout_content">
+      <div className="layout_content w-100">
         {auth._id ? (
           <Outlet />
         ) : (

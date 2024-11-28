@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import CardDevice from "../../Components/device/CardDevice";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
+import "../../styles/Inventorys.css";
 
 const InventoryPrinters = () => {
   const [printers, setPrinters] = useState([]);
@@ -10,9 +11,9 @@ const InventoryPrinters = () => {
   const [update, setUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const printersPerPages = 12;
+  const printersPerPages = 10;
 
-  const getPrintes = async () => {
+  const getPrinters = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -47,7 +48,7 @@ const InventoryPrinters = () => {
   };
 
   useEffect(() => {
-    getPrintes();
+    getPrinters();
   }, [update, currentPage, searchTerm]);
 
   const handleChangePage = (event, value) => {
@@ -59,48 +60,33 @@ const InventoryPrinters = () => {
   };
 
   return (
-    <div className="m-3">
-      <div className="d-flex justify-content-center align-items-center m-3 glass">
-        <div className="col-6">
-          <input
-            className="form-control m-3"
-            placeholder="Buscar"
-            value={searchTerm}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="my-3">
-          <AddDeviceButton setUpdate={setUpdate} option={"impresora"} />
-        </div>
+    <div className="container">
+      <div className="filter-bar glass">
+        <input
+          className="search-input"
+          placeholder="Buscar"
+          value={searchTerm}
+          onChange={handleInputChange}
+        />
+        <AddDeviceButton setUpdate={setUpdate} option={"impresora"} />
       </div>
-      <div className="glass m-3 h-100 w-100">
-        <>
-          <div className="d-flex justify-content-center mt-3">
-            <Pagination
-              variant="outlined"
-              color="primary"
-              count={totalPages}
-              page={currentPage}
-              onChange={handleChangePage}
-            />
+      <div className="pagination-container glass">
+        <Pagination
+          variant="outlined"
+          color="primary"
+          count={totalPages}
+          page={currentPage}
+          onChange={handleChangePage}
+        />
+      </div>
+      <div className="device-card-container">
+        {printers.length > 0 ? (
+          printers.map((item) => <CardDevice key={item._id} device={item} />)
+        ) : (
+          <div className="no-devices">
+            <label>No hay dispositivos.</label>
           </div>
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4 mx-3">
-            {printers.map((item) => (
-              <div key={item._id} className="col">
-                <CardDevice device={item} />
-              </div>
-            ))}
-          </div>
-          <div className="d-flex justify-content-center mt-3">
-            <Pagination
-              variant="outlined"
-              color="primary"
-              count={totalPages}
-              page={currentPage}
-              onChange={handleChangePage}
-            />
-          </div>
-        </>
+        )}
       </div>
     </div>
   );

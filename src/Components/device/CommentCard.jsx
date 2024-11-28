@@ -1,46 +1,38 @@
-import moment from "moment/moment";
-import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
+import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import useDevice from "../../hooks/useDevice";
-import Global from "../../helpers/Global";
+import "../../styles/Devices/Chat_Omment.css";
 
-const CommentCard = ({ data, isSent }) => {
-  const { deviceData } = useDevice({});
-  const handleDeleteButton = () => {
-    try {
-      const token = localStorage.getItem("token");
+const CommentCard = ({ data, isSent, handleDelete }) => {
+  const [showAlert, setShowAlert] = useState(false);
 
-      const messageToSend = {
-        id: deviceData._id,
-        commentId: data._id,
-      };
-
-      const request = fetch(`${Global.url}`);
-    } catch (error) {}
+  const handleClickDelete = (e) => {
+    e.stopPropagation();
+    handleDelete(data._id);
   };
+
+  const handleAlert = () => {
+    navigator.clipboard.writeText(data.content);
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2000);
+  };
+
   return (
-    <div className={`message-card ${isSent ? "sent" : "received"}`}>
+    <div className="message-card">
       <div
-        className={`message-bubble ${
-          isSent ? "bg-primary text-white" : "bg-light text-dark"
-        }`}
+        className={`message-bubble ${isSent ? "sent" : "received"}`}
+        onClick={handleAlert} // Función para mostrar la alerta
       >
+        {data.content}
+        {showAlert && (
+          <div className="copied-alert show">Comentario copiado</div>
+        )}
         {isSent && (
-          <button
-            type="button"
-            className="btn btn-sm btn-link btn-delete btn-outline-danger "
-            style={{ position: "absolute", top: "5px", right: "5px" }}
-          >
+          <button className="btn-delete" onClick={handleClickDelete}>
             <DeleteIcon />
           </button>
         )}
-        <div className="message-content">{data.content}</div>
-        <div className="message-meta text-muted">
-          <small>{moment(data.dateCreation).format("DD/MM/YYYY hh:mm")}</small>
-          <small className="ms-2 text-truncate" style={{ maxWidth: "100px" }}>
-            {capitalizeFirstLetterOfEachWord(data.nameUser)}
-          </small>
-        </div>
       </div>
     </div>
   );

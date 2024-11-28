@@ -10,10 +10,10 @@ import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import moment from "moment";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
 import { Link } from "react-router-dom";
-import { CircularProgress, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import Global from "../../helpers/Global";
 import { useEffect, useState } from "react";
-import "../../styles/Card_Device.css"; // Asegúrate de importar el CSS específico del componente
+import "../../styles/Devices/Card_Device.css";
 
 moment.locale("es-mx");
 
@@ -82,49 +82,47 @@ const CardDevice = ({ device }) => {
   const icon = deviceIconMap[typeDevice] || null;
 
   return (
-    <>
-      <Link
-        to={`/inventory/devices/details/${_id}`}
-        className="card device-card glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
-      >
-        <div className="mx-2">{icon}</div>
-        <div className="position-absolute top-0 start-0">
-          {loading ? (
-            <Tooltip title={"loading"} arrow>
-              <CircleIcon sx={{ color: "grey" }} />
-            </Tooltip>
-          ) : (
-            <Tooltip title={label} arrow>
-              <CircleIcon sx={{ color }} />
-            </Tooltip>
-          )}
-        </div>
-        <div className="position-absolute top-0 end-0">
-          {monitor?.id && (
-            <Tooltip title={monitor?.serialNumber.toUpperCase()}>
-              <MonitorOutlinedIcon />
-            </Tooltip>
-          )}
-        </div>
-        <div className="card-body text-center">
-          <h5 className="card-title">{hostname.toUpperCase()}</h5>
-          <p className="card-text">
-            {capitalizeFirstLetterOfEachWord(`${brand} ${model}`)}
-          </p>
-          <p className="card-text">{serialNumber.toUpperCase()}</p>
-          <p className="card-text">
-            {person.name && person.name !== "unassigned"
-              ? capitalizeFirstLetterOfEachWord(person.name)
-              : "Sin asignar"}
-          </p>
-          <p className="card-text">
-            <small className="text-body-secondary">
-              {moment(device.lastChange).format("LL")}
-            </small>
-          </p>
-        </div>
-      </Link>
-    </>
+    <Link
+      to={`/inventory/devices/details/${_id}`}
+      className="card device-card glass m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
+    >
+      <div className="mx-2">{icon}</div>
+      <div className="position-absolute top-0 start-0">
+        {loading ? (
+          <Tooltip title={"loading"} arrow>
+            <CircleIcon sx={{ color: "grey" }} />
+          </Tooltip>
+        ) : (
+          <Tooltip title={label} arrow>
+            <CircleIcon sx={{ color }} />
+          </Tooltip>
+        )}
+      </div>
+      <div className="position-absolute top-0 end-0">
+        {monitor?.id && (
+          <Tooltip title={monitor?.serialNumber.toUpperCase()}>
+            <MonitorOutlinedIcon />
+          </Tooltip>
+        )}
+      </div>
+      <div className="card-body text-center">
+        <h5 className="card-title">{hostname.toUpperCase()}</h5>
+        <p className="card-text">
+          {capitalizeFirstLetterOfEachWord(`${brand} ${model}`)}
+        </p>
+        <p className="card-text">{serialNumber.toUpperCase()}</p>
+        <p className="card-text">
+          {person.name && person.name !== "unassigned"
+            ? capitalizeFirstLetterOfEachWord(person.name)
+            : "Sin asignar"}
+        </p>
+        <p className="card-text">
+          <small className="text-body-secondary">
+            {moment(device.lastChange).format("LL")}
+          </small>
+        </p>
+      </div>
+    </Link>
   );
 };
 

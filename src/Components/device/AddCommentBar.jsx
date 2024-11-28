@@ -3,6 +3,7 @@ import useForm from "../../hooks/useForm";
 import useAuth from "../../hooks/useAuth";
 import Global from "../../helpers/Global";
 import useDevice from "../../hooks/useDevice";
+import "../../styles/Devices/Chat_Omment.css";
 
 const AddCommentBar = () => {
   const { formState, setFormState, onInputChange } = useForm({
@@ -14,7 +15,6 @@ const AddCommentBar = () => {
   const handleSendClick = async (e) => {
     e.preventDefault();
     try {
-      console.log("hola");
       const token = localStorage.getItem("token");
       const messageToSend = {
         ...formState,
@@ -42,12 +42,13 @@ const AddCommentBar = () => {
       console.log("Error: ", error);
     }
   };
+
   return (
-    <div className="mt-2 w-100 d-flex">
+    <div className="add-comment-bar">
       <input
         type="text"
         className="form-control me-2"
-        placeholder="Escribe un comentarios..."
+        placeholder="Escribe un comentario..."
         name="content"
         id="content"
         value={formState.content}

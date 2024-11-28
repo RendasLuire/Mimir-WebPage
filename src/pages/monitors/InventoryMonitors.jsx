@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import CardDevice from "../../Components/device/CardDevice";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
+import "../../styles/Inventorys.css";
 
 const InventoryMonitors = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ const InventoryMonitors = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const monitorsPerPages = 12;
+  const monitorsPerPages = 10;
 
   const getMonitors = async () => {
     try {
@@ -61,54 +62,41 @@ const InventoryMonitors = () => {
   };
 
   return (
-    <div className="m-3">
+    <div className="container">
       {loading ? (
-        <div className="d-flex justify-content-center w-100 h-100">
+        <div className="loading-container">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center m-3 glass">
-            <div className="col-6">
-              <input
-                className="form-control m-3"
-                placeholder="Buscar"
-                value={searchTerm}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="my-3">
-              <AddDeviceButton setUpdate={setUpdate} option={"monitor"} />
-            </div>
+          <div className="filter-bar glass">
+            <input
+              className="search-input"
+              placeholder="Buscar"
+              value={searchTerm}
+              onChange={handleInputChange}
+            />
+            <AddDeviceButton setUpdate={setUpdate} option={"monitor"} />
           </div>
-          <div className="m-3 h-100 w-100">
-            <>
-              <div className="glass d-flex justify-content-center">
-                <Pagination
-                  variant="outlined"
-                  color="primary"
-                  count={totalPages}
-                  page={currentPage}
-                  onChange={handleChangePage}
-                />
+          <div className="pagination-container glass">
+            <Pagination
+              variant="outlined"
+              color="primary"
+              count={totalPages}
+              page={currentPage}
+              onChange={handleChangePage}
+            />
+          </div>
+          <div className="device-card-container">
+            {monitors.length > 0 ? (
+              monitors.map((item) => (
+                <CardDevice key={item._id} device={item} />
+              ))
+            ) : (
+              <div className="no-devices">
+                <label>No hay dispositivos.</label>
               </div>
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4 mx-3">
-                {monitors.map((item) => (
-                  <div key={item._id} className="col">
-                    <CardDevice device={item} />
-                  </div>
-                ))}
-              </div>
-              <div className="glass d-flex justify-content-center mt-3">
-                <Pagination
-                  variant="outlined"
-                  color="primary"
-                  count={totalPages}
-                  page={currentPage}
-                  onChange={handleChangePage}
-                />
-              </div>
-            </>
+            )}
           </div>
         </>
       )}

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
 import CardDevice from "../../Components/device/CardDevice";
 import FilterBarDevice from "../../Components/device/FilterBarDevice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
+import "../../styles/Inventorys.css";
 
 const InventoryDevices = () => {
   const [devices, setDevices] = useState([]);
@@ -13,7 +14,7 @@ const InventoryDevices = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const devicesPerPage = 12;
+  const devicesPerPage = 10;
   const filter = "computo";
 
   const getDevices = async () => {
@@ -27,7 +28,7 @@ const InventoryDevices = () => {
       const request = await fetch(
         `${
           Global.url
-        }device?filter=${filter}&&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm.toLocaleLowerCase()}`,
+        }device?filter=${filter}&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm.toLocaleLowerCase()}`,
         {
           method: "GET",
           headers: {
@@ -66,61 +67,41 @@ const InventoryDevices = () => {
   };
 
   return (
-    <div className="mx-3">
+    <div className="container">
       {loading ? (
-        <div className="d-flex justify-content-center">
+        <div className="loading-container">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex flex-wrap justify-content-center align-items-center my-3 glass p-3">
+          <div className="filter-bar glass">
             <FilterBarDevice />
-            <div className="d-flex flex-wrap justify-content-end align-items-center">
-              <input
-                className="form-control mx-2 my-2"
-                value={searchTerm}
-                onChange={handleInputChange}
-                placeholder="Buscar"
-                style={{ maxWidth: "300px" }}
-              />
-            </div>
+            <input
+              className="search-input"
+              value={searchTerm}
+              onChange={handleInputChange}
+              placeholder="Buscar"
+            />
             <AddDeviceButton setUpdate={setUpdate} option={"computer"} />
           </div>
-          <div className="w-100">
+          <div className="pagination-container glass">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              variant="outlined"
+              color="primary"
+              onChange={handleChangePage}
+            />
+          </div>
+          <div className="device-card-container">
             {devices.length > 0 ? (
-              <>
-                <div className="glass d-flex justify-content-center">
-                  <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    variant="outlined"
-                    color="primary"
-                    onChange={handleChangePage}
-                  />
-                </div>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4 mx-3">
-                  {devices
-                    .slice(0)
-                    .reverse()
-                    .map((item) => (
-                      <div key={item._id} className="col">
-                        <CardDevice device={item} />
-                      </div>
-                    ))}
-                </div>
-                <div className="glass d-flex justify-content-center mt-3">
-                  <Pagination
-                    count={totalPages}
-                    page={currentPage}
-                    variant="outlined"
-                    color="primary"
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </>
+              devices
+                .slice(0)
+                .reverse()
+                .map((item) => <CardDevice key={item._id} device={item} />)
             ) : (
-              <div className="d-flex justify-content-center m-3">
-                <label className="label">No hay dispositivos.</label>
+              <div className="no-devices">
+                <label>No hay dispositivos.</label>
               </div>
             )}
           </div>

@@ -1,0 +1,137 @@
+/* Chat_Omment.css */
+.chat-card {
+ background-color: #ffffff;
+ border-radius: 12px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+ width: 33%; /* Ocupa el 1/3 del ancho de la pantalla */
+ display: flex;
+ flex-direction: column;
+ margin-top: 20px; /* Separación desde la barra de información */
+ height: calc(100vh - 60px); /* Ocupa toda la altura disponible */
+ padding: 10px; /* Espaciado interior */
+}
+
+.chat-header {
+ background-color: #f7f7f7;
+ padding: 1rem;
+ font-size: 1.2rem;
+ font-weight: 600;
+ color: #333;
+ border-radius: 12px 12px 0 0;
+ margin-bottom: 10px;
+}
+
+.chat-container {
+ display: flex;
+ flex-direction: column-reverse; /* Los mensajes nuevos van al fondo */
+ flex-grow: 1; /* Asegura que el contenedor use todo el espacio restante */
+ overflow-y: auto; /* Permite el scroll solo cuando sea necesario */
+}
+
+.message-card {
+ margin: 10px 0;
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ cursor: pointer;
+}
+
+.sent .message-bubble {
+ background-color: #007bff;
+ color: white;
+ align-self: flex-end;
+ position: relative;
+ border-radius: 20px 20px 0 20px; /* Estilo burbuja iPhone */
+ padding: 10px;
+ margin: 5px;
+ max-width: 80%;
+}
+
+.received .message-bubble {
+ background-color: #f1f1f1;
+ color: #333;
+ align-self: flex-start;
+ position: relative;
+ border-radius: 20px 20px 20px 0; /* Estilo burbuja iPhone */
+ padding: 10px;
+ margin: 5px;
+ max-width: 80%;
+}
+
+.message-bubble .btn-delete {
+ position: absolute;
+ top: 5px;
+ right: 5px;
+ background-color: transparent;
+ border: none;
+ color: red;
+ z-index: 10; /* Asegura que el botón no se solape con el contenido */
+}
+
+.message-content {
+ font-size: 1rem;
+ line-height: 1.5;
+}
+
+.message-meta {
+ font-size: 0.8rem;
+ color: #888;
+ display: flex;
+ justify-content: space-between;
+}
+
+/* Nueva clase para mostrar la alerta sobre el mensaje copiado */
+.copied-alert {
+ position: absolute;
+ top: -30px;
+ left: 50%;
+ transform: translateX(-50%);
+ background-color: rgba(0, 123, 255, 0.7);
+ color: white;
+ padding: 5px 10px;
+ border-radius: 5px;
+ font-size: 0.9rem;
+ visibility: hidden;
+ opacity: 0;
+ transition: opacity 0.3s ease;
+ z-index: 15; /* Asegura que el mensaje de copiado esté sobre los comentarios */
+}
+
+.copied-alert.show {
+ visibility: visible;
+ opacity: 1;
+}
+
+.chat-container::-webkit-scrollbar {
+ width: 8px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+ background-color: #aaa;
+ border-radius: 8px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+ background-color: #f0f0f0;
+}
+
+/* Estilos para el campo de añadir comentarios */
+.add-comment-bar {
+ border-top: 1px solid #ddd; /* División para separar el área de comentarios */
+ padding-top: 10px;
+ padding-bottom: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ margin-top: 10px;
+}
+
+.add-comment-bar input {
+ width: 80%;
+ border-radius: 12px;
+ padding: 10px;
+}
+
+.add-comment-bar button {
+ border-radius: 12px;
+}

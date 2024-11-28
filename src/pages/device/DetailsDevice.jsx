@@ -14,7 +14,7 @@ const DetailsDevice = () => {
   }, [id, setDeviceData]);
 
   return (
-    <div className="content m-1">
+    <div className="details-device-container">
       {loading ? (
         <div className="d-flex justify-content-center">
           <CircularProgress />
@@ -27,13 +27,14 @@ const DetailsDevice = () => {
             </div>
           ) : (
             <>
-              <div className="m-1">
+              {/* Barra de información arriba */}
+              <div className="bar-info-container">
                 <BarInfoDevice />
               </div>
-              <div className="m-3">
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 mx-3">
-                  <ComentsChatDevice className="" />
-                </div>
+
+              {/* Contenedor del chat a la izquierda */}
+              <div className="chat-container">
+                <ComentsChatDevice />
               </div>
             </>
           )}

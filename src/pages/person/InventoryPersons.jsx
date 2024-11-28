@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
 import CardPersons from "../../Components/person/CardPersons";
 import ButtonAddPerson from "../../Components/person/ButtonAddPerson";
-import { CircularProgress } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
+import { CircularProgress, Pagination } from "@mui/material";
+import "../../styles/Inventorys.css";
 
 const ListAllPersons = () => {
   const [users, setUsers] = useState([]);
@@ -12,7 +12,7 @@ const ListAllPersons = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const devicesPerPage = 12;
+  const devicesPerPage = 10;
 
   const getUsers = async () => {
     try {
@@ -62,64 +62,39 @@ const ListAllPersons = () => {
   };
 
   return (
-    <div className="m-3">
+    <div className="container">
       {loading ? (
-        <div className="d-flex justify-content-center">
+        <div className="loading-container">
           <CircularProgress />
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-center align-items-center m-3 glass">
-            <div className="col-6">
-              <input
-                className="form-control m-3"
-                value={searchTerm}
-                onChange={handleInputChange}
-                placeholder="Search"
-              />
-            </div>
-            <div className="m-3">
-              <ButtonAddPerson setUpdate={setUpdate} />
-            </div>
+          <div className="filter-bar glass">
+            <input
+              className="search-input"
+              value={searchTerm}
+              onChange={handleInputChange}
+              placeholder="Buscar"
+            />
+            <ButtonAddPerson setUpdate={setUpdate} />
           </div>
-          <div className="glass m-3">
-            <>
-              {users.length > 0 ? (
-                <>
-                  <div className="d-flex justify-content-center mt-3">
-                    <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      variant="outlined"
-                      color="primary"
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                  <div className="row row-cols-1 row-clos-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mx-3">
-                    {users.map((item) => (
-                      <div className="col-12 col-md-4 col-lg-2" key={item._id}>
-                        <CardPersons user={item} />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="d-flex justify-content-center mt-3">
-                    <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      variant="outlined"
-                      color="primary"
-                      onChange={handleChangePage}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="d-flex justify-content-center m-3">
-                    <label className="label">No hay usuarios.</label>
-                  </div>
-                </>
-              )}
-            </>
+          <div className="pagination-container glass">
+            <Pagination
+              variant="outlined"
+              color="primary"
+              count={totalPages}
+              page={currentPage}
+              onChange={handleChangePage}
+            />
+          </div>
+          <div className="device-card-container">
+            {users.length > 0 ? (
+              users.map((item) => <CardPersons key={item._id} user={item} />)
+            ) : (
+              <div className="no-devices">
+                <label>No hay usuarios.</label>
+              </div>
+            )}
           </div>
         </>
       )}

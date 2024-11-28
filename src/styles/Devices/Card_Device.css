@@ -5,7 +5,17 @@
  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.device-card-container {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 1rem; /* Add some gap between cards */
+}
+
 .device-card {
+ flex: 1 1 calc(25% - 1rem); /* Adjust the percentage to fit the layout */
+ min-width: 250px; /* Ensure a minimum width */
+ max-width: 300px; /* Ensure a maximum width */
  height: 300px;
  display: flex;
  flex-direction: column;
@@ -17,13 +27,11 @@
  overflow: hidden;
  padding: 10px;
  box-sizing: border-box;
+ transition: transform 0.2s ease-in-out;
 }
 
-.card-text {
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
- max-width: 80%;
+.device-card:hover {
+ transform: scale(1.05); /* Optional: Add a hover effect */
 }
 
 .device-card .card-body {
@@ -53,3 +61,9 @@
  color: #666;
 }
 
+.card-text {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ max-width: 80%;
+}
