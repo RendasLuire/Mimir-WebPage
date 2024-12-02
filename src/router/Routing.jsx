@@ -11,6 +11,7 @@ import ShowDashBoard from "../pages/dashboard/ShowDashBoard";
 import AnnexedRoutes from "./AnnexedRoutes";
 import MonitorsRoutes from "./MonitorsRoutes";
 import PrintersRouters from "./PrintersRouters";
+import SettingsRoutes from "./SettingsRoutes";
 
 const Routing = () => {
   return (
@@ -29,6 +30,7 @@ const Routing = () => {
             <Route path="/inventory/printers/*" element={<PrintersRouters />} />
             <Route path="/inventory/users/*" element={<UsersRoutes />} />
             <Route path="/inventory/annexeds/*" element={<AnnexedRoutes />} />
+            <Route path="/inventory/settings/*" element={<SettingsRoutes />} />
             <Route
               path="/inventory/warehouses/*"
               element={<InventoryWarehouse />}

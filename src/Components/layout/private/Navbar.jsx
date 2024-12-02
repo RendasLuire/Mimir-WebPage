@@ -67,8 +67,10 @@ const Navbar = () => {
             aria-labelledby="dropdownMenuButton"
           >
             <li className="dropdown-item">
-              <SettingsOutlinedIcon />
-              <span className="ms-2">Configuración</span>
+              <NavLink to={"/inventory/settings/"} className={"nav-link"}>
+                <SettingsOutlinedIcon />
+                <span className="ms-2">Configuración</span>
+              </NavLink>
             </li>
             <li>
               <hr className="dropdown-divider" />
