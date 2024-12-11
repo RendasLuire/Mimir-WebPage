@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import useAuth from "../../../hooks/useAuth";
-import Navbar from "./Navbar";
+import Navbar from "./navbar/Navbar";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import "../../../styles/Layout_Styles.css";
 
