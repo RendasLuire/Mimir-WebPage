@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -45,34 +45,34 @@ const Navbar = () => {
         >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Tooltip title="Devices" placement="right">
+              <Tooltip title="Dispositivos" placement="bottom">
                 <NavLink to="/inventory/devices" className="nav-link">
                   <DevicesIcon />
-                  <span>Devices</span>
+                  <span>Dispositivos</span>
                 </NavLink>
               </Tooltip>
             </li>
             <li className="nav-item">
-              <Tooltip title="Printers" placement="right">
+              <Tooltip title="Impresoras" placement="bottom">
                 <NavLink to="/inventory/printers" className="nav-link">
                   <LocalPrintshopOutlinedIcon />
-                  <span>Printers</span>
+                  <span>Impresoras</span>
                 </NavLink>
               </Tooltip>
             </li>
             <li className="nav-item">
-              <Tooltip title="Users" placement="right">
+              <Tooltip title="Usuarios" placement="bottom">
                 <NavLink to="/inventory/users" className="nav-link">
                   <GroupIcon />
-                  <span>Users</span>
+                  <span>Usuarios</span>
                 </NavLink>
               </Tooltip>
             </li>
             <li className="nav-item">
-              <Tooltip title="Annexeds" placement="right">
+              <Tooltip title="Anexos" placement="bottom">
                 <NavLink to="/inventory/annexeds" className="nav-link">
                   <FilePresentIcon />
-                  <span>Annexeds</span>
+                  <span>Anexos</span>
                 </NavLink>
               </Tooltip>
             </li>

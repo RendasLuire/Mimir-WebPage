@@ -1,7 +1,7 @@
 import { CircularProgress, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import CardDevice from "../../Components/device/CardDevice";
+import CardDevice from "../../Components/device/carDevice/CardDevice";
 import AddDeviceButton from "../../Components/device/AddDeviceButton";
 import "../../styles/Inventorys.css";
 

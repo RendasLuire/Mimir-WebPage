@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Global from "../../../helpers/Global";
 import AddDeviceButton from "../../../Components/device/AddDeviceButton";
-import CardDevice from "../../../Components/device/CardDevice";
+import CardDevice from "../../../Components/device/carDevice/CardDevice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 import "./InventoryDevice.css";

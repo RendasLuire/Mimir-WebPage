@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import usePerson from "../../hooks/usePerson";
 import Global from "../../helpers/Global";
-import CardDevice from "../device/CardDevice";
+import CardDevice from "../device/carDevice/CardDevice";
 import { Pagination } from "@mui/material";
 
 const ListDevicesAssined = () => {

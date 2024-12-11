@@ -8,12 +8,12 @@ import CircleIcon from "@mui/icons-material/Circle";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 
 import moment from "moment";
-import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
+import { capitalizeFirstLetterOfEachWord } from "../../../helpers/Tools";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
-import Global from "../../helpers/Global";
+import Global from "../../../helpers/Global";
 import { useEffect, useState } from "react";
-import "../../styles/Devices/Card_Device.css";
+import "./CardDevice.css";
 
 moment.locale("es-mx");
 
