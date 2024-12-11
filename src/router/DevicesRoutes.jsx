@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import InventoryDevices from "../pages/device/InventoryDevices";
+import InventoryDevices from "../pages/device/InventoryDevice/InventoryDevices";
 import DetailsDevices from "../pages/device/DetailsDevice";
 import { DeviceProvider } from "../context/DeviceProvider";
 

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import Global from "../../helpers/Global";
-import AddDeviceButton from "../../Components/device/AddDeviceButton";
-import CardDevice from "../../Components/device/CardDevice";
-import FilterBarDevice from "../../Components/device/FilterBarDevice";
+import Global from "../../../helpers/Global";
+import AddDeviceButton from "../../../Components/device/AddDeviceButton";
+import CardDevice from "../../../Components/device/CardDevice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
-import "../../styles/Inventorys.css";
+import "./InventoryDevice.css";
 
 const InventoryDevices = () => {
   const [devices, setDevices] = useState([]);
@@ -75,7 +74,6 @@ const InventoryDevices = () => {
       ) : (
         <>
           <div className="filter-bar glass">
-            <FilterBarDevice />
             <input
               className="search-input"
               value={searchTerm}
