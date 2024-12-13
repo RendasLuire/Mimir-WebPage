@@ -1,0 +1,47 @@
+@import url("../../../styles/colorPalette.css");
+
+.container-info-network {
+ border-radius: 10pt;
+ background: var(--secondary-background-color);
+ box-shadow: 0 6px 12px var(--shadow-color);
+ padding: 20px;
+}
+
+.container-info-network .icon {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: var(--primary-color);
+}
+
+.container-info-network .info {
+ margin-top: 1rem;
+}
+
+.container-info-network .info p {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ margin-bottom: 1rem;
+}
+
+.container-info-network .info span {
+ color: var(--secondary-font-color); 
+ font-weight: bold;
+ font-size: 0.6rem; 
+ margin-left: 0.2rem; 
+}
+
+.container-info-network .info label {
+ font-size: 1rem;
+}
+
+.container-info-network .btn-group button {
+ background-color: var(--link-color);
+ border-color: var(--border-color);
+ color: var(--font-color);
+}
+
+.container-info-network .btn-group button:hover {
+ background-color: var(--link-hover-color);
+}

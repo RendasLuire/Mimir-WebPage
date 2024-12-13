@@ -14,6 +14,13 @@ body, html {
   min-height: 100%;
 }
 
+.glass {
+  background: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+ }
+
 body {
   background: linear-gradient(0deg, rgba(115,171,255,1) 0%, rgba(151,201,255,1) 50%, rgba(215,235,255,1) 100%);
   background-size: cover; /* Ensure the background covers the whole area */

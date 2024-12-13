@@ -1,0 +1,93 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.device, .monitor, .network, .comments, .user, .office, .extras {
+  text-align: center;
+  align-content: center;
+  margin: 0.3vw;
+}
+
+.device {
+  height: 300pt;
+}
+
+.monitor {
+  height: 150pt;
+}
+
+.network {
+  height: 50pt;
+}
+
+.user {
+  height: 150pt;
+}
+
+.comments {
+  height: 300pt;
+}
+
+.office, .extras {
+  height: 100pt;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    margin: 0 auto;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "device monitor user network comments"
+      "device monitor user network comments"
+      "device monitor user office comments"
+      "device monitor user extras comments";
+    gap: 20pt;
+  }
+
+  .device {
+    grid-area: device;
+    width: 100%;
+  }
+
+  .user {
+    grid-area: user;
+    width: 100%;
+  }
+
+  .network {
+    grid-area: network;
+    width: 100%;
+  }
+
+  .monitor {
+    grid-area: monitor;
+    width: 100%;
+  }
+
+  .office {
+    grid-area: office;
+    width: 100%;
+  }
+
+  .extras {
+    grid-area: extras;
+    width: 100%;
+  }
+
+  .comments {
+    grid-area: comments;
+    height: 100%;
+    width: 100%;
+  }
+}

@@ -19,11 +19,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-light glass fixed-top">
+    <nav className="navbar navbar-expand-md navbar-light fixed-top">
       <div className="container-fluid">
         <div className="d-flex align-items-center">
-          <PsychologyIcon />
-          <NavLink className="navbar-brand ms-2 mb-0 h1" to="/">
+          <NavLink className="navbar-brand ms-2 mb-0" to="/">
+            <PsychologyIcon />
             MIMIR
           </NavLink>
         </div>

@@ -1,16 +1,56 @@
+@import url("../../../../styles/colorPalette.css");
 
 .navbar {
- background-color: rgba(255, 255, 255, 0.923);
  padding: 0.5rem;
  font-size: calc(0.5em + 0.5vw);
+ background-color: var(--primary-color); 
+ box-shadow: 0 10pt 10pt var(--shadow-color);
+}
+
+.nav-link, .navbar-brand {
+ color: var(--font-color);
+ display: flex;
+ align-items: center;
+}
+
+.navbar-brand:hover {
+ color: var(--font-color);
 }
 
 .nav-link .MuiSvgIcon-root {
  width: 20px;
  height: 20px;
- margin: 0.25rem;
+ margin-right: 0.25rem;
+ color: inherit;
 }
 
 .nav-link:hover {
- border-color: aqua;
+ border-radius: 10pt;
+ background-color: var(--secondary-color);
+ color: var(--font-color);
+}
+
+.nav-link:hover .MuiSvgIcon-root {
+ border-radius: 10pt;
+ color: var(--font-color);
+}
+
+.nav-link:hover span {
+ border-radius: 10pt;
+ color: var(--font-color); 
+}
+
+.nav-link.active {
+ border-radius: 10pt;
+ background-color: var(--secondary-color);
+ color: var(--font-color); 
+ border-bottom: 2px solid var(--accent-color);
+}
+
+.nav-link.active .MuiSvgIcon-root {
+ color: var(--font-color); 
+}
+
+.nav-link.active span {
+ color: var(--font-color);
 }

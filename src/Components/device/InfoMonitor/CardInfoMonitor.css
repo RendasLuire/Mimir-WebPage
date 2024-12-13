@@ -1,0 +1,49 @@
+@import url("../../../styles/colorPalette.css");
+
+.container-info-monitor {
+ background: var(--secondary-background-color);
+ width: 100%;
+ height: 100%;
+ border-radius: 10pt;
+ box-shadow: 0 6px 12px var(--shadow-color);
+ padding: 20px;
+}
+
+.container-info-monitor .icon {
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.container-info-monitor .info {
+ margin-top: 1rem;
+}
+
+.container-info-monitor .info p {
+ display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.container-info-monitor .info span {
+ color: var(--secondary-font-color); 
+ font-weight: bold;
+ font-size: 0.6rem; 
+ margin-left: 0.2rem; 
+}
+
+.container-info-monitor .info label {
+ font-size: 1rem;
+}
+
+.container-info-monitor .btn-group button {
+ background-color: var(--link-color);
+ border-color: var(--border-color);
+ color: var(--font-color);
+}
+
+.container-info-monitor .btn-group button:hover {
+ background-color: var(--link-hover-color);
+}
