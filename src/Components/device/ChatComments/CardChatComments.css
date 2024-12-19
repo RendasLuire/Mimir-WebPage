@@ -1,0 +1,89 @@
+.card-chat {
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ height: 100%; /* Usar toda la altura disponible */
+ width: 100%;  /* Usar todo el ancho disponible */
+ max-width: 100%; /* Asegurar que ocupe todo el ancho posible */
+ background-color: var(--light-color);
+ padding: 15px;
+ border-radius: 10px;
+ box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.chat-comments {
+ flex-grow: 1;
+ height: 300px; /* Altura fija para el contenedor de los comentarios */
+ overflow-y: auto; /* Hacerlo desplazable verticalmente */
+ margin-bottom: 15px;
+ padding: 10px;
+ display: flex;
+ flex-direction: column-reverse; /* Para mostrar los mensajes más recientes abajo */
+}
+
+.comment {
+ padding: 12px;
+ margin: 5px 0;
+ border-radius: 20px;
+ max-width: 80%;
+ word-wrap: break-word;
+}
+
+.comment.user {
+ background-color: var(--tertiary-color);
+ color: var(--light-color);
+ align-self: flex-end;
+ border-radius: 20px 20px 0 20px; /* Burbujas redondeadas */
+}
+
+.comment.system {
+ background-color: var(--secondary-background-color);
+ color: var(--dark-color);
+ text-align: center;
+ font-size: 14px;
+ font-style: italic;
+}
+
+.comment .delete-btn {
+ background-color: var(--error-color);
+ color: var(--light-color);
+ border: none;
+ padding: 5px 10px;
+ border-radius: 5px;
+ cursor: pointer;
+ margin-top: 10px;
+}
+
+.comment .delete-btn:hover {
+ background-color: var(--warning-color);
+}
+
+.comment-input {
+ display: flex;
+ align-items: center;
+ padding: 10px;
+ background-color: var(--secondary-background-color);
+ border-radius: 10px;
+}
+
+.comment-input input {
+ flex: 1;
+ padding: 12px;
+ border-radius: 20px;
+ border: 1px solid var(--border-color);
+ font-size: 16px;
+}
+
+.comment-input button {
+ background-color: var(--primary-color);
+ color: var(--light-color);
+ border: none;
+ padding: 12px 15px;
+ margin-left: 10px;
+ border-radius: 20px;
+ cursor: pointer;
+}
+
+.comment-input button:hover {
+ background-color: var(--secondary-color);
+}

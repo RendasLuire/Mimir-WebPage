@@ -1,47 +1,50 @@
 @import url("../../../styles/colorPalette.css");
 
 .container-info-user {
- border-radius: 10pt;
   background: var(--secondary-background-color);
+  width: 100%;
+  height: auto; /* Ajustar automáticamente al contenido */
+  border-radius: 10pt;
   box-shadow: 0 6px 12px var(--shadow-color);
   padding: 20px;
+  box-sizing: border-box; /* Asegurar que el padding se incluya en el tamaño total */
 }
 
 .container-info-user .icon {
- display: flex;
- justify-content: center;
- align-items: center;
- color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
 }
 
 .container-info-user .info {
- margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .container-info-user .info p {
- display: flex;
- flex-direction: column;
- align-items: flex-start;
- margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
 .container-info-user .info span {
- color: var(--secondary-font-color); 
- font-weight: bold;
- font-size: 0.6rem; 
- margin-left: 0.2rem; 
+  color: var(--secondary-font-color);
+  font-weight: bold;
+  font-size: 0.6rem;
+  margin-left: 0.2rem;
 }
 
 .container-info-user .info label {
- font-size: 1rem;
+  font-size: 1rem;
 }
 
 .container-info-user .btn-group button {
- background-color: var(--link-color);
- border-color: var(--border-color);
- color: var(--font-color);
+  background-color: var(--link-color);
+  border-color: var(--border-color);
+  color: var(--font-color);
 }
 
 .container-info-user .btn-group button:hover {
- background-color: var(--link-hover-color);
+  background-color: var(--link-hover-color);
 }

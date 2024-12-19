@@ -1,0 +1,42 @@
+@import url("../../../styles/colorPalette.css");
+
+.container-info-extras {
+  background: var(--secondary-background-color);
+  width: 100%;
+  height: auto;
+  border-radius: 10pt;
+  box-shadow: 0 6px 12px var(--shadow-color);
+  padding: 20px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  justify-items: center;
+  align-items: center;
+}
+
+.container-info-extras .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+  width: 100px;
+  height: 100px;
+  font-size: 5rem; 
+}
+
+.container-info-extras .btn-success {
+  background-color: var(--link-color);
+  border-color: var(--border-color);
+  color: var(--font-color);
+  width: 100%;
+  height: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+
+.container-info-extras .btn-success:hover {
+  background-color: var(--link-hover-color);
+}

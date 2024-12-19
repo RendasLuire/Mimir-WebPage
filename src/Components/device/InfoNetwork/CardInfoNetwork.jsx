@@ -10,15 +10,15 @@ const CardInfoNetwork = () => {
         <div className="col-md-8">
           <div className="info card-body">
             <p>
-              <label>Dummy</label>
+              <label>000.000.000.000</label>
               <span>IP</span>
             </p>
             <p>
-              <label>Dummy</label>
+              <label>00:00:00:00:00:00</label>
               <span>MAC Ethernet</span>
             </p>
             <p>
-              <label>Dummy</label>
+              <label>00:00:00:00:00:00</label>
               <span>MAC WIFI</span>
             </p>
           </div>
