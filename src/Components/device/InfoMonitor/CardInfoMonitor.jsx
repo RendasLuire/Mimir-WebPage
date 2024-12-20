@@ -2,8 +2,11 @@ import MonitorIcon from "@mui/icons-material/Monitor";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import "./CardInfoMonitor.css";
 import { Tooltip } from "@mui/material";
+import useDevice from "../../../hooks/useDevice";
 
 const cardInfoMonitor = () => {
+  const { deviceData } = useDevice({});
+  const monitorData = deviceData.monitor?.id;
   return (
     <div className="container-info-monitor card">
       <div className="icon card-img-top card-header">
@@ -11,11 +14,11 @@ const cardInfoMonitor = () => {
       </div>
       <div className="info card-body">
         <p>
-          <label>Dummy</label>
+          <label>{monitorData?.brand + " " + monitorData?.model}</label>
           <span>Modelo</span>
         </p>
         <p>
-          <label>Dummy</label>
+          <label>{monitorData?.serialNumber}</label>
           <span>Numero de serie</span>
         </p>
       </div>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./CardChatComments.css";
 
 const CardChatComments = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const loggedInUserId = 1;
 
   useEffect(() => {
-    // Simulando la llamada a la API para obtener comentarios
     const fetchComments = async () => {
       const response = await fetch("https://api.example.com/comments");
       const data = await response.json();
@@ -18,24 +18,19 @@ const CardChatComments = () => {
 
   const handleAddComment = async () => {
     if (newComment.trim()) {
-      // Simulamos un comentario nuevo y lo agregamos al array
       const newMessage = {
         id: comments.length + 1,
         text: newComment,
         type: "user",
+        userId: loggedInUserId,
       };
       setComments([newMessage, ...comments]);
       setNewComment("");
-
-      // Aquí podrías enviar el comentario a la API
-      // await fetch("https://api.example.com/comments", { method: "POST", body: JSON.stringify(newMessage) });
     }
   };
 
   const handleDeleteComment = (id) => {
     setComments(comments.filter((comment) => comment.id !== id));
-    // Aquí podrías realizar la llamada a la API para borrar el comentario
-    // await fetch(`https://api.example.com/comments/${id}`, { method: "DELETE" });
   };
 
   return (
@@ -45,16 +40,22 @@ const CardChatComments = () => {
           <div
             key={comment.id}
             className={`comment ${
-              comment.type === "system" ? "system" : "user"
+              comment.type === "system"
+                ? "system"
+                : comment.userId === loggedInUserId
+                ? "logged-in-user"
+                : "other-user"
             }`}
           >
             <p>{comment.text}</p>
-            <button
-              className="btn btn-danger delete-btn"
-              onClick={() => handleDeleteComment(comment.id)}
-            >
-              Eliminar
-            </button>
+            {comment.userId === loggedInUserId && (
+              <button
+                className="btn btn-danger delete-btn"
+                onClick={() => handleDeleteComment(comment.id)}
+              >
+                Eliminar
+              </button>
+            )}
           </div>
         ))}
       </div>

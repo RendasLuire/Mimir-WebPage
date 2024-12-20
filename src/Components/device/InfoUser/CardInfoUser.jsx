@@ -1,8 +1,12 @@
 import PersonIcon from "@mui/icons-material/Person";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import "./CardInfoUser.css";
+import useDevice from "../../../hooks/useDevice";
 
 const CardInfoUser = () => {
+  const { deviceData } = useDevice({});
+  const userData = deviceData.person?.id;
+
   return (
     <div className="container-info-user card">
       <div className="icon card-img-top card-header">
@@ -10,19 +14,19 @@ const CardInfoUser = () => {
       </div>
       <div className="info card-body">
         <p>
-          <label>Dummy</label>
+          <label>{userData?.name || "-"}</label>
           <span>Nombre</span>
         </p>
         <p>
-          <label>Dummy</label>
+          <label>{userData?.position || "-"}</label>
           <span>Puesto</span>
         </p>
         <p>
-          <label>Dummy</label>
+          <label>{userData?.department?.name || "-"}</label>
           <span>Departamento</span>
         </p>
         <p>
-          <label>Dummy</label>
+          <label>{userData?.bussinesUnit?.name || "-"}</label>
           <span>Unidad de negocio</span>
         </p>
       </div>

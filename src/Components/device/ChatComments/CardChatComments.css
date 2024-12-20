@@ -1,89 +1,92 @@
+@import url("../../../styles/colorPalette.css");
+
 .card-chat {
- display: flex;
- flex-direction: column;
- justify-content: space-between;
- height: 100%; /* Usar toda la altura disponible */
- width: 100%;  /* Usar todo el ancho disponible */
- max-width: 100%; /* Asegurar que ocupe todo el ancho posible */
- background-color: var(--light-color);
- padding: 15px;
- border-radius: 10px;
- box-shadow: 0 4px 6px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--light-color);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px var(--shadow-color);
 }
 
 .chat-comments {
- flex-grow: 1;
- height: 300px; /* Altura fija para el contenedor de los comentarios */
- overflow-y: auto; /* Hacerlo desplazable verticalmente */
- margin-bottom: 15px;
- padding: 10px;
- display: flex;
- flex-direction: column-reverse; /* Para mostrar los mensajes más recientes abajo */
+  flex-grow: 1;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column-reverse; 
 }
 
 .comment {
- padding: 12px;
- margin: 5px 0;
- border-radius: 20px;
- max-width: 80%;
- word-wrap: break-word;
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
 }
 
-.comment.user {
- background-color: var(--tertiary-color);
- color: var(--light-color);
- align-self: flex-end;
- border-radius: 20px 20px 0 20px; /* Burbujas redondeadas */
+.logged-in-user {
+  background-color: var(--tertiary-color);
+  color: var(--font-color);
+  align-self: flex-end;
 }
 
-.comment.system {
- background-color: var(--secondary-background-color);
- color: var(--dark-color);
- text-align: center;
- font-size: 14px;
- font-style: italic;
+.other-user {
+  background-color: var(--secondary-color); /* Color para mensajes de otros usuarios */
+  color: var(--font-color);
+  align-self: flex-start;
 }
 
-.comment .delete-btn {
- background-color: var(--error-color);
- color: var(--light-color);
- border: none;
- padding: 5px 10px;
- border-radius: 5px;
- cursor: pointer;
- margin-top: 10px;
+.system {
+  background-color: var(--system-color);
+  color: var(--heading-font-color);
+  text-align: center;
+  font-style: italic;
+  align-self: center;
 }
 
-.comment .delete-btn:hover {
- background-color: var(--warning-color);
+.comment p {
+  margin: 0;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: none;
+}
+
+.comment:hover .delete-btn {
+  display: inline-block;
 }
 
 .comment-input {
- display: flex;
- align-items: center;
- padding: 10px;
- background-color: var(--secondary-background-color);
- border-radius: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .comment-input input {
- flex: 1;
- padding: 12px;
- border-radius: 20px;
- border: 1px solid var(--border-color);
- font-size: 16px;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
 }
 
 .comment-input button {
- background-color: var(--primary-color);
- color: var(--light-color);
- border: none;
- padding: 12px 15px;
- margin-left: 10px;
- border-radius: 20px;
- cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+  cursor: pointer;
 }
 
 .comment-input button:hover {
- background-color: var(--secondary-color);
+  background-color: var(--button-hover-color);
 }

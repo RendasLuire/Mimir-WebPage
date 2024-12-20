@@ -9,7 +9,7 @@ const CardInfoOffice = () => {
       <div className="card-body info">
         <p>
           <label>Dummy</label>
-          <span>Tipo de office</span>
+          <span>Version de office</span>
         </p>
         <p>
           <label>XXXX-XXXX-XXXX-XXXX</label>

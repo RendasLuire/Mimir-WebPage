@@ -5,8 +5,10 @@ import PrintIcon from "@mui/icons-material/Print";
 import EditIcon from "@mui/icons-material/Edit";
 import "./CardInfoDevice.css";
 import { Tooltip } from "@mui/material";
+import useDevice from "../../../hooks/useDevice";
 
 const CardInfoDevice = () => {
+  const { deviceData } = useDevice({});
   const iconMap = {
     desktop: <DevicesIcon sx={{ width: 100, height: 100 }} />,
     laptop: <ComputerOutlinedIcon sx={{ width: 100, height: 100 }} />,
@@ -21,23 +23,23 @@ const CardInfoDevice = () => {
       </div>
       <div className="info card-body">
         <p>
-          <label>Dummy</label>
-          <span>Hostname</span>
-        </p>
-        <p>
-          <label>Dummy</label>
-          <span>Numero de serie</span>
-        </p>
-        <p>
-          <label>Dummy</label>
+          <label>{deviceData.brand + " " + deviceData.model}</label>
           <span>Modelo</span>
         </p>
         <p>
-          <label>Dummy</label>
+          <label>{deviceData.serialNumber}</label>
+          <span>Numero de serie</span>
+        </p>
+        <p>
+          <label>{deviceData.hostname}</label>
+          <span>Hostname</span>
+        </p>
+        <p>
+          <label>{deviceData.annexed?.number}</label>
           <span>Anexo</span>
         </p>
         <p>
-          <label>Dummy</label>
+          <label>-</label>
           <span>Siguiente cambio</span>
         </p>
       </div>
