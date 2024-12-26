@@ -1,118 +1,109 @@
 @import url("../../../styles/colorPalette.css");
 
-.device-card-container {
- display: flex;
- flex-wrap: wrap;
- justify-content: center;
- gap: 1rem;
- margin: 0 auto;
- width: 100%;
+.device-card {
+  background-color: var(--secondary-background-color);
+  backdrop-filter: blur( 7.5px );
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out;
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+  overflow: hidden;
+  margin: 1rem;
+  border: 1px solid var(--border-color);
 }
 
-.device-card {
- flex: 1 1 25%;
- min-width: 250px;
- max-width: 300px;
- height: 300px;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- position: relative;
- text-decoration: none;
- overflow: hidden;
- padding: 10px;
- box-sizing: border-box;
- transition: transform 0.2s ease-in-out;
+.device-card .icon {
+  color: var(--heading-font-color)
 }
 
 .device-card:hover {
- transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .device-card .card-body {
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- padding: 10px;
- text-align: center;
- overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  overflow: hidden;
 }
 
 .device-card .card-title {
- margin: 10px 0;
- font-size: 1.25rem;
- font-weight: bold;
+  margin: 10px 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--heading-font-color);
 }
 
 .device-card .card-text {
- margin: 5px 0;
- font-size: 1rem;
- text-align: center;
- word-wrap: break-word;
+  margin: 5px 0;
+  font-size: 1rem;
+  text-align: center;
+  word-wrap: break-word;
+  color: var(--heading-font-color);
 }
 
 .device-card .card-text small {
- color: #666;
-}
-
-.card-text {
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
- max-width: 80%;
+  color: var(--secondary-font-color);
 }
 
 @media (max-width: 1200px) {
- .device-card {
-   flex: 1 1 33%; 
- }
+  .device-card {
+    flex: 1 1 30%;
+  }
 }
 
 @media (max-width: 768px) {
- .device-card {
-   flex: 1 1 50%; 
- }
+  .device-card {
+    flex: 1 1 45%;
+  }
 
- .device-card .card-body h5 {
-   font-size: 1.0rem; 
- }
+  .device-card .card-body h5 {
+    font-size: 1rem;
+  }
 
- .device-card .card-body p {
-   font-size: 0.9rem; 
- }
+  .device-card .card-body p {
+    font-size: 0.9rem;
+  }
 }
 
-/* 1 columna en pantallas muy pequeñas */
 @media (max-width: 480px) {
- .device-card {
-   flex: 1 1 100%; 
- }
+  .device-card {
+    flex: 1 1 calc(100% - 2rem);
+  }
 
- .device-card .card-body h5 {
-   font-size: 1rem; 
- }
+  .device-card .card-body h5 {
+    font-size: 1rem;
+  }
 
- .device-card .card-body p {
-   font-size: 0.85rem; 
- }
+  .device-card .card-body p {
+    font-size: 0.85rem;
+  }
 
- .device-card .card-body .MuiSvgIcon-root {
-   width: 60px;
-   height: 60px;
- }
+  .device-card .card-body .MuiSvgIcon-root {
+    width: 60px;
+    height: 60px;
+  }
 }
 
-/* Ajuste de tamaño de los iconos */
 .device-card .card-body .MuiSvgIcon-root {
- width: 100px;
- height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
 @media (max-width: 768px) {
- .device-card .card-body .MuiSvgIcon-root {
-   width: 80px;
-   height: 80px;
- }
+  .device-card .card-body .MuiSvgIcon-root {
+    width: 80px;
+    height: 80px;
+  }
 }

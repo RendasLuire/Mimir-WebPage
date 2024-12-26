@@ -46,7 +46,7 @@ const Navbar = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Tooltip title="Dispositivos" placement="bottom">
-                <NavLink to="/inventory/devices" className="nav-link">
+                <NavLink to="/inventory/devices/v2/" className="nav-link">
                   <DevicesIcon />
                   <span>Dispositivos</span>
                 </NavLink>

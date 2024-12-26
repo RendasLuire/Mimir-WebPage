@@ -1,13 +1,17 @@
+@import url("../../../styles/colorPalette.css");
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  align-content: center;
   justify-content: flex-start;
-  padding: 1rem;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   position: relative;
+  color: var(--font-color);
 }
 
 .filter-bar {
@@ -15,12 +19,11 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.51);
+  background: var(--secondary-background-color);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px var(--shadow-color);
+  border: 1px solid var(--border-color);
   width: 100%;
-  max-width: 1200px;
   box-sizing: border-box;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -31,54 +34,19 @@
   padding: 0.75rem;
   width: 100%;
   max-width: 350px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
 }
 
 .device-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  display: flex;
   width: 100%;
-  max-width: 1200px;
-  margin-top: 1rem;
-  box-sizing: border-box;
-  justify-content: center;
-}
-
-@media (min-width: 1200px) {
-  .device-card-container {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (max-width: 1200px) {
-  .device-card-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 1024px) {
-  .device-card-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .device-card-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .device-card-container {
-    grid-template-columns: 1fr;
-  }
+  height: 100%;
 }
 
 .pagination-container {
-  background: rgba(255, 255, 255, 0.51);
+  background: var(--secondary-background-color);
   padding: 1rem 0;
   z-index: 10;
   width: 100%;
@@ -93,5 +61,5 @@
   justify-content: center;
   margin: 1.5rem;
   font-size: 1.25rem;
-  color: #555;
+  color: var(--secondary-font-color);
 }

@@ -83,10 +83,10 @@ const CardDevice = ({ device }) => {
 
   return (
     <Link
-      to={`/inventory/devices/details/${_id}`}
+      to={`/inventory/devices/v2/details/${_id}`}
       className="card device-card m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
-      <div className="mx-2">{icon}</div>
+      <div className="mx-2 icon">{icon}</div>
       <div className="position-absolute top-0 start-0">
         {loading ? (
           <Tooltip title={"loading"} arrow>
@@ -98,7 +98,7 @@ const CardDevice = ({ device }) => {
           </Tooltip>
         )}
       </div>
-      <div className="position-absolute top-0 end-0">
+      <div className="position-absolute top-0 end-0 icon">
         {monitor?.id && (
           <Tooltip title={monitor?.serialNumber.toUpperCase()}>
             <MonitorOutlinedIcon />

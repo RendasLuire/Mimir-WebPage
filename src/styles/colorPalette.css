@@ -1,3 +1,4 @@
+
 :root {
  /* Colores primarios */
  --primary-color: #003060; /* Color principal para fondos */
@@ -35,4 +36,6 @@
  --dark-color: #343A40; /* Gris oscuro, para contraste */
  --neutral-color: #F8F9FA; /* Gris claro, para fondos sutiles */
  --highlight-color: #FFC107; /* Amarillo para resaltar elementos importantes */
+
+ --transparent: rgba( 255, 255, 255, 0.1 )
 }
