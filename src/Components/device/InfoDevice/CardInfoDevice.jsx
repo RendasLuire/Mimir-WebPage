@@ -6,9 +6,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import "./CardInfoDevice.css";
 import { Tooltip } from "@mui/material";
 import useDevice from "../../../hooks/useDevice";
+import Global from "../../../helpers/Global";
+import { useEffect, useState } from "react";
 
 const CardInfoDevice = () => {
   const { deviceData } = useDevice({});
+  const [infoValidation, setInfoValidation] = useState(false);
   const iconMap = {
     desktop: <DevicesIcon sx={{ width: 100, height: 100 }} />,
     laptop: <ComputerOutlinedIcon sx={{ width: 100, height: 100 }} />,
@@ -38,7 +41,37 @@ const CardInfoDevice = () => {
     });
   };
 
-  console.log(deviceData);
+  const checkInfo = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData._id) {
+        throw new Error("No se encontró el token de autenticación.");
+      }
+
+      const request = await fetch(
+        `${Global.url}reports-v2/checkInfo/${deviceData._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      const response = await request.json();
+      setInfoValidation(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (deviceData._id) {
+      checkInfo();
+    }
+  }, [deviceData]);
 
   return (
     <div className="container-deviceInfo card">
@@ -79,7 +112,11 @@ const CardInfoDevice = () => {
             <EditIcon />
           </Tooltip>
         </button>
-        <button type="button" className="btn btn-primary" disabled>
+        <button
+          type="button"
+          className="btn btn-primary"
+          disabled={!infoValidation}
+        >
           <Tooltip title="Imprimir Responsiva" placement="top">
             <PrintIcon />
           </Tooltip>
