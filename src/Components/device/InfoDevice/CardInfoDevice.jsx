@@ -16,6 +16,30 @@ const CardInfoDevice = () => {
 
   const icon = iconMap["desktop"] || null;
 
+  const copyToClipboard = () => {
+    const deviceInfo = `
+      Marca: ${deviceData.brand} ${deviceData.model}
+      Número de Serie: ${deviceData.serialNumber}
+      Hostname: ${deviceData.hostname}
+      Anexo: ${deviceData.annexed?.number}
+      Ubicacion Fisica: ${deviceData.phisicRef}
+      -------------------------------------
+      Monitor
+      Marca: ${deviceData.monitor?.id?.brand} ${deviceData.monitor?.id?.model}
+      Número de Serie: ${deviceData.monitor?.serialNumber}
+      -------------------------------------
+      Usuario
+      Nombre: ${deviceData.person?.name}
+      departamento: ${deviceData.person?.id?.department?.name}
+    `;
+
+    navigator.clipboard.writeText(deviceInfo).catch((err) => {
+      console.error("Error al copiar al portapapeles: ", err);
+    });
+  };
+
+  console.log(deviceData);
+
   return (
     <div className="container-deviceInfo card">
       <div className="icon card-img-top card-header">
@@ -35,10 +59,12 @@ const CardInfoDevice = () => {
           <span>Hostname</span>
         </p>
         <p>
-          <label>{deviceData.annexed?.number}</label>
-          <span>Anexo</span>
+          <label>{deviceData.phisicRef}</label>
+          <span>Ubicacion fisica</span>
         </p>
         <p>
+          <label>{deviceData.annexed?.number}</label>
+          <span>Anexo</span>
           <label>-</label>
           <span>Siguiente cambio</span>
         </p>
@@ -48,17 +74,21 @@ const CardInfoDevice = () => {
         role="group"
         aria-label="actions buttons"
       >
-        <button type="button" className="btn btn-primary">
+        <button type="button" className="btn btn-primary" disabled>
           <Tooltip title="Editar" placement="top">
             <EditIcon />
           </Tooltip>
         </button>
-        <button type="button" className="btn btn-primary">
+        <button type="button" className="btn btn-primary" disabled>
           <Tooltip title="Imprimir Responsiva" placement="top">
             <PrintIcon />
           </Tooltip>
         </button>
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={copyToClipboard}
+        >
           <Tooltip title="Copiar informacion" placement="top">
             <ContentCopyIcon />
           </Tooltip>
