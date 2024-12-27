@@ -1,13 +1,56 @@
-@import url("../../../styles/colorPalette.css");
-
 .container-deviceInfo {
   background: var(--secondary-background-color);
   width: 100%;
-  height: auto; /* Ajustar automáticamente al contenido */
+  height: 100%;
+  min-height: 400px;
   border-radius: 10pt;
   box-shadow: 0 6px 12px var(--shadow-color);
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
-  box-sizing: border-box; /* Asegurar que el padding se incluya en el tamaño total */
+  box-sizing: border-box;
+}
+
+.flip-card-back {
+  background-color: var(--secondary-background-color);
+  color: red;
+  transform: rotateY(180deg);
 }
 
 .container-deviceInfo .icon {
@@ -15,23 +58,27 @@
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
+  margin-bottom: 1rem; /* Add some margin to separate the icon from the rest */
 }
 
 .container-deviceInfo .info {
-  margin-top: 1rem;
+  width: 100%;
+  flex: 1;
+  overflow: hidden; /* Hide any overflow */
 }
 
 .container-deviceInfo .info p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* Reduce the margin for better spacing */
+  width: 100%;
 }
 
 .container-deviceInfo .info span {
   color: var(--secondary-font-color);
   font-weight: bold;
-  font-size: 0.6rem;
+  font-size: 0.8rem; /* Adjust font size for better readability */
   margin-left: 0.2rem;
 }
 
@@ -39,7 +86,16 @@
   font-size: 1rem;
 }
 
+.container-deviceInfo .btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: auto;
+}
+
 .container-deviceInfo .btn-group button {
+  flex: 1;
+  margin: 0 5px;
   background-color: var(--link-color);
   border-color: var(--border-color);
   color: var(--font-color);
