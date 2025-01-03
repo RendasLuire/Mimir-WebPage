@@ -53,32 +53,60 @@
   transform: rotateY(180deg);
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  border-radius: 10px;
+  box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.card-body {
+  flex-grow: 1; 
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--secondary-background-color);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.form-card-back{
+  flex-grow: 1;
+  overflow: auto;
+}
+
 .container-deviceInfo .icon {
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
-  margin-bottom: 1rem; /* Add some margin to separate the icon from the rest */
+  margin-bottom: 1rem;
 }
 
 .container-deviceInfo .info {
   width: 100%;
   flex: 1;
-  overflow: hidden; /* Hide any overflow */
+  overflow: hidden;
 }
 
 .container-deviceInfo .info p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 0.5rem; /* Reduce the margin for better spacing */
+  margin-bottom: 0.5rem;
   width: 100%;
 }
 
 .container-deviceInfo .info span {
   color: var(--secondary-font-color);
   font-weight: bold;
-  font-size: 0.8rem; /* Adjust font size for better readability */
+  font-size: 0.8rem;
   margin-left: 0.2rem;
 }
 

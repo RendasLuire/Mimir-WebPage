@@ -12,7 +12,7 @@ const iconMap = {
   laptop: <ComputerOutlinedIcon sx={{ width: 50, height: 50 }} />,
 };
 
-const FrontCard = ({ deviceData, setIsFlipped }) => {
+const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
   const [infoValidation, setInfoValidation] = useState(false);
 
   const icon = iconMap[deviceData.typeDevice] || null;
@@ -36,7 +36,11 @@ const FrontCard = ({ deviceData, setIsFlipped }) => {
 
     navigator.clipboard.writeText(deviceInfo).catch((err) => {
       console.error("Error al copiar al portapapeles: ", err);
+      setMessage("Error al copiar al portapapeles.");
+      setOpen(true);
     });
+    setMessage("Se ha copiado la información al portapapeles.");
+    setOpen(true);
   };
 
   const handleCreateResponsive = async () => {
@@ -70,8 +74,11 @@ const FrontCard = ({ deviceData, setIsFlipped }) => {
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
+      setMessage("Se ha generado la responsiva correctamente.");
+      setOpen(true);
     } catch (error) {
-      console.error(error);
+      setMessage("Error", error);
+      setOpen(true);
     }
   };
 
