@@ -3,11 +3,79 @@
 .container-info-monitor {
   background: var(--secondary-background-color);
   width: 100%;
-  height: auto; /* Ajustar automáticamente al contenido */
-  min-height: 150pt; /* Altura mínima */
+  height: auto;
+  min-height: 150pt;
   border-radius: 10pt;
   box-shadow: 0 6px 12px var(--shadow-color);
   padding: 20px;
+}
+
+.list-card-back {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.flip-card-back {
+  background-color: var(--secondary-background-color);
+  color: red;
+  transform: rotateY(180deg);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  border-radius: 10px;
+  box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.card-body {
+  flex-grow: 1; 
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--secondary-background-color);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 .container-info-monitor .icon {
@@ -15,23 +83,27 @@
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
+  margin-bottom: 1rem;
 }
 
 .container-info-monitor .info {
-  margin-top: 1rem;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
 }
 
 .container-info-monitor .info p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
 
 .container-info-monitor .info span {
   color: var(--secondary-font-color);
   font-weight: bold;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   margin-left: 0.2rem;
 }
 
@@ -40,6 +112,8 @@
 }
 
 .container-info-monitor .btn-group button {
+  flex: 1;
+  margin: 0 5px;
   background-color: var(--link-color);
   border-color: var(--border-color);
   color: var(--font-color);

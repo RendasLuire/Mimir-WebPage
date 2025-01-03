@@ -52,7 +52,12 @@ const BackCard = ({
   const handleSaveClick = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    const messageUpdate = { ...formState, user: auth._id };
+    const messageUpdate = {
+      ...formState,
+      phisicRef: ubicationText,
+      bussinesUnit,
+      user: auth._id,
+    };
 
     try {
       fetch(`${Global.url}device/${deviceData._id}`, {

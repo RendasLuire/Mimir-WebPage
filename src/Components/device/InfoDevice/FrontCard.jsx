@@ -123,7 +123,7 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
           <span>Modelo</span>
         </p>
         <p>
-          <label>{deviceData.serialNumber}</label>
+          <label>{deviceData.serialNumber?.toUpperCase()}</label>
           <span>Número de serie</span>
         </p>
         <p>
