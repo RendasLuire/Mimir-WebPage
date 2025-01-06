@@ -3,11 +3,11 @@
 .container-info-user {
   background: var(--secondary-background-color);
   width: 100%;
-  height: auto; /* Ajustar automáticamente al contenido */
+  height: auto;
   border-radius: 10pt;
   box-shadow: 0 6px 12px var(--shadow-color);
   padding: 20px;
-  box-sizing: border-box; /* Asegurar que el padding se incluya en el tamaño total */
+  box-sizing: border-box;
 }
 
 .list-card-back {
