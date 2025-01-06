@@ -6,7 +6,7 @@ import FrontCard from "./FrontCard";
 import BackCard from "./BackCard";
 
 const cardInfoMonitor = () => {
-  const { deviceData } = useDevice({});
+  const { deviceData, setUpdate } = useDevice({});
   const monitorData = deviceData.monitor?.id;
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -30,7 +30,15 @@ const cardInfoMonitor = () => {
           <FrontCard monitorData={monitorData} setIsFlipped={setIsFlipped} />
         </div>
         <div className="flip-card-back">
-          <BackCard monitorData={monitorData} setFlipped={setIsFlipped} />
+          <BackCard
+            monitorData={monitorData}
+            setFlipped={setIsFlipped}
+            setMessage={setMessage}
+            setOpen={setOpen}
+            setUpdate={setUpdate}
+            device={deviceData._id}
+            user={deviceData.person}
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import { Pagination } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MonitorIcon from "@mui/icons-material/Monitor";
@@ -9,12 +10,19 @@ import Global from "../../../helpers/Global";
 import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 
-const BackCard = ({ monitorData, setFlipped }) => {
+const BackCard = ({
+  monitorData,
+  setFlipped,
+  setMessage,
+  setOpen,
+  setUpdate,
+  device,
+  user,
+}) => {
   const [listMonitors, setListMonitors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const devicesPerPage = 3;
-  const { auth } = useAuth();
 
   const getMonitors = async () => {
     try {
@@ -25,7 +33,9 @@ const BackCard = ({ monitorData, setFlipped }) => {
       }
 
       const request = await fetch(
-        `${Global.url}device?typeDevice=Monitor&page=${currentPage}&limit=${devicesPerPage}`,
+        `${
+          Global.url
+        }device?typeDevice=Monitor&page=${currentPage}&limit=${devicesPerPage}&status=${"en_resguardo"}&typeDevice=${"monitor"}&search=${""}`,
         {
           method: "GET",
           headers: {
@@ -50,8 +60,76 @@ const BackCard = ({ monitorData, setFlipped }) => {
     }
   };
 
+  const handleSelectClick = async (monitor) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const messageUpdateComputer = {
+        monitorId: monitor._id,
+        user: user.id ? user.id : "",
+      };
+
+      const requestComputer = await fetch(
+        Global.url + "device/assingMonitor/" + device,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdateComputer),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      await requestComputer.json();
+
+      setUpdate(true);
+      setFlipped(false);
+    } catch (error) {
+      setMessage("Error" + error);
+      setOpen(true);
+    }
+  };
+
+  const handleUnnasingClick = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const request = await fetch(
+        `${Global.url}device/unassingMonitor/${device}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      await request.json();
+
+      setUpdate(true);
+      setFlipped(false);
+    } catch (error) {
+      setMessage("Error" + error);
+      setOpen(true);
+    }
+  };
+
   const handleCancelClick = () => {
     setFlipped(false);
+  };
+
+  const handleChangePage = (event, value) => {
+    setCurrentPage(value);
   };
 
   useEffect(() => {
@@ -62,7 +140,7 @@ const BackCard = ({ monitorData, setFlipped }) => {
     <div className="card">
       <div className="card-header">
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onDoubleClick={handleUnnasingClick}>
             <ListItemIcon>
               <MonitorIcon />
             </ListItemIcon>
@@ -82,10 +160,19 @@ const BackCard = ({ monitorData, setFlipped }) => {
         </ListItem>
       </div>
       <div className="card-body list-card-back">
+        <div className="d-flex justify-content-center">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            variant="outlined"
+            color="primary"
+            onChange={handleChangePage}
+          />
+        </div>
         <List>
           {listMonitors.map((monitor) => (
             <ListItem disablePadding key={monitor._id}>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleSelectClick(monitor)}>
                 <ListItemIcon>
                   <MonitorIcon />
                 </ListItemIcon>
@@ -99,9 +186,6 @@ const BackCard = ({ monitorData, setFlipped }) => {
         </List>
       </div>
       <div className="card-footer btn-group">
-        <button className="btn btn-primary" type="button">
-          Guardar
-        </button>
         <button
           className="btn btn-danger"
           type="button"

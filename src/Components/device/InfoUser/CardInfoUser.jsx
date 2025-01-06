@@ -1,39 +1,37 @@
-import PersonIcon from "@mui/icons-material/Person";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import "./CardInfoUser.css";
 import useDevice from "../../../hooks/useDevice";
+import FrontCard from "./FrontCard";
+import Snackbar from "@mui/material/Snackbar";
+import { useState } from "react";
+import BackCard from "./BackCard";
 
 const CardInfoUser = () => {
   const { deviceData } = useDevice({});
+  const [isFlipped, setIsFlipped] = useState(false);
   const userData = deviceData.person?.id;
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div className="container-info-user card">
-      <div className="icon card-img-top card-header">
-        <PersonIcon sx={{ width: 100, height: 100 }} />
-      </div>
-      <div className="info card-body">
-        <p>
-          <label>{userData?.name || "-"}</label>
-          <span>Nombre</span>
-        </p>
-        <p>
-          <label>{userData?.position || "-"}</label>
-          <span>Puesto</span>
-        </p>
-        <p>
-          <label>{userData?.department?.name || "-"}</label>
-          <span>Departamento</span>
-        </p>
-        <p>
-          <label>{userData?.bussinesUnit?.name || "-"}</label>
-          <span>Unidad de negocio</span>
-        </p>
-      </div>
-      <div className="btn-group card-footer">
-        <button className="btn btn-secondary">
-          <ChangeCircleIcon />
-        </button>
+    <div className="flip-card">
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        message={message}
+        key={"top" + "center"}
+      />
+      <div className={`flip-card-inner ${isFlipped ? "flipped" : ""}`}>
+        <div className="flip-card-front">
+          <FrontCard userData={userData} setIsFlipped={setIsFlipped} />
+        </div>
+        <div className="flip-card-back">
+          <BackCard userData={userData} setFlipped={setIsFlipped} />
+        </div>
       </div>
     </div>
   );
