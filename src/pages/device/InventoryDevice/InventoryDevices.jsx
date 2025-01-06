@@ -80,7 +80,7 @@ const InventoryDevices = () => {
               onChange={handleInputChange}
               placeholder="Buscar"
             />
-            <AddDeviceButton setUpdate={setUpdate} option={"computer"} />
+            <AddDeviceButton setUpdate={setUpdate} />
           </div>
           <div className="pagination-container glass">
             <Pagination

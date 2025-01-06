@@ -6,12 +6,12 @@ import Alert from "@mui/material/Alert";
 import { CircularProgress } from "@mui/material";
 import moment from "moment/moment";
 
-const AddDeviceButton = ({ setUpdate, option, SN }) => {
+const AddDeviceButton = ({ setUpdate, SN }) => {
   const { formState, onInputChange, setFormState } = useForm({
     brand: "",
     model: "",
     serialNumber: SN,
-    typeDevice: option,
+    typeDevice: "",
   });
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
@@ -25,11 +25,7 @@ const AddDeviceButton = ({ setUpdate, option, SN }) => {
       const token = localStorage.getItem("token");
       let itemToSave;
 
-      if (option == "computer") {
-        itemToSave = { ...formState, user: auth._id };
-      } else {
-        itemToSave = { ...formState, typeDevice: option, user: auth._id };
-      }
+      itemToSave = { ...formState, user: auth._id };
 
       const request = await fetch(Global.url + "device/", {
         method: "POST",

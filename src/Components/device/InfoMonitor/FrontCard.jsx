@@ -12,11 +12,19 @@ const FrontCard = ({ monitorData, setIsFlipped }) => {
       </div>
       <div className="info card-body">
         <p>
-          <label>{monitorData?.brand + " " + monitorData?.model}</label>
+          <label>
+            {monitorData?.brand
+              ? monitorData?.brand + " " + monitorData?.model
+              : "-"}
+          </label>
           <span>Modelo</span>
         </p>
         <p>
-          <label>{monitorData?.serialNumber.toUpperCase()}</label>
+          <label>
+            {monitorData?.serialNumber
+              ? monitorData?.serialNumber.toUpperCase()
+              : "-"}
+          </label>
           <span>Numero de serie</span>
         </p>
       </div>
