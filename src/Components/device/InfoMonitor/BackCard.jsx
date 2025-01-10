@@ -4,11 +4,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { Pagination } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import TextField from "@mui/material/TextField";
 import MonitorIcon from "@mui/icons-material/Monitor";
 import "./CardInfoMonitor.css";
 import Global from "../../../helpers/Global";
 import { useEffect, useState } from "react";
-import useAuth from "../../../hooks/useAuth";
 
 const BackCard = ({
   monitorData,
@@ -22,6 +22,7 @@ const BackCard = ({
   const [listMonitors, setListMonitors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState("");
   const devicesPerPage = 3;
 
   const getMonitors = async () => {
@@ -35,7 +36,7 @@ const BackCard = ({
       const request = await fetch(
         `${
           Global.url
-        }device?typeDevice=Monitor&page=${currentPage}&limit=${devicesPerPage}&status=${"en_resguardo"}&typeDevice=${"monitor"}&search=${""}`,
+        }device?typeDevice=Monitor&page=${currentPage}&limit=${devicesPerPage}&status=${"en_resguardo"}&typeDevice=${"monitor"}&search=${search}`,
         {
           method: "GET",
           headers: {
@@ -124,6 +125,10 @@ const BackCard = ({
     }
   };
 
+  const handleInputChange = (event) => {
+    setSearch(event.target.value);
+  };
+
   const handleCancelClick = () => {
     setFlipped(false);
   };
@@ -160,6 +165,14 @@ const BackCard = ({
         </ListItem>
       </div>
       <div className="card-body list-card-back">
+        <TextField
+          id="filled-search"
+          label="Buscar usuario"
+          type="search"
+          variant="filled"
+          value={search}
+          onChange={handleInputChange}
+        />
         <div className="d-flex justify-content-center">
           <Pagination
             count={totalPages}

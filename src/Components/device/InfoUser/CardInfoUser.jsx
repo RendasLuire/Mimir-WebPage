@@ -6,7 +6,7 @@ import { useState } from "react";
 import BackCard from "./BackCard";
 
 const CardInfoUser = () => {
-  const { deviceData } = useDevice({});
+  const { deviceData, setUpdate } = useDevice({});
   const [isFlipped, setIsFlipped] = useState(false);
   const userData = deviceData.person?.id;
   const [open, setOpen] = useState(false);
@@ -30,7 +30,14 @@ const CardInfoUser = () => {
           <FrontCard userData={userData} setIsFlipped={setIsFlipped} />
         </div>
         <div className="flip-card-back">
-          <BackCard userData={userData} setFlipped={setIsFlipped} />
+          <BackCard
+            userData={userData}
+            setIsFlipped={setIsFlipped}
+            setMessage={setMessage}
+            setOpen={setOpen}
+            setUpdate={setUpdate}
+            device={deviceData._id}
+          />
         </div>
       </div>
     </div>
