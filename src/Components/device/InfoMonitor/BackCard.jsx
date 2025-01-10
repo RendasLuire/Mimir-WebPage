@@ -180,6 +180,7 @@ const BackCard = ({
             variant="outlined"
             color="primary"
             onChange={handleChangePage}
+            size="small"
           />
         </div>
         <List>
