@@ -1,16 +1,19 @@
+@import url("../../../styles/colorPalette.css");
+
 .container-deviceInfo {
   background: var(--secondary-background-color);
   width: 100%;
-  height: 100%;
-  min-height: 400px;
+  height: auto;
   border-radius: 10pt;
   box-shadow: 0 6px 12px var(--shadow-color);
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+  text-align: left;
+}
+
+.list-card-back {
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .flip-card {
@@ -78,37 +81,30 @@
   flex-shrink: 0;
 }
 
-.form-card-back{
-  flex-grow: 1;
-  overflow: auto;
-}
-
 .container-deviceInfo .icon {
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
-  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .container-deviceInfo .info {
-  width: 100%;
-  flex: 1;
-  overflow: hidden;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 .container-deviceInfo .info p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
-  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .container-deviceInfo .info span {
   color: var(--secondary-font-color);
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   margin-left: 0.2rem;
 }
 
@@ -116,16 +112,7 @@
   font-size: 1rem;
 }
 
-.container-deviceInfo .btn-group {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin-top: auto;
-}
-
 .container-deviceInfo .btn-group button {
-  flex: 1;
-  margin: 0 5px;
   background-color: var(--link-color);
   border-color: var(--border-color);
   color: var(--font-color);

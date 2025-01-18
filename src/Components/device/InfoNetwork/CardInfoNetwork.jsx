@@ -1,32 +1,40 @@
-import LanIcon from "@mui/icons-material/Lan";
 import "./CardInfoNetwork.css";
+import { Snackbar } from "@mui/material";
+import { useState } from "react";
+import useDevice from "../../../hooks/useDevice";
+import FrontCard from "./FrontCard";
+import BackCard from "./BackCard";
 const CardInfoNetwork = () => {
+  const { deviceData, setUpdate } = useDevice({});
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const networkData = deviceData.network;
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <div className="container-info-network card">
-      <div className="row">
-        <div className="icon col-md-4 img-fluid rounded-start">
-          <LanIcon sx={{ height: 70, width: 70 }} />
+    <div className="flip-card">
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        message={message}
+        key={"top" + "center"}
+      />
+      <div className={`flip-card-inner ${isFlipped ? "flipped" : ""}`}>
+        <div className="flip-card-front">
+          <FrontCard networkData={networkData} setIsFlipped={setIsFlipped} />
         </div>
-        <div className="col-md-8">
-          <div className="info card-body">
-            <p>
-              <label>000.000.000.000</label>
-              <span>IP</span>
-            </p>
-            <p>
-              <label>00:00:00:00:00:00</label>
-              <span>MAC Ethernet</span>
-            </p>
-            <p>
-              <label>00:00:00:00:00:00</label>
-              <span>MAC WIFI</span>
-            </p>
-          </div>
-        </div>
-        <div className="card-footer btn-group">
-          <button type="button" className="btn btn-primary">
-            Cambiar
-          </button>
+        <div className="flip-card-back">
+          <BackCard
+            setIsFlipped={setIsFlipped}
+            setMessage={setMessage}
+            setOpen={setOpen}
+            setUpdate={setUpdate}
+            networkData={networkData}
+          />
         </div>
       </div>
     </div>
