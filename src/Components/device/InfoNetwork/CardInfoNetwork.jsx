@@ -34,6 +34,7 @@ const CardInfoNetwork = () => {
             setOpen={setOpen}
             setUpdate={setUpdate}
             networkData={networkData}
+            deviceId={deviceData._id}
           />
         </div>
       </div>

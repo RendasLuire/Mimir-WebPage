@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import LanIcon from "@mui/icons-material/Lan";
 import TextField from "@mui/material/TextField";
 import useForm from "../../../hooks/useForm";
+import Global from "../../../helpers/Global";
+import useAuth from "../../../hooks/useAuth";
 
 const BackCard = ({
   networkData,
@@ -9,11 +11,13 @@ const BackCard = ({
   setOpen,
   setMessage,
   setUpdate,
+  deviceId,
 }) => {
+  const { auth } = useAuth();
   const initialState = {
-    ip: networkData?.ip || "",
-    macEthernet: networkData?.macEthernet || "",
-    macWifi: networkData?.macWifi || "",
+    ip: networkData?.ip || "000.000.000.000",
+    macEthernet: networkData?.macEthernet || "00:00:00:00:00:00",
+    macWifi: networkData?.macWifi || "00:00:00:00:00:00",
   };
 
   const { formState, onInputChange, setFormState } = useForm(initialState);
@@ -61,6 +65,34 @@ const BackCard = ({
         value: formattedValue,
       },
     });
+  };
+
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const messageUpdate = {
+      ...formState,
+      user: auth._id,
+    };
+
+    try {
+      fetch(`${Global.url}device/updateNetwork/${deviceId}`, {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      setUpdate(true);
+      setMessage("Cambios guardados");
+      setIsFlipped(false);
+      setOpen(true);
+    } catch (error) {
+      setMessage("Error", error);
+      setOpen(true);
+    }
   };
 
   useEffect(() => {
@@ -111,7 +143,11 @@ const BackCard = ({
         >
           Cancelar
         </button>
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleSaveClick}
+        >
           Guardar
         </button>
       </div>
