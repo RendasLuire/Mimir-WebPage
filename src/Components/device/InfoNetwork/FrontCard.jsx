@@ -1,4 +1,3 @@
-import React from "react";
 import LanIcon from "@mui/icons-material/Lan";
 
 const FrontCard = ({ networkData, setIsFlipped }) => {

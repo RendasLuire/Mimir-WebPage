@@ -1,25 +1,44 @@
+import { useState } from "react";
+import useDevice from "../../../hooks/useDevice";
+import { Snackbar } from "@mui/material";
 import "./CardInfoOffice.css";
-import officeIcon from "../../../icons/office.ico";
+import FrontCard from "./FrontCard";
+import BackCard from "./BackCard";
+
 const CardInfoOffice = () => {
+  const { deviceData, setUpdate } = useDevice({});
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const officeData = deviceData.office;
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <div className="card container-info-office">
-      <div className="card-header card-img-top">
-        <img src={officeIcon} alt="Office" />
-      </div>
-      <div className="card-body info">
-        <p>
-          <label>Dummy</label>
-          <span>Version de office</span>
-        </p>
-        <p>
-          <label>XXXX-XXXX-XXXX-XXXX</label>
-          <span>Key de activacion</span>
-        </p>
-      </div>
-      <div className="card-footer btn-group">
-        <button type="button" className="btn btn-success">
-          Cambiar
-        </button>
+    <div className="flip-card">
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        message={message}
+        key={"top" + "center"}
+      />
+      <div className={`flip-card-inner ${isFlipped ? "flipped" : ""}`}>
+        <div className="flip-card-front">
+          <FrontCard officeData={officeData} setIsFlipped={setIsFlipped} />
+        </div>
+        <div className="flip-card-back">
+          <BackCard
+            setIsFlipped={setIsFlipped}
+            setMessage={setMessage}
+            setOpen={setOpen}
+            setUpdate={setUpdate}
+            officeData={officeData}
+            deviceId={deviceData._id}
+          />
+        </div>
       </div>
     </div>
   );
