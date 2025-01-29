@@ -22,7 +22,7 @@ const BackCard = ({
 
   const formatOfficeKey = (value) => {
     const sanitized = value.replace(/[^a-zA-Z0-9]/g, "");
-    return sanitized.match(/.{1,4}/g)?.join("-") || sanitized;
+    return sanitized.match(/.{1,5}/g)?.join("-") || sanitized;
   };
 
   const handleInputChange = (event) => {
@@ -39,7 +39,7 @@ const BackCard = ({
     setOpen(true);
   };
 
-  const handleSaveClick = (e) => {
+  const handleSaveClick = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     const messageUpdate = {
@@ -48,19 +48,30 @@ const BackCard = ({
     };
 
     try {
-      fetch(`${Global.url}device/updateOffice/${deviceId}`, {
-        method: "PATCH",
-        body: JSON.stringify(messageUpdate),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const request = await fetch(
+        `${Global.url}device/updateOffice/${deviceId}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageUpdate),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      const response = await request.json();
 
-      setUpdate(true);
-      setMessage("Cambios guardados");
-      setIsFlipped(false);
-      setOpen(true);
+      if (request.ok) {
+        setUpdate(true);
+        setMessage("Cambios guardados");
+        setIsFlipped(false);
+        setOpen(true);
+      } else {
+        setUpdate(true);
+        setMessage(response.message);
+        setIsFlipped(false);
+        setOpen(true);
+      }
     } catch (error) {
       setMessage("Error", error);
       setOpen(true);

@@ -1,6 +1,8 @@
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import DevicesIcon from "@mui/icons-material/Devices";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import InputLabel from "@mui/material/InputLabel";
@@ -45,9 +47,11 @@ const BackCard = ({
     complejo: deviceData.complejo || "",
     edificio: deviceData.edificio || "",
     ubicacion: deviceData.ubicacion || "",
+    status: deviceData.status || "",
   };
 
   const { formState, onInputChange, setFormState } = useForm(initialState);
+  const [listSettings, setListSettings] = useState([]);
 
   const handleSaveClick = (e) => {
     e.preventDefault();
@@ -84,6 +88,30 @@ const BackCard = ({
     setFormState(initialState);
     setIsFlipped(false);
     setOpen(true);
+  };
+
+  const getStatus = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const request = await fetch(`${Global.url}settings/statusDevice`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+      const { data } = response;
+      setListSettings(data);
+    } catch (error) {
+      console.log("Error: " + error);
+    }
   };
 
   const getStorages = async () => {
@@ -147,6 +175,7 @@ const BackCard = ({
 
   useEffect(() => {
     getStorages();
+    getStatus();
     setFormState(initialState);
   }, [deviceData]);
 
@@ -228,6 +257,44 @@ const BackCard = ({
             onChange={onInputChange}
             name="annexed"
           />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={formState.custom}
+                onChange={(e) =>
+                  setFormState({ ...formState, custom: e.target.checked })
+                }
+              />
+            }
+            label={formState.custom ? "Propio" : "Compartido"}
+          />
+          <InputLabel id="status-label">Estatus</InputLabel>
+          <Select
+            labelId="status-label"
+            id="status"
+            value={formState.status?.value || ""}
+            onChange={(e) => {
+              const selectedStatus = listSettings.find(
+                (status) => status.value === e.target.value
+              );
+              setFormState({
+                ...formState,
+                status: selectedStatus
+                  ? { value: selectedStatus.value, label: selectedStatus.label }
+                  : "",
+              });
+            }}
+            name="status"
+            variant="standard"
+            className="form-control"
+          >
+            <MenuItem value="">Selecciona un estatus...</MenuItem>
+            {listSettings.map((status) => (
+              <MenuItem key={status.value} value={status.value}>
+                {status.label}
+              </MenuItem>
+            ))}
+          </Select>
           <InputLabel id="complejo-label">Complejo</InputLabel>
           <Select
             labelId="complejo-label"

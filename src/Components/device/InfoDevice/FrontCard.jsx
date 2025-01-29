@@ -16,6 +16,7 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
   const [infoValidation, setInfoValidation] = useState(false);
 
   const icon = iconMap[deviceData.typeDevice] || null;
+  const [listSettings, setListSettings] = useState([]);
 
   const copyToClipboard = () => {
     const deviceInfo = `
@@ -32,6 +33,15 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
       Usuario
       Nombre: ${deviceData.person?.name}
       Departamento: ${deviceData.person?.id?.department?.name}
+      -------------------------------------
+      Red
+      Ip: ${deviceData.network?.ip}
+      Mac WIFI: ${deviceData.network?.macWifi}
+      Mac Ethernet: ${deviceData.network?.macEthernet}
+      -------------------------------------
+      Office
+      Version: ${deviceData.office?.officeVersion}
+      Key: ${deviceData.office?.officeKey}
     `;
 
     navigator.clipboard.writeText(deviceInfo).catch((err) => {
@@ -82,6 +92,39 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
     }
   };
 
+  const getStatus = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const request = await fetch(`${Global.url}settings/statusDevice`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+      const { data } = response;
+      setListSettings(data);
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  const getColorAndLabel = (statusValue) => {
+    const status = listSettings.find((item) => item.value === statusValue);
+    return status
+      ? { color: status.option, label: status.label }
+      : { color: "#F44336", label: "Desconocido" };
+  };
+
+  const { color, label } = getColorAndLabel(deviceData.status?.value);
+
   const checkInfo = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -106,7 +149,20 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
     }
   };
 
+  const hexToRgb = (hex) => {
+    hex = hex.replace(/^#/, "");
+    if (hex.length === 3) {
+      hex = hex
+        .split("")
+        .map((char) => char + char)
+        .join("");
+    }
+    const bigint = parseInt(hex, 16);
+    return `${(bigint >> 16) & 255}, ${(bigint >> 8) & 255}, ${bigint & 255}`;
+  };
+
   useEffect(() => {
+    getStatus();
     if (deviceData._id) checkInfo();
   }, [deviceData]);
 
@@ -114,9 +170,18 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
 
   return (
     <div className="container-deviceInfo card">
-      <div className="icon card-img-top card-header">
-        <h1>{icon}</h1>
-      </div>
+      <Tooltip title={label} arrow>
+        <div
+          className="icon card-img-top card-header"
+          style={{
+            backgroundColor: color
+              ? `rgba(${hexToRgb(color)}, 0.2)`
+              : "rgba(244, 67, 54, 0.2)",
+          }}
+        >
+          <h1>{icon}</h1>
+        </div>
+      </Tooltip>
       <div className="info card-body">
         <p>
           <label>{`${deviceData.brand} ${deviceData.model}`}</label>
