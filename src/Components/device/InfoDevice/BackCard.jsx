@@ -106,6 +106,15 @@ const BackCard = ({
         },
       });
 
+      if (!request.ok) {
+        if (request.status === 404) {
+          console.warn("Endpoint not found (404)");
+        } else {
+          console.error(`API error: ${request.status}`);
+        }
+        return;
+      }
+
       const response = await request.json();
       const { data } = response;
       setListSettings(data);

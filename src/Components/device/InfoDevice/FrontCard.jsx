@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import DevicesIcon from "@mui/icons-material/Devices";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import PrintIcon from "@mui/icons-material/Print";
 import EditIcon from "@mui/icons-material/Edit";
 import { Tooltip } from "@mui/material";
 import Global from "../../../helpers/Global";
+import ModalChangeDevice from "./ModalChangeDevice";
 
 const iconMap = {
   desktop: <DevicesIcon sx={{ width: 50, height: 50 }} />,
@@ -14,7 +16,7 @@ const iconMap = {
 
 const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
   const [infoValidation, setInfoValidation] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const icon = iconMap[deviceData.typeDevice] || null;
   const [listSettings, setListSettings] = useState([]);
 
@@ -108,6 +110,15 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
         },
       });
 
+      if (!request.ok) {
+        if (request.status === 404) {
+          console.warn("Endpoint not found (404)");
+        } else {
+          console.error(`API error: ${request.status}`);
+        }
+        return;
+      }
+
       const response = await request.json();
       const { data } = response;
       setListSettings(data);
@@ -167,78 +178,91 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
   }, [deviceData]);
 
   const handleEditClick = () => setIsFlipped(true);
+  const handleModalToggle = () => setIsModalOpen(!isModalOpen);
 
   return (
-    <div className="container-deviceInfo card">
-      <Tooltip title={label} arrow>
-        <div
-          className="icon card-img-top card-header"
-          style={{
-            backgroundColor: color
-              ? `rgba(${hexToRgb(color)}, 0.2)`
-              : "rgba(244, 67, 54, 0.2)",
-          }}
-        >
-          <h1>{icon}</h1>
+    <>
+      <div className="container-deviceInfo card">
+        <Tooltip title={label} arrow>
+          <div
+            className="icon card-img-top card-header"
+            style={{
+              backgroundColor: color
+                ? `rgba(${hexToRgb(color)}, 0.2)`
+                : "rgba(244, 67, 54, 0.2)",
+            }}
+          >
+            <h1>{icon}</h1>
+          </div>
+        </Tooltip>
+        <div className="info card-body">
+          <p>
+            <label>{`${deviceData.brand} ${deviceData.model}`}</label>
+            <span>Modelo</span>
+          </p>
+          <p>
+            <label>{deviceData.serialNumber?.toUpperCase()}</label>
+            <span>Número de serie</span>
+          </p>
+          <p>
+            <label>{deviceData.hostname}</label>
+            <span>Hostname</span>
+          </p>
+          <p>
+            <label>{deviceData.phisicRef}</label>
+            <span>Ubicación física</span>
+          </p>
+          <p>
+            <label>{deviceData.annexed?.number}</label>
+            <span>Anexo</span>
+          </p>
         </div>
-      </Tooltip>
-      <div className="info card-body">
-        <p>
-          <label>{`${deviceData.brand} ${deviceData.model}`}</label>
-          <span>Modelo</span>
-        </p>
-        <p>
-          <label>{deviceData.serialNumber?.toUpperCase()}</label>
-          <span>Número de serie</span>
-        </p>
-        <p>
-          <label>{deviceData.hostname}</label>
-          <span>Hostname</span>
-        </p>
-        <p>
-          <label>{deviceData.phisicRef}</label>
-          <span>Ubicación física</span>
-        </p>
-        <p>
-          <label>{deviceData.annexed?.number}</label>
-          <span>Anexo</span>
-        </p>
+        <div
+          className="btn-group card-footer"
+          role="group"
+          aria-label="actions buttons"
+        >
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleEditClick}
+          >
+            <Tooltip title="Editar" placement="top">
+              <EditIcon />
+            </Tooltip>
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={!infoValidation}
+            onClick={handleCreateResponsive}
+          >
+            <Tooltip title="Imprimir Responsiva" placement="top">
+              <PrintIcon />
+            </Tooltip>
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleModalToggle}
+          >
+            <Tooltip title="Cambiar equipo" placement="top">
+              <ChangeCircleIcon />
+            </Tooltip>
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={copyToClipboard}
+          >
+            <Tooltip title="Copiar información" placement="top">
+              <ContentCopyIcon />
+            </Tooltip>
+          </button>
+        </div>
       </div>
-      <div
-        className="btn-group card-footer"
-        role="group"
-        aria-label="actions buttons"
-      >
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleEditClick}
-        >
-          <Tooltip title="Editar" placement="top">
-            <EditIcon />
-          </Tooltip>
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          disabled={!infoValidation}
-          onClick={handleCreateResponsive}
-        >
-          <Tooltip title="Imprimir Responsiva" placement="top">
-            <PrintIcon />
-          </Tooltip>
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={copyToClipboard}
-        >
-          <Tooltip title="Copiar información" placement="top">
-            <ContentCopyIcon />
-          </Tooltip>
-        </button>
-      </div>
-    </div>
+      <ModalChangeDevice isOpen={isModalOpen} onClose={handleModalToggle} />
+    </>
   );
 };
 

@@ -48,10 +48,19 @@ const CardDevice = ({ device }) => {
         },
       });
 
+      if (!request.ok) {
+        if (request.status === 404) {
+          console.warn("Endpoint not found (404)");
+        } else {
+          console.error(`API error: ${request.status}`);
+        }
+        setLoading(false);
+        return;
+      }
+
       const response = await request.json();
       const { data } = response;
       setListSettings(data);
-      setLoading(false);
     } catch (error) {
       console.log("Error: " + error);
     }
