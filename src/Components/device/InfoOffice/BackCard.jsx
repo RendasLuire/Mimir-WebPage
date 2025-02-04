@@ -15,7 +15,7 @@ const BackCard = ({
   const { auth } = useAuth();
   const initialState = {
     officeVersion: officeData?.officeVersion || "Dummy",
-    officeKey: officeData?.officeKey || "XXXX-XXXX-XXXX-XXXX",
+    officeKey: officeData?.officeKey || "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
   };
 
   const { formState, onInputChange, setFormState } = useForm(initialState);

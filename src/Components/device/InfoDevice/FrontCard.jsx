@@ -14,7 +14,13 @@ const iconMap = {
   laptop: <ComputerOutlinedIcon sx={{ width: 50, height: 50 }} />,
 };
 
-const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
+const FrontCard = ({
+  deviceData,
+  setIsFlipped,
+  setOpen,
+  setMessage,
+  setUpdate,
+}) => {
   const [infoValidation, setInfoValidation] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const icon = iconMap[deviceData.typeDevice] || null;
@@ -261,7 +267,12 @@ const FrontCard = ({ deviceData, setIsFlipped, setOpen, setMessage }) => {
           </button>
         </div>
       </div>
-      <ModalChangeDevice isOpen={isModalOpen} onClose={handleModalToggle} />
+      <ModalChangeDevice
+        isOpen={isModalOpen}
+        onClose={handleModalToggle}
+        currenDevice={deviceData._id}
+        setUpdate={setUpdate}
+      />
     </>
   );
 };

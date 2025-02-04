@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Global from "../../../helpers/Global";
 import { Pagination } from "@mui/material";
 import CardDeviceSmall from "../CardDeviceSmall";
+import "./CardInfoDevice.css";
 
-const ModalChangeDevice = ({ isOpen, onClose, currenDevice }) => {
+const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
   const [currentPageAvailable, setCurrentPageAvailable] = useState(1);
   const [deviceAvailable, setDeviceAvailable] = useState([]);
   const [totalPagesAvailables, setTotalPagesAvailables] = useState(1);
@@ -12,8 +13,8 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice }) => {
     newDevice: "",
   });
   const devicesPerPage = 3;
-  const filter = "dispositivos";
-  const status = "disponible";
+  const filter = "computo";
+  const status = "en_resguardo";
 
   const getDevicesAvailables = async () => {
     try {
@@ -47,6 +48,38 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice }) => {
     }
   };
 
+  const handleChangeDevice = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const messageChangeDevice = {
+        newDevice: selection.newDevice,
+      };
+
+      const request = await fetch(
+        `${Global.url}device/changeDevice/${selection.oldDevice}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(messageChangeDevice),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      await request.json();
+      onClose();
+      setUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleChangePageAvailable = (event, value) => {
     setCurrentPageAvailable(value);
   };
@@ -57,7 +90,9 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice }) => {
 
   useEffect(() => {
     getDevicesAvailables();
-  }, [currentPageAvailable]);
+    console.log(selection.newDevice);
+  }, [currentPageAvailable, selection]);
+
   return (
     <div
       className={`container-deviceInfo modal fade ${isOpen ? "show" : ""}`}
@@ -102,7 +137,11 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice }) => {
             <button type="button" className="btn btn-danger" onClick={onClose}>
               Cancelar
             </button>
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleChangeDevice}
+            >
               Cambiar
             </button>
           </div>

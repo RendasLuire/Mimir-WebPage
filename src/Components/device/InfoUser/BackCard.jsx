@@ -69,11 +69,12 @@ const BackCard = ({
       }
 
       const messageUpdate = {
-        person: item._id,
+        idPerson: item._id,
+        idDevice: device,
       };
 
-      const request = await fetch(`${Global.url}device/assing/${device}`, {
-        method: "PATCH",
+      const request = await fetch(`${Global.url}device/resignDevice/`, {
+        method: "POST",
         body: JSON.stringify(messageUpdate),
         headers: {
           "Content-Type": "application/json",

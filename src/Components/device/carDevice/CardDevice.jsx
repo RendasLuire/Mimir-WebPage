@@ -54,9 +54,9 @@ const CardDevice = ({ device }) => {
         } else {
           console.error(`API error: ${request.status}`);
         }
-        setLoading(false);
         return;
       }
+      setLoading(false);
 
       const response = await request.json();
       const { data } = response;

@@ -7,12 +7,12 @@ import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 
 const CardDeviceSmall = ({ device, onClick, isSelected }) => {
   const deviceIconMap = {
-    desktop: <DevicesIcon sx={{ width: 50, height: 50 }} />,
-    impresora: <LocalPrintshopOutlinedIcon sx={{ width: 50, height: 50 }} />,
-    monitor: <MonitorOutlinedIcon sx={{ width: 50, height: 50 }} />,
-    laptop: <ComputerOutlinedIcon sx={{ width: 50, height: 50 }} />,
-    tablet: <TabletIcon sx={{ width: 50, height: 50 }} />,
-    accesorio: <DeviceUnknownIcon sx={{ width: 50, height: 50 }} />,
+    desktop: <DevicesIcon sx={{ width: 25, height: 25 }} />,
+    impresora: <LocalPrintshopOutlinedIcon sx={{ width: 25, height: 25 }} />,
+    monitor: <MonitorOutlinedIcon sx={{ width: 25, height: 25 }} />,
+    laptop: <ComputerOutlinedIcon sx={{ width: 25, height: 25 }} />,
+    tablet: <TabletIcon sx={{ width: 25, height: 25 }} />,
+    accesorio: <DeviceUnknownIcon sx={{ width: 25, height: 25 }} />,
   };
 
   const icon = deviceIconMap[device.typeDevice] || null;
@@ -28,7 +28,7 @@ const CardDeviceSmall = ({ device, onClick, isSelected }) => {
         </div>
         <div className="col">
           <div className="card-body">
-            <h5 className="card-title">{device.hostname}</h5>
+            <h5 className="card-title">{device.serialNumber}</h5>
             <p className="card-text">{device.brand + " " + device.model}</p>
           </div>
         </div>
