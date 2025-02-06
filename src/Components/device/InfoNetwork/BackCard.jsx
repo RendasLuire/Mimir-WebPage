@@ -30,13 +30,12 @@ const BackCard = ({
   };
 
   const formatIP = (value) => {
-    return (
-      value
-        .replace(/[^\d]/g, "")
-        .match(/(\d{1,3})/g)
-        ?.join(".")
-        .substring(0, 15) || ""
-    );
+    return value
+      .split(".")
+      .map((octet) => octet.replace(/[^\d]/g, "").slice(0, 3))
+      .filter(Boolean)
+      .join(".")
+      .substring(0, 15);
   };
 
   const formatMAC = (value) => {
