@@ -29,14 +29,14 @@ const FrontCard = ({
   const copyToClipboard = () => {
     const deviceInfo = `
       Marca: ${deviceData.brand} ${deviceData.model}
-      Número de Serie: ${deviceData.serialNumber}
+      Número de Serie: ${deviceData.serialNumber.toUpperCase()}
       Hostname: ${deviceData.hostname}
       Anexo: ${deviceData.annexed?.number}
       Ubicacion Fisica: ${deviceData.phisicRef}
       -------------------------------------
       Monitor
       Marca: ${deviceData.monitor?.id?.brand} ${deviceData.monitor?.id?.model}
-      Número de Serie: ${deviceData.monitor?.serialNumber}
+      Número de Serie: ${deviceData.monitor?.serialNumber.toUpperCase()}
       -------------------------------------
       Usuario
       Nombre: ${deviceData.person?.name}
