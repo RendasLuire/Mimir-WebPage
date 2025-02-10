@@ -15,6 +15,7 @@ const EditPersonInfoCard = () => {
   });
   const { auth } = useAuth();
   const [storages, setStorages] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSaveClick = async (e) => {
     e.preventDefault();
@@ -34,11 +35,7 @@ const EditPersonInfoCard = () => {
 
       if (request.ok) {
         setUpdate(true);
-        const modalElement = document.getElementById("formInfoPerson");
-        const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
-        if (modalInstance) {
-          modalInstance.hide();
-        }
+        setIsModalOpen(false);
       }
     } catch (error) {
       console.log("Error: ", error);
@@ -90,8 +87,7 @@ const EditPersonInfoCard = () => {
         <button
           className="btn btn-outline-primary"
           type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#formInfoPerson"
+          onClick={() => setIsModalOpen(true)}
         >
           <BorderColorIcon />
         </button>
@@ -99,112 +95,105 @@ const EditPersonInfoCard = () => {
           <small className="text-body-secondary">Editar</small>
         </p>
       </div>
-      <div
-        className="modal fade"
-        id="formInfoPerson"
-        tabIndex={"-1"}
-        aria-labelledby="formInfoPerson"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content glass">
-            <div className="modal-header">
-              <h5 className="modal-title" id="formInfoPerson">
-                Informacion de la persona
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">
-                    Nombre:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    name="name"
-                    value={formState.name}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="department" className="form-label">
-                    Departamento:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="department"
-                    name="department"
-                    value={formState.department.name}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="position" className="form-label">
-                    Posicion:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="position"
-                    name="position"
-                    value={formState.position}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label" htmlFor="bussinessUnit">
-                    Unidad de Negocio:
-                  </label>
-                  <select
-                    className="form-select"
-                    id="bussinessUnit"
-                    name="bussinessUnit"
-                    value={`${formState.bussinesUnit.id}|${formState.bussinesUnit.name}`}
-                    onChange={handleBussinessUnitChange}
-                  >
-                    <option value="">
-                      Selecciona una unidad de negocio...
-                    </option>
-                    {storages.map((item) => (
-                      <option
-                        key={item._id}
-                        value={`${item._id}|${item.complex}`}
-                      >
-                        {item.complex}
+      {isModalOpen && (
+        <div className="modal fade show d-block" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content glass">
+              <div className="modal-header">
+                <h5 className="modal-title">Informacion de la persona</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setIsModalOpen(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <form>
+                  <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                      Nombre:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      name="name"
+                      value={formState.name}
+                      onChange={onInputChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="department" className="form-label">
+                      Departamento:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="department"
+                      name="department"
+                      value={formState.department.name}
+                      onChange={onInputChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="position" className="form-label">
+                      Posicion:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="position"
+                      name="position"
+                      value={formState.position}
+                      onChange={onInputChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label" htmlFor="bussinessUnit">
+                      Unidad de Negocio:
+                    </label>
+                    <select
+                      className="form-select"
+                      id="bussinessUnit"
+                      name="bussinessUnit"
+                      value={`${formState.bussinesUnit.id}|${formState.bussinesUnit.name}`}
+                      onChange={handleBussinessUnitChange}
+                    >
+                      <option value="">
+                        Selecciona una unidad de negocio...
                       </option>
-                    ))}
-                  </select>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cerrar
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSaveClick}
-              >
-                Guardar
-              </button>
+                      {storages.map((item) => (
+                        <option
+                          key={item._id}
+                          value={`${item._id}|${item.complex}`}
+                        >
+                          {item.complex}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleSaveClick}
+                >
+                  Guardar
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

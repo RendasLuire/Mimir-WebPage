@@ -11,6 +11,7 @@ const ButtonAddPerson = ({ setUpdate }) => {
   const [message, setMessage] = useState();
   const [loading, setLoading] = useState(false);
   const { auth } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para manejar el modal
 
   const saveData = async (e) => {
     e.preventDefault();
@@ -18,7 +19,6 @@ const ButtonAddPerson = ({ setUpdate }) => {
 
     try {
       const token = localStorage.getItem("token");
-
       let itemToSave = { ...formState, user: auth._id };
 
       const request = await fetch(Global.url + "persons/", {
@@ -31,7 +31,7 @@ const ButtonAddPerson = ({ setUpdate }) => {
       });
 
       const response = await request.json();
-      if (request.status == 201) {
+      if (request.status === 201) {
         setMessage("");
         setFormState({
           name: "",
@@ -39,11 +39,10 @@ const ButtonAddPerson = ({ setUpdate }) => {
           position: "",
         });
         setLoading(false);
-        console.log("Voy a cambiar el estado a true");
         setUpdate(true);
+        setIsModalOpen(false); // Cierra el modal después de guardar
       } else {
-        const errorData = response;
-        setMessage(errorData.message);
+        setMessage(response.message);
         setLoading(false);
       }
     } catch (error) {
@@ -52,102 +51,132 @@ const ButtonAddPerson = ({ setUpdate }) => {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="my-3 container">
         <button
           type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#AddPersonModal"
           className="btn btn-success"
+          onClick={() => setIsModalOpen(true)}
         >
           <ControlPointOutlinedIcon />
         </button>
       </div>
-      <div
-        className="modal fade"
-        id="AddPersonModal"
-        aria-labelledby="titleAddPerson"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="titleAssPerson">
-                Agregar Usuario
-              </h1>
+
+      {isModalOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1050,
+          }}
+        >
+          <div
+            style={{
+              background: "white",
+              padding: "20px",
+              borderRadius: "8px",
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+              width: "90%",
+              maxWidth: "500px",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                borderBottom: "1px solid #ccc",
+                paddingBottom: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              <h1 className="modal-title fs-5">Agregar Usuario</h1>
               <button
-                className="btn-close"
-                type="button"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: "20px",
+                  cursor: "pointer",
+                }}
+                onClick={() => setIsModalOpen(false)}
+              >
+                ✖
+              </button>
             </div>
             <form onSubmit={saveData}>
-              <div className="modal-body">
-                <div className="mb-1">
-                  <div>
-                    {message ? <Alert severity="error">{message}</Alert> : ""}
-                  </div>
-                  <label className="form-label" htmlFor="name">
-                    Nombre:
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    className="form-control"
-                    type="text"
-                    value={formState.name}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="mb-1">
-                  <label className="form-label" htmlFor="department">
-                    Departamento:
-                  </label>
-                  <input
-                    id="department"
-                    name="department"
-                    className="form-control"
-                    type="text"
-                    value={formState.department}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="mb-1">
-                  <label className="form-label" htmlFor="position">
-                    Posicion:
-                  </label>
-                  <input
-                    id="position"
-                    name="position"
-                    className="form-control"
-                    type="text"
-                    value={formState.position}
-                    onChange={onInputChange}
-                  />
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cerrar
-                  </button>
-                  <button
-                    type="submit"
-                    data-bs-dismiss="modal"
-                    className="btn btn-primary"
-                  >
-                    {loading ? <CircularProgress /> : "Guardar"}
-                  </button>
-                </div>
+              <div>
+                {message && <Alert severity="error">{message}</Alert>}
+                <label className="form-label" htmlFor="name">
+                  Nombre:
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  className="form-control"
+                  type="text"
+                  value={formState.name || ""}
+                  onChange={onInputChange}
+                />
+              </div>
+              <div>
+                <label className="form-label" htmlFor="department">
+                  Departamento:
+                </label>
+                <input
+                  id="department"
+                  name="department"
+                  className="form-control"
+                  type="text"
+                  value={formState.department || ""}
+                  onChange={onInputChange}
+                />
+              </div>
+              <div>
+                <label className="form-label" htmlFor="position">
+                  Posición:
+                </label>
+                <input
+                  id="position"
+                  name="position"
+                  className="form-control"
+                  type="text"
+                  value={formState.position || ""}
+                  onChange={onInputChange}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "10px",
+                  marginTop: "10px",
+                }}
+              >
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cerrar
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  {loading ? <CircularProgress size={20} /> : "Guardar"}
+                </button>
               </div>
             </form>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

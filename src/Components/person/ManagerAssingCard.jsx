@@ -1,5 +1,4 @@
 import PersonIcon from "@mui/icons-material/Person";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import usePerson from "../../hooks/usePerson";
 import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
@@ -7,7 +6,7 @@ import Global from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools";
 
-const ManagerAssingCard = () => {
+const ManagerAssignCard = () => {
   const { personData, setUpdate } = usePerson({});
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
@@ -15,6 +14,11 @@ const ManagerAssingCard = () => {
   const [totalPages, setTotalPages] = useState(1);
   const personsPerPage = 5;
   const { auth } = useAuth();
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado del modal
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const handleInputChange = (event) => {
     setSearch(event.target.value);
@@ -61,6 +65,7 @@ const ManagerAssingCard = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        console.error("No token found.");
         return false;
       }
 
@@ -80,11 +85,17 @@ const ManagerAssingCard = () => {
           },
         }
       );
-      await request.json();
 
-      setUpdate(true);
+      const response = await request.json();
+
+      if (response.success) {
+        setUpdate(true);
+        closeModal();
+      } else {
+        console.error("Error assigning manager:", response.message);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error in handleSelectClick:", error);
     }
   };
 
@@ -97,8 +108,7 @@ const ManagerAssingCard = () => {
       <div
         className="card-body d-flex justify-content-between align-items-center"
         type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#selectManager"
+        onClick={openModal} // Abre el modal al hacer clic
       >
         <div className="col-2">
           <PersonIcon
@@ -117,24 +127,19 @@ const ManagerAssingCard = () => {
           </p>
         </div>
       </div>
-      <div
-        className="modal fade"
-        id="selectManager"
-        tabIndex="-1"
-        aria-labelledby="selectManager"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
+
+      {/* Modal controlado con estado */}
+      {isModalOpen && (
+        <div className="modal-overlay">
           <div className="modal-content glass">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="selectManager">
+              <h1 className="modal-title fs-5">
                 Selecciona al Gerente o Director:
               </h1>
               <button
                 className="btn-close"
                 type="button"
-                data-bs-dismiss="modal"
-                aria-label="Close"
+                onClick={closeModal}
               ></button>
             </div>
             <div className="modal-body">
@@ -181,9 +186,10 @@ const ManagerAssingCard = () => {
                   <tbody>
                     {persons.map((item) => (
                       <tr
-                        className="glass"
                         key={item._id}
+                        className="glass"
                         onClick={() => handleSelectClick(item)}
+                        style={{ cursor: "pointer" }}
                       >
                         <td>{capitalizeFirstLetterOfEachWord(item.name)}</td>
                         <td>
@@ -202,9 +208,40 @@ const ManagerAssingCard = () => {
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Estilos para el modal overlay */}
+      <style jsx>{`
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1050;
+        }
+
+        .modal-content {
+          background: white;
+          padding: 20px;
+          border-radius: 10px;
+          width: 50%;
+          max-width: 600px;
+        }
+
+        .btn-close {
+          background: transparent;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 };
 
-export default ManagerAssingCard;
+export default ManagerAssignCard;
