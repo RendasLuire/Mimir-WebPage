@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-const CardSmall = ({ icon: Icon, date, onEdit }) => {
+const CardSmall = ({ icon: Icon, date, onEdit, active }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempDate, setTempDate] = useState(date);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(active);
 
   const handleSave = () => {
     setIsEditing(false);

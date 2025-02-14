@@ -12,6 +12,7 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
     oldDevice: currenDevice,
     newDevice: "",
   });
+
   const devicesPerPage = 3;
   const filter = "computo";
   const status = "en_resguardo";
@@ -19,13 +20,12 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
   const getDevicesAvailables = async () => {
     try {
       const token = localStorage.getItem("token");
-
       if (!token) {
         throw new Error("No se encontró el token de autenticación.");
       }
 
       const request = await fetch(
-        `${Global.url}device?filter=${filter}&&page=${currentPageAvailable}&limit=${devicesPerPage}&status=${status}`,
+        `${Global.url}device?filter=${filter}&page=${currentPageAvailable}&limit=${devicesPerPage}&status=${status}`,
         {
           method: "GET",
           headers: {
@@ -40,7 +40,6 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
       }
 
       const response = await request.json();
-
       setDeviceAvailable(response.data);
       setTotalPagesAvailables(response.pagination.totalPages);
     } catch (error) {
@@ -49,16 +48,20 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
   };
 
   const handleChangeDevice = async () => {
+    if (!selection.newDevice) {
+      console.error("No se ha seleccionado un nuevo dispositivo.");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
-
       if (!token) {
-        return false;
+        console.error("No se encontró el token de autenticación.");
+        return;
       }
 
-      const messageChangeDevice = {
-        newDevice: selection.newDevice,
-      };
+      const messageChangeDevice = { newDevice: selection.newDevice };
+      console.log("Enviando datos:", messageChangeDevice);
 
       const request = await fetch(
         `${Global.url}device/changeDevice/${selection.oldDevice}`,
@@ -72,11 +75,13 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
         }
       );
 
-      await request.json();
+      const response = await request.json();
+      console.log("Respuesta del servidor:", response);
+
       onClose();
       setUpdate(true);
     } catch (error) {
-      console.log(error);
+      console.error("Error al cambiar de dispositivo:", error);
     }
   };
 
@@ -84,13 +89,16 @@ const ModalChangeDevice = ({ isOpen, onClose, currenDevice, setUpdate }) => {
     setCurrentPageAvailable(value);
   };
 
-  const handleSelectedNew = async (deviceId) => {
-    setSelection({ ...selection, newDevice: deviceId });
+  const handleSelectedNew = (deviceId) => {
+    setSelection((prevSelection) => ({
+      ...prevSelection,
+      newDevice: deviceId,
+    }));
   };
 
   useEffect(() => {
     getDevicesAvailables();
-    console.log(selection.newDevice);
+    console.log(selection);
   }, [currentPageAvailable, selection]);
 
   return (
