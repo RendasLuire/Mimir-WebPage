@@ -1,14 +1,18 @@
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import { Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const FrontCard = ({ userData, setIsFlipped }) => {
   const handleChangeUser = () => setIsFlipped(true);
   return (
     <div className="container-info-user card">
-      <div className="icon card-img-top card-header">
+      <Link
+        to={`/inventory/users/details/${userData?._id}`}
+        className="icon card-img-top card-header"
+      >
         <PersonIcon sx={{ width: 50, height: 50 }} />
-      </div>
+      </Link>
       <div className="info card-body">
         <p>
           <label>{userData?.name || "-"}</label>
