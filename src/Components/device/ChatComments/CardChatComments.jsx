@@ -1,36 +1,89 @@
 import { useState, useEffect } from "react";
 import "./CardChatComments.css";
+import useDevice from "../../../hooks/useDevice";
+import Global from "../../../helpers/Global";
+import useAuth from "../../../hooks/useAuth";
 
 const CardChatComments = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const { deviceData } = useDevice({});
+  const { auth } = useAuth();
   const loggedInUserId = 1;
 
   useEffect(() => {
-    const fetchComments = async () => {
-      const response = await fetch("https://api.example.com/comments");
-      const data = await response.json();
-      setComments(data);
-    };
-
-    fetchComments();
-  }, []);
+    if (deviceData?.comments) {
+      setComments(deviceData.comments);
+    }
+  }, [deviceData]);
 
   const handleAddComment = async () => {
-    if (newComment.trim()) {
-      const newMessage = {
-        id: comments.length + 1,
-        text: newComment,
-        type: "user",
-        userId: loggedInUserId,
+    if (!newComment.trim()) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const messageToSend = {
+        content: newComment,
+        user: auth._id,
+        nameUser: auth.name,
       };
-      setComments([newMessage, ...comments]);
-      setNewComment("");
+
+      const response = await fetch(
+        `${Global.url}device/${deviceData._id}/comments`,
+        {
+          method: "POST",
+          body: JSON.stringify(messageToSend),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const savedComment = await response.json();
+
+        // Agrega el nuevo comentario a la lista y limpia el input
+        setComments([...comments, savedComment]);
+        setNewComment("");
+
+        // Espera un pequeño tiempo y hace scroll automático al último mensaje
+        setTimeout(() => {
+          const chatContainer = document.querySelector(".chat-comments");
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }, 100);
+      } else {
+        console.error("Error al guardar el comentario.");
+      }
+    } catch (error) {
+      console.error("Error en la petición:", error);
     }
   };
 
-  const handleDeleteComment = (id) => {
-    setComments(comments.filter((comment) => comment.id !== id));
+  const handleDeleteComment = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/device/${
+          deviceData._id
+        }/comments/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.ok) {
+        setComments(comments.filter((comment) => comment._id !== id));
+      } else {
+        console.error("Error al eliminar el comentario.");
+      }
+    } catch (error) {
+      console.error("Error en la petición:", error);
+    }
   };
 
   return (
@@ -38,20 +91,20 @@ const CardChatComments = () => {
       <div className="chat-comments">
         {comments.map((comment) => (
           <div
-            key={comment.id}
+            key={comment._id}
             className={`comment ${
               comment.type === "system"
                 ? "system"
-                : comment.userId === loggedInUserId
+                : comment.user === loggedInUserId
                 ? "logged-in-user"
                 : "other-user"
             }`}
           >
-            <p>{comment.text}</p>
-            {comment.userId === loggedInUserId && (
+            <p>{comment.content}</p>
+            {comment.user === loggedInUserId && (
               <button
                 className="btn btn-danger delete-btn"
-                onClick={() => handleDeleteComment(comment.id)}
+                onClick={() => handleDeleteComment(comment._id)}
               >
                 Eliminar
               </button>

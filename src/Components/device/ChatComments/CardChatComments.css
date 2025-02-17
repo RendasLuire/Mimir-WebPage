@@ -15,46 +15,56 @@
 
 .chat-comments {
   flex-grow: 1;
-  height: 300px;
-  overflow-y: auto;
+  height: 300px; /* Altura fija */
+  overflow-y: auto; /* Permite scroll */
   margin-bottom: 15px;
   padding: 10px;
   display: flex;
-  flex-direction: column-reverse; 
+  flex-direction: column;
 }
 
+/* Estilos generales de los comentarios */
 .comment {
   padding: 12px;
   margin: 5px 0;
   border-radius: 20px;
   max-width: 80%;
   word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
+/* Usuario actual */
 .logged-in-user {
   background-color: var(--tertiary-color);
   color: var(--font-color);
   align-self: flex-end;
+  text-align: right;
+  border-top-right-radius: 0;
 }
 
+/* Otro usuario */
 .other-user {
-  background-color: var(--secondary-color); /* Color para mensajes de otros usuarios */
+  background-color: var(--secondary-color);
   color: var(--font-color);
   align-self: flex-start;
+  text-align: left;
+  border-top-left-radius: 0;
 }
 
+/* Mensaje del sistema */
 .system {
   background-color: var(--system-color);
   color: var(--heading-font-color);
   text-align: center;
   font-style: italic;
   align-self: center;
+  max-width: 60%;
+  border-radius: 10px;
 }
 
-.comment p {
-  margin: 0;
-}
-
+/* Botón de eliminar */
 .delete-btn {
   position: absolute;
   top: 5px;
@@ -66,6 +76,7 @@
   display: inline-block;
 }
 
+/* Entrada de comentario */
 .comment-input {
   display: flex;
   gap: 10px;
