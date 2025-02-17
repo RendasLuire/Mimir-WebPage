@@ -1,11 +1,6 @@
 import PropTypes from "prop-types";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import MonitorOutlinedIcon from "@mui/icons-material/MonitorOutlined";
-import DevicesIcon from "@mui/icons-material/Devices";
-import TabletIcon from "@mui/icons-material/Tablet";
-import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 import CircleIcon from "@mui/icons-material/Circle";
-import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 
 import moment from "moment";
 import { capitalizeFirstLetterOfEachWord } from "../../../helpers/Tools";
@@ -79,16 +74,7 @@ const CardDevice = ({ printer }) => {
 
   const { color, label } = getColorAndLabel(status.value);
 
-  const deviceIconMap = {
-    desktop: <DevicesIcon sx={{ width: 100, height: 100 }} />,
-    impresora: <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
-    monitor: <MonitorOutlinedIcon sx={{ width: 100, height: 100 }} />,
-    laptop: <ComputerOutlinedIcon sx={{ width: 100, height: 100 }} />,
-    tablet: <TabletIcon sx={{ width: 100, height: 100 }} />,
-    accesorio: <DeviceUnknownIcon sx={{ width: 100, height: 100 }} />,
-  };
-
-  const icon = deviceIconMap[typeDevice] || null;
+  const icon = <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
 
   return (
     <Link
@@ -104,13 +90,6 @@ const CardDevice = ({ printer }) => {
         ) : (
           <Tooltip title={label} arrow>
             <CircleIcon sx={{ color }} />
-          </Tooltip>
-        )}
-      </div>
-      <div className="position-absolute top-0 end-0 icon">
-        {monitor?.id && (
-          <Tooltip title={monitor?.serialNumber.toUpperCase()}>
-            <MonitorOutlinedIcon />
           </Tooltip>
         )}
       </div>
