@@ -1,0 +1,109 @@
+@import url("../../../styles/colorPalette.css");
+
+.printer-card {
+  background-color: var(--secondary-background-color);
+  backdrop-filter: blur( 7.5px );
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out;
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+  overflow: hidden;
+  margin: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.printer-card .icon {
+  color: var(--heading-font-color)
+}
+
+.printer-card:hover {
+  transform: scale(1.05);
+}
+
+.printer-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.printer-card .card-title {
+  margin: 10px 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--heading-font-color);
+}
+
+.printer-card .card-text {
+  margin: 5px 0;
+  font-size: 1rem;
+  text-align: center;
+  word-wrap: break-word;
+  color: var(--heading-font-color);
+}
+
+.printer-card .card-text small {
+  color: var(--secondary-font-color);
+}
+
+@media (max-width: 1200px) {
+  .printer-card {
+    flex: 1 1 30%;
+  }
+}
+
+@media (max-width: 768px) {
+  .printer-card {
+    flex: 1 1 45%;
+  }
+
+  .printer-card .card-body h5 {
+    font-size: 1rem;
+  }
+
+  .printer-card .card-body p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .printer-card {
+    flex: 1 1 calc(100% - 2rem);
+  }
+
+  .printer-card .card-body h5 {
+    font-size: 1rem;
+  }
+
+  .printer-card .card-body p {
+    font-size: 0.85rem;
+  }
+
+  .printer-card .card-body .MuiSvgIcon-root {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.printer-card .card-body .MuiSvgIcon-root {
+  width: 100px;
+  height: 100px;
+}
+
+@media (max-width: 768px) {
+  .printer-card .card-body .MuiSvgIcon-root {
+    width: 80px;
+    height: 80px;
+  }
+}

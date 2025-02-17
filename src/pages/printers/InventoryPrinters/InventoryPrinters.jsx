@@ -1,21 +1,20 @@
-import CircularProgress from "@mui/material/CircularProgress";
-import "./InventoryDevices.css";
 import { useEffect, useState } from "react";
-import CardDevice from "../../../Components/device/carDevice/CardDevice";
+import "./InventoryPrinters.css";
 import Global from "../../../helpers/Global";
-import { Pagination } from "@mui/material";
+import { CircularProgress, Pagination } from "@mui/material";
+import CardPrinter from "../../../Components/printer/CardPrinter/CardPrinter";
 import AddDeviceButton from "../../../Components/device/AddDeviceButton";
 
-const InventoryDevices = () => {
+const InventoryPrinters = () => {
   const [loading, setLoading] = useState(true);
-  const [devices, setDevices] = useState([]);
+  const [printers, setPrinters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const devicesPerPage = 8;
-  const filter = "computo";
+  const printersPerPage = 8;
+  const filter = "impresora";
 
-  const getDevices = async () => {
+  const getPrinters = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -26,7 +25,7 @@ const InventoryDevices = () => {
       const request = await fetch(
         `${
           Global.url
-        }device?filter=${filter}&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm.toLowerCase()}`,
+        }device?typeDevice=${filter}&page=${currentPage}&limit=${printersPerPage}&search=${searchTerm.toLowerCase()}`,
         {
           method: "GET",
           headers: {
@@ -41,27 +40,27 @@ const InventoryDevices = () => {
       }
 
       if (request.status === 204) {
-        setDevices([]);
+        setPrinters([]);
         setTotalPages(1);
         setLoading(false);
         return;
       }
       const response = await request.json();
 
-      setDevices(response.data);
+      setPrinters(response.data);
       setTotalPages(response.pagination.totalPages);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(
-        "Error obteniendo la información de los dispositivos:",
+        "Error obteniendo la información de las impresoras:",
         error
       );
     }
   };
 
   useEffect(() => {
-    getDevices();
+    getPrinters();
   }, [currentPage, searchTerm]);
 
   const handleSearch = (event) => {
@@ -85,14 +84,14 @@ const InventoryDevices = () => {
             <input
               type="search"
               className="form-control me-2"
-              placeholder="Buscar Equipo"
+              placeholder="Buscar Impresora"
               value={searchTerm}
               aria-label="Buscar"
               onChange={handleSearch}
             />
           </form>
           <div>
-            {devices.length > 0 ? (
+            {printers.length > 0 ? (
               <>
                 <div className="pagination-container">
                   <Pagination
@@ -102,12 +101,12 @@ const InventoryDevices = () => {
                   />
                 </div>
                 <div className="row">
-                  {devices.map((device) => (
+                  {printers.map((printer) => (
                     <div
-                      key={device._id}
+                      key={printer._id}
                       className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
                     >
-                      <CardDevice device={device} />
+                      <CardPrinter printer={printer} />
                     </div>
                   ))}
                 </div>
@@ -124,4 +123,4 @@ const InventoryDevices = () => {
   );
 };
 
-export default InventoryDevices;
+export default InventoryPrinters;

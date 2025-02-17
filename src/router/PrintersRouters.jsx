@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import InventoryPrinters from "../pages/printers/InventoryPrinters";
+import InventoryPrinters from "../pages/printers/InventoryPrinters/InventoryPrinters";
 
 const PrintersRouters = () => {
   return (
