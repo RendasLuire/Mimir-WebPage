@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import CircleIcon from "@mui/icons-material/Circle";
-
 import moment from "moment";
 import { capitalizeFirstLetterOfEachWord } from "../../../helpers/Tools";
 import { Link } from "react-router-dom";
@@ -74,11 +73,11 @@ const CardDevice = ({ printer }) => {
 
   const { color, label } = getColorAndLabel(status.value);
 
-  const icon = <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />,
+  const icon = <LocalPrintshopOutlinedIcon sx={{ width: 100, height: 100 }} />;
 
   return (
     <Link
-      to={`/inventory/devices/v2/details/${_id}`}
+      to={`/inventory/printers/v2/details/${_id}`}
       className="card device-card m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
       <div className="mx-2 icon">{icon}</div>
