@@ -20,32 +20,53 @@ const DetailsDevice = () => {
   }, [id, setDeviceData]);
 
   return (
-    <div className="container">
+    <div className="details-device-container">
       {loading ? (
-        <div className="d-flex justify-content-center">
+        <div className="details-device-loading d-flex justify-content-center">
           <CircularProgress />
         </div>
       ) : (
-        <div className="grid-container">
-          <div className="grid-item device">
+        <div className="details-device-grid-container">
+          <div
+            className="details-device-grid-item details-device-device"
+            style={{ gridArea: "device" }}
+          >
             <CardInfoDevice />
           </div>
-          <div className="grid-item monitor">
+          <div
+            className="details-device-grid-item details-device-monitor"
+            style={{ gridArea: "monitor" }}
+          >
             <CardInfoMonitor />
           </div>
-          <div className="grid-item user">
+          <div
+            className="details-device-grid-item details-device-user"
+            style={{ gridArea: "user" }}
+          >
             <CardInfoUser />
           </div>
-          <div className="grid-item network">
+          <div
+            className="details-device-grid-item details-device-network"
+            style={{ gridArea: "network" }}
+          >
             <CardInfoNetwork />
           </div>
-          <div className="grid-item office">
+          <div
+            className="details-device-grid-item details-device-office"
+            style={{ gridArea: "office" }}
+          >
             <CardInfoOffice />
           </div>
-          <div className="grid-item extras">
+          <div
+            className="details-device-grid-item details-device-extras"
+            style={{ gridArea: "extras" }}
+          >
             <CardInfoExtras />
           </div>
-          <div className="grid-item comments">
+          <div
+            className="details-device-grid-item details-device-comments"
+            style={{ gridArea: "comments" }}
+          >
             <CardChatComments />
           </div>
         </div>
