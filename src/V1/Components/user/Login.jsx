@@ -36,7 +36,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
         setLogin({ code, message });
         setAuth(data);
-        navigate("/inventory/devices");
+        navigate("/inventory/devices/v2/");
       } else {
         setLogin({ code, message });
       }

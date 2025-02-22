@@ -2,7 +2,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import CircleIcon from "@mui/icons-material/Circle";
 import { Link } from "react-router-dom";
 import { capitalizeFirstLetterOfEachWord } from "../../helpers/Tools.js";
-import "../../styles/Devices/Card_Device.css";
 
 const CardPersons = ({ user }) => {
   const { _id, name, position, department } = user;

@@ -1,29 +1,28 @@
-import { CircularProgress, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import Global from "../../helpers/Global";
-import CardDevice from "../../Components/device/carDevice/CardDevice";
-import AddDeviceButton from "../../Components/device/AddDeviceButton";
-import "../../styles/Inventorys.css";
+import CardPersons from "../../Components/person/CardPersons";
+import ButtonAddPerson from "../../Components/person/ButtonAddPerson";
+import { CircularProgress, Pagination } from "@mui/material";
 
-const InventoryMonitors = () => {
+const ListAllPersons = () => {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [monitors, setMonitors] = useState([]);
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const monitorsPerPages = 10;
+  const devicesPerPage = 10;
 
-  const getMonitors = async () => {
+  const getUsers = async () => {
     try {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.log("No hay token de autenticacion.");
+        return false;
       }
 
       const request = await fetch(
-        `${Global.url}device/monitors/?page=${currentPage}&limit=${monitorsPerPages}&search=${searchTerm}`,
+        `${Global.url}persons?page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm}`,
         {
           method: "GET",
           headers: {
@@ -34,31 +33,31 @@ const InventoryMonitors = () => {
       );
 
       if (!request.ok) {
-        console.log("Error en consulta.");
+        throw new Error("Error al obtener los datos del servidor.");
       }
 
       const response = await request.json();
 
       const { data, pagination } = response;
 
-      setMonitors(data);
+      setUsers(data);
       setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getMonitors();
+    getUsers();
+    setUpdate(false);
   }, [update, currentPage, searchTerm]);
 
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value.trim());
+  };
   const handleChangePage = (event, value) => {
     setCurrentPage(value);
-  };
-
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
   };
 
   return (
@@ -72,11 +71,11 @@ const InventoryMonitors = () => {
           <div className="filter-bar glass">
             <input
               className="search-input"
-              placeholder="Buscar"
               value={searchTerm}
               onChange={handleInputChange}
+              placeholder="Buscar"
             />
-            <AddDeviceButton setUpdate={setUpdate} option={"monitor"} />
+            <ButtonAddPerson setUpdate={setUpdate} />
           </div>
           <div className="pagination-container glass">
             <Pagination
@@ -88,13 +87,11 @@ const InventoryMonitors = () => {
             />
           </div>
           <div className="device-card-container">
-            {monitors.length > 0 ? (
-              monitors.map((item) => (
-                <CardDevice key={item._id} device={item} />
-              ))
+            {users.length > 0 ? (
+              users.map((item) => <CardPersons key={item._id} user={item} />)
             ) : (
               <div className="no-devices">
-                <label>No hay dispositivos.</label>
+                <label>No hay usuarios.</label>
               </div>
             )}
           </div>
@@ -104,4 +101,4 @@ const InventoryMonitors = () => {
   );
 };
 
-export default InventoryMonitors;
+export default ListAllPersons;

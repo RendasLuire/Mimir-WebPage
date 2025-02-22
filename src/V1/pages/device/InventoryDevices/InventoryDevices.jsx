@@ -80,8 +80,8 @@ const InventoryDevices = () => {
           <CircularProgress />
         </div>
       ) : (
-        <div className="container">
-          <form className="d-flex mb-4 search-bar">
+        <div className="container-devices">
+          <form className="search-bar d-flex mb-4">
             <input
               type="search"
               className="form-control me-2"
@@ -105,7 +105,7 @@ const InventoryDevices = () => {
                   {devices.map((device) => (
                     <div
                       key={device._id}
-                      className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
+                      className="col-6 col-md-3 d-flex justify-content-center"
                     >
                       <CardDevice device={device} />
                     </div>
@@ -113,7 +113,7 @@ const InventoryDevices = () => {
                 </div>
               </>
             ) : (
-              <div className="no-devices">
+              <div className="noDevices">
                 <AddDeviceButton SN={searchTerm} />
               </div>
             )}

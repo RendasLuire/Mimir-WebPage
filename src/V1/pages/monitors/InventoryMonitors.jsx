@@ -1,33 +1,28 @@
+import { CircularProgress, Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
-import Global from "../../../helpers/Global";
-import AddDeviceButton from "../../../Components/device/AddDeviceButton";
-import CardDevice from "../../../Components/device/carDevice/CardDevice";
-import CircularProgress from "@mui/material/CircularProgress";
-import Pagination from "@mui/material/Pagination";
-import "./InventoryDevice.css";
+import Global from "../../helpers/Global";
+import CardDevice from "../../Components/device/carDevice/CardDevice";
+import AddDeviceButton from "../../Components/device/AddDeviceButton";
 
-const InventoryDevices = () => {
-  const [devices, setDevices] = useState([]);
+const InventoryMonitors = () => {
   const [loading, setLoading] = useState(true);
+  const [monitors, setMonitors] = useState([]);
   const [update, setUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const devicesPerPage = 10;
-  const filter = "computo";
+  const monitorsPerPages = 10;
 
-  const getDevices = async () => {
+  const getMonitors = async () => {
     try {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        throw new Error("No se encontró el token de autenticación.");
+        console.log("No hay token de autenticacion.");
       }
 
       const request = await fetch(
-        `${
-          Global.url
-        }device?filter=${filter}&page=${currentPage}&limit=${devicesPerPage}&search=${searchTerm.toLocaleLowerCase()}`,
+        `${Global.url}device/monitors/?page=${currentPage}&limit=${monitorsPerPages}&search=${searchTerm}`,
         {
           method: "GET",
           headers: {
@@ -38,31 +33,31 @@ const InventoryDevices = () => {
       );
 
       if (!request.ok) {
-        throw new Error("Error al obtener los datos del servidor.");
+        console.log("Error en consulta.");
       }
 
       const response = await request.json();
 
-      setDevices(response.data);
-      setTotalPages(response.pagination.totalPages);
+      const { data, pagination } = response;
+
+      setMonitors(data);
+      setTotalPages(pagination.totalPages);
       setLoading(false);
     } catch (error) {
-      setLoading(false);
-      console.error("Error fetching devices:", error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    getDevices();
+    getMonitors();
   }, [update, currentPage, searchTerm]);
-
-  const handleInputChange = (event) => {
-    setCurrentPage(1);
-    setSearchTerm(event.target.value.trim());
-  };
 
   const handleChangePage = (event, value) => {
     setCurrentPage(value);
+  };
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   return (
@@ -76,27 +71,26 @@ const InventoryDevices = () => {
           <div className="filter-bar glass">
             <input
               className="search-input"
+              placeholder="Buscar"
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder="Buscar"
             />
-            <AddDeviceButton setUpdate={setUpdate} />
+            <AddDeviceButton setUpdate={setUpdate} option={"monitor"} />
           </div>
           <div className="pagination-container glass">
             <Pagination
-              count={totalPages}
-              page={currentPage}
               variant="outlined"
               color="primary"
+              count={totalPages}
+              page={currentPage}
               onChange={handleChangePage}
             />
           </div>
           <div className="device-card-container">
-            {devices.length > 0 ? (
-              devices
-                .slice(0)
-                .reverse()
-                .map((item) => <CardDevice key={item._id} device={item} />)
+            {monitors.length > 0 ? (
+              monitors.map((item) => (
+                <CardDevice key={item._id} device={item} />
+              ))
             ) : (
               <div className="no-devices">
                 <label>No hay dispositivos.</label>
@@ -109,4 +103,4 @@ const InventoryDevices = () => {
   );
 };
 
-export default InventoryDevices;
+export default InventoryMonitors;

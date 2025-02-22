@@ -1,6 +1,6 @@
 @import url("../../../styles/colorPalette.css");
 
-.container {
+.container-devices {
   display: flex;
   flex-direction: column;
   align-items: center;
