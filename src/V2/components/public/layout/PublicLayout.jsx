@@ -1,9 +1,36 @@
-import React from "react";
+import { CircularProgress } from "@mui/material";
+import NavBar from "../navbar/NavBar";
+import "./PublicLayout.css";
+import { Navigate, Outlet } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import { useEffect } from "react";
 
 const PublicLayout = () => {
+  const { auth, loading } = useAuth();
+
+  useEffect(() => {
+    if (auth._id && window.location.pathname === "/login") {
+      return;
+    }
+  }, [auth]);
+
   return (
-    <div>
-      <h1>Public Layout</h1>
+    <div className="publicLayout">
+      <NavBar />
+      {loading ? (
+        <div className="d-flex justify-content-center align-items-center w-100 h-100">
+          <div className="card">
+            <div className="card-header">
+              <CircularProgress />
+            </div>
+            <div className="card-body">
+              <h1 className="card-title">Cargando...</h1>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
 };
