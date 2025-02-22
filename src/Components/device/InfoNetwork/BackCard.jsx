@@ -75,7 +75,7 @@ const BackCard = ({
     };
 
     try {
-      fetch(`${Global.url}device/updateNetwork/${deviceId}`, {
+      const request = fetch(`${Global.url}device/updateNetwork/${deviceId}`, {
         method: "PATCH",
         body: JSON.stringify(messageUpdate),
         headers: {
@@ -84,6 +84,12 @@ const BackCard = ({
         },
       });
 
+      if (!request.ok) {
+        setUpdate(true);
+        setMessage("Error:" + request.statusText);
+        setIsFlipped(false);
+        setOpen(true);
+      }
       setUpdate(true);
       setMessage("Cambios guardados");
       setIsFlipped(false);
