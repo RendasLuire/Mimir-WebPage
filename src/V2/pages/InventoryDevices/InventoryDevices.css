@@ -1,0 +1,86 @@
+.inventoryDevices {
+ display: flex;
+ flex-direction: column;
+ min-height: 80vh;
+}
+
+.inventoryDevices .search-bar {
+ width: 100%;
+}
+
+.inventoryDevices .search-input {
+ flex-grow: 1;
+}
+
+.inventoryDevices .action-menu {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ width: 50%;
+ margin: 0 auto;
+}
+
+.inventoryDevices .btn-group {
+ width: 100%;
+ margin-bottom: 1rem;
+}
+
+.inventoryDevices .pagination-container {
+ width: 100%;
+ display: flex;
+ justify-content: center;
+}
+
+.inventoryDevices .grid-devices {
+ flex-grow: 1;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-wrap: wrap;
+ gap: 1rem;
+}
+
+.inventoryDevices .noDevice {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 50vh;
+}
+
+.inventoryDevices .device-card-wrapper {
+ width: 100%;
+ max-width: 300px;
+}
+
+.inventoryDevices .device-card {
+ width: 100%;
+ min-width: 200px;
+ max-width: 300px;
+ height: 350px;
+ min-height: 350px;
+ text-align: center;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ word-wrap: break-word;
+ padding: 0.5rem;
+ box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+ .inventoryDevices .action-menu {
+   width: 100%;
+ }
+
+ .inventoryDevices .device-card-wrapper {
+   max-width: 100%;
+ }
+
+ .inventoryDevices .grid-devices {
+   flex-direction: column;
+ }
+}
+
+.inventoryDevices .grid-devices:only-child .device-card-wrapper {
+ max-width: 100%;
+}

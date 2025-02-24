@@ -29,7 +29,13 @@ const PublicLayout = () => {
           </div>
         </div>
       ) : (
-        <Outlet />
+        <div className="layout_content">
+          {auth._id && window.location.pathname === "/login" ? (
+            <Navigate to={"/inventory/devices/"} />
+          ) : (
+            <Outlet />
+          )}
+        </div>
       )}
     </div>
   );

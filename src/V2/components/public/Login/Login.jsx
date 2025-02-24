@@ -4,6 +4,7 @@ import "./Login.css";
 import TextField from "@mui/material/TextField";
 import useAuth from "../../../hooks/useAuth";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { formState, onInputChange } = useForm({
@@ -13,6 +14,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const { setAuth } = useAuth();
   const userInputRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     userInputRef.current?.focus();
@@ -48,6 +50,7 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data));
       setAuth(data);
       setError(message);
+      navigate("/inventory/devices/");
     } catch (error) {
       setError("Error al procesar la solicitud");
     }

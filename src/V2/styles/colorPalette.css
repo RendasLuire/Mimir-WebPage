@@ -1,0 +1,41 @@
+
+:root {
+ /* Colores primarios */
+ --primary-color: #003060; /* Color principal para fondos */
+ --secondary-color: #055C9D; /* Color secundario para fondos */
+ --tertiary-color: #0E86D4; /* Color terciario para botones e interacciones */
+ --accent-color: #68BBE3; /* Color de acento para detalles */
+
+ /* Colores de fondo */
+ --background-color: #F2EBE3; /* Fondo claro, para el contenido */
+ --secondary-background-color: #E9ECEF; /* Fondo secundario, para secciones */
+ --dark-background-color: #212529; /* Fondo oscuro, para elementos oscuros */
+
+ /* Colores de texto */
+ --font-color: #F2EBE3; /* Color principal del texto */
+ --secondary-font-color: #6C757D; /* Color para texto secundario (descripciones, etc.) */
+ --heading-font-color: #212529; /* Color para títulos y encabezados */
+ --muted-font-color: #ADB5BD; /* Color de texto desactivado */
+ 
+ /* Colores para mensajes de estado */
+ --error-color: #D9534F; /* Color para mensajes de error */
+ --warning-color: #F0AD4E; /* Color para mensajes de advertencia */
+ --success-color: #5CB85C; /* Color para mensajes de éxito */
+ --info-color: #17A2B8; /* Color para mensajes informativos */
+ 
+ /* Colores de sombra y bordes */
+ --shadow-color: rgba(0, 0, 0, 0.1); /* Color para sombras */
+ --border-color: #DEE2E6; /* Color para bordes, como en inputs y botones */
+
+ /* Colores para elementos interactivos */
+ --link-color: #0E86D4; /* Color para enlaces */
+ --link-hover-color: #055C9D; /* Color para enlaces al pasar el mouse */
+
+ /* Colores adicionales */
+ --light-color: #FFFFFF; /* Blanco puro */
+ --dark-color: #343A40; /* Gris oscuro, para contraste */
+ --neutral-color: #F8F9FA; /* Gris claro, para fondos sutiles */
+ --highlight-color: #FFC107; /* Amarillo para resaltar elementos importantes */
+
+ --transparent: rgba( 255, 255, 255, 0.1 )
+}
