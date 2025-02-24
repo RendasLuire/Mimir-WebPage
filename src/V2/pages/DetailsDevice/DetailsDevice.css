@@ -1,11 +1,11 @@
 .details-device {
  width: 100vw;
   height: 100vh;
-  padding: 20px;
+  padding: 30px;
   overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .details-device .grid-container {
@@ -25,13 +25,14 @@
 
 
 .details-device .grid-item {
- text-align: center;
- align-content: center;
- background: var(--secondary-background-color);
- border-radius: 10pt;
- box-shadow: 0 6px 12px var(--shadow-color);
- padding: 20px;
- min-height: 120px;
+  text-align: center;
+  background: var(--secondary-background-color);
+  border-radius: 10pt;
+  box-shadow: 0 6px 12px var(--shadow-color);
+  padding: 20px;
+  min-height: 500px;
+  height: auto; 
+  overflow: hidden; 
 }
 
 .details-device .comments {

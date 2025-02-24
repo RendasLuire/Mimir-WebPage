@@ -1,0 +1,54 @@
+@import url("../../../styles/colorPalette.css");
+
+.detaisDeviceCard {
+  background: var(--secondary-background-color);
+  width: 100%;
+  height: auto;
+  border-radius: 10pt;
+  box-shadow: 0 6px 12px var(--shadow-color);
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.detaisDeviceCard .flip-card {
+  width: 90%;
+  max-width: 400px;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  perspective: 1000px;
+}
+
+.detaisDeviceCard .flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.detaisDeviceCard .flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.detaisDeviceCard .flip-card-front,
+.detaisDeviceCard .flip-card-back {
+  min-height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.detaisDeviceCard .flip-card-back {
+  background-color: var(--secondary-background-color);
+  transform: rotateY(180deg);
+}
