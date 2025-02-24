@@ -86,7 +86,7 @@ const InventoryDevices = () => {
           className="container d-flex flex-column justify-content-between"
           style={{ minHeight: "80vh" }}
         >
-          <form className="search-bar d-flex mb-4 m-5 w-100">
+          <form className="search-bar d-flex mb-4 m-5">
             <input
               ref={searchInputRef}
               type="search"
@@ -128,7 +128,7 @@ const InventoryDevices = () => {
                 {devices.map((device) => (
                   <div
                     key={device._id}
-                    className="col-6 col-md-3 d-flex justify-content-center"
+                    className="col-xs-1 col-sm-1 col-md-2 col-lg-3 col-xl-3 d-flex justify-content-center"
                   >
                     <div className="device-card-wrapper">
                       <DeviceCard device={device} />

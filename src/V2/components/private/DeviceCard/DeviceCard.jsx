@@ -77,7 +77,7 @@ const DeviceCard = ({ device }) => {
 
   return (
     <Link
-      to={`/inventory/devices/v2/details/${device._id}`}
+      to={`/inventory/devices/${device._id}`}
       className="card device-card m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
     >
       <div className="mx-2 icon">{icon}</div>

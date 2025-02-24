@@ -1,0 +1,88 @@
+.details-device {
+ width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-device .grid-container {
+  display: grid;
+  height: auto;
+  width: 100%;
+  max-width: 1200px;
+  gap: 20px;
+  padding: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "device monitor user"
+    "network office extras"
+    "comments comments comments";
+}
+
+
+.details-device .grid-item {
+ text-align: center;
+ align-content: center;
+ background: var(--secondary-background-color);
+ border-radius: 10pt;
+ box-shadow: 0 6px 12px var(--shadow-color);
+ padding: 20px;
+ min-height: 120px;
+}
+
+.details-device .comments {
+  min-height: 300px;
+  width: 100%;
+  grid-area: comments;
+}
+
+.details-device .device {
+  grid-area: device;
+}
+
+.details-device .monitor {
+  grid-area: monitor;
+}
+
+.details-device .user {
+  grid-area: user;
+}
+
+.details-device .network {
+  grid-area: network;
+}
+
+.details-device .office {
+  grid-area: office;
+}
+
+.details-device .extras {
+  grid-area: extras;
+}
+
+.details-device .device, .details-device .user, .details-device .network {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (max-width: 1024px) {
+  .details-device .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+      "device"
+      "monitor"
+      "user"
+      "network"
+      "office"
+      "extras"
+      "comments";
+  }
+}
