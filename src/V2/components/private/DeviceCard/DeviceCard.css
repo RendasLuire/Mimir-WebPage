@@ -1,7 +1,6 @@
 @import url("../../../styles/colorPalette.css");
 
 .device-card {
-  background-color: red;
   backdrop-filter: blur( 7.5px );
   border-radius: 10px;
   box-shadow: 0 4px 15px var(--shadow-color);
@@ -18,6 +17,17 @@
   overflow: hidden;
   margin: 1rem;
   border: 1px solid var(--border-color);
+  background-color: var(--secondary-background-color);
+}
+
+.device-card .card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-background-color);
 }
 
 .device-card .icon {
@@ -43,6 +53,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   color: var(--heading-font-color);
+  word-break: normal;
 }
 
 .device-card .card-text {

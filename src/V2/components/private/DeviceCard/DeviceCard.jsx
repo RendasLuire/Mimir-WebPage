@@ -62,7 +62,7 @@ const DeviceCard = ({ device }) => {
       : { color: "#F44336", label: "Desconocido" };
   };
 
-  const { color, label } = getColorAndLabel(status.value);
+  const { color, label } = getColorAndLabel(device.status.value);
 
   const deviceIconMap = {
     desktop: <DevicesIcon sx={{ width: 100, height: 100 }} />,
@@ -76,43 +76,42 @@ const DeviceCard = ({ device }) => {
   const icon = deviceIconMap[device.typeDevice] || null;
 
   return (
-    <Link
-      to={`/inventory/devices/${device._id}`}
-      className="card device-card m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none"
-    >
-      <div className="mx-2 icon">{icon}</div>
-      <div className="position-absolute top-0 start-0">
-        {loading ? (
-          <Tooltip title={"loading"} arrow>
-            <CircleIcon sx={{ color: "grey" }} />
-          </Tooltip>
-        ) : (
-          <Tooltip title={label} arrow>
-            <CircleIcon sx={{ color }} />
-          </Tooltip>
-        )}
-      </div>
-      <div className="position-absolute top-0 end-0 icon">
-        {device.monitor?.id && (
-          <Tooltip title={device.monitor?.serialNumber.toUpperCase()}>
-            <MonitorOutlinedIcon />
-          </Tooltip>
-        )}
-      </div>
-      <div className="card-body text-center">
-        <h5 className="card-title">{device.hostname.toUpperCase()}</h5>
-        <p className="card-text">{`${device.brand} ${device.model}`}</p>
-        <p className="card-text">{device.serialNumber.toUpperCase()}</p>
-        <p className="card-text">
-          {device.person.name && device.person.name !== "unassigned"
-            ? device.person.name
-            : "Sin asignar"}
-        </p>
-        <p className="card-text">
-          <small className="text-body-secondary">
-            {moment(device.lastChange).format("LL")}
-          </small>
-        </p>
+    <Link to={`/inventory/devices/${device._id}`} className="device-card ">
+      <div className="card m-1 d-flex flex-column align-items-center justify-content-center position-relative text-decoration-none">
+        <div className="mx-2 icon">{icon}</div>
+        <div className="position-absolute top-0 start-0">
+          {loading ? (
+            <Tooltip title={"loading"} arrow>
+              <CircleIcon sx={{ color: "grey" }} />
+            </Tooltip>
+          ) : (
+            <Tooltip title={label} arrow>
+              <CircleIcon sx={{ color }} />
+            </Tooltip>
+          )}
+        </div>
+        <div className="position-absolute top-0 end-0 icon">
+          {device.monitor?.id && (
+            <Tooltip title={device.monitor?.serialNumber.toUpperCase()}>
+              <MonitorOutlinedIcon />
+            </Tooltip>
+          )}
+        </div>
+        <div className="card-body text-center">
+          <h5 className="card-title">{device.hostname.toUpperCase()}</h5>
+          <p className="card-text">{`${device.brand} ${device.model}`}</p>
+          <p className="card-text">{device.serialNumber.toUpperCase()}</p>
+          <p className="card-text">
+            {device.person.name && device.person.name !== "unassigned"
+              ? device.person.name
+              : "Sin asignar"}
+          </p>
+          <p className="card-text">
+            <small className="text-body-secondary">
+              {moment(device.lastChange).format("LL")}
+            </small>
+          </p>
+        </div>
       </div>
     </Link>
   );
