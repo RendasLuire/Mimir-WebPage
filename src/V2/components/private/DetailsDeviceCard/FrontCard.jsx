@@ -22,12 +22,12 @@ const FrontCard = ({
 }) => {
   const icon = iconMap[deviceData.typeDevice] || null;
   return (
-    <div className="front-card">
+    <div className="detaisDeviceCard front-card">
       <div className="card">
         <div className="card-header">
           <h1>{icon}</h1>
         </div>
-        <div className="card-body">
+        <div className="card-body info">
           <p>
             <label>{`${deviceData.brand} ${deviceData.model}`}</label>
             <span>Modelo</span>
