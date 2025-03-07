@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.detaisDeviceCard .list-card-back {
+  flex-grow: 1;
+  overflow: auto;
+}
+
 .detaisDeviceCard .flip-card {
   width: 90%;
   max-width: 400px;

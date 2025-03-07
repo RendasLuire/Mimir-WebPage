@@ -3,6 +3,7 @@ import useDevice from "../../../hooks/useDevice";
 import "./DetailsDeviceCard.css";
 import { Snackbar } from "@mui/material";
 import FrontCard from "./FrontCard";
+import BackCard from "./BackCard";
 
 const DetailsDeviceCard = () => {
   const { deviceData, setUpdate } = useDevice({});
@@ -34,7 +35,13 @@ const DetailsDeviceCard = () => {
           />
         </div>
         <div className="flip-card-back">
-          <h1>Back</h1>
+          <BackCard
+            deviceData={deviceData}
+            setIsFlipped={setIsFlipped}
+            setOpen={setOpen}
+            setMessage={setMessage}
+            setUpdate={setUpdate}
+          />
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material";
 import "./DetailsDeviceCard.css";
 import PropTypes from "prop-types";
 import { API } from "../../../utils/Urls";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const iconMap = {
   desktop: <DevicesIcon sx={{ width: 50, height: 50 }} />,

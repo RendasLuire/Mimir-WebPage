@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -7,14 +6,24 @@ import Switch from "@mui/material/Switch";
 import DevicesIcon from "@mui/icons-material/Devices";
 import ComputerOutlinedIcon from "@mui/icons-material/ComputerOutlined";
 import InputLabel from "@mui/material/InputLabel";
+import ".//DetailsDeviceCard.css";
 import useForm from "../../../hooks/useForm";
+import { useEffect, useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import { API } from "../../../utils/Urls";
 
 const iconMap = {
   desktop: <DevicesIcon sx={{ width: 50, height: 50 }} />,
   laptop: <ComputerOutlinedIcon sx={{ width: 50, height: 50 }} />,
 };
 
-const BackCard = (deviceData, setIsFlipped, setOpen, setMessage, setUpdate) => {
+const BackCard = ({
+  deviceData,
+  setIsFlipped,
+  setOpen,
+  setMessage,
+  setUpdate,
+}) => {
   const [complex, setComplex] = useState("");
   const [building, setBuilding] = useState("");
   const [ubication, setUbication] = useState("");
@@ -22,6 +31,7 @@ const BackCard = (deviceData, setIsFlipped, setOpen, setMessage, setUpdate) => {
   const [bussinesUnit, setBussinesUnit] = useState("");
   const [storages, setStorages] = useState([]);
   const icon = iconMap[deviceData.typeDevice] || null;
+  const { auth } = useAuth();
 
   const initialState = {
     hostname: deviceData.hostname || "",
@@ -43,12 +53,146 @@ const BackCard = (deviceData, setIsFlipped, setOpen, setMessage, setUpdate) => {
   const { formState, onInputChange, setFormState } = useForm(initialState);
   const [listSettings, setListSettings] = useState([]);
 
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const messageUpdate = {
+      ...formState,
+      phisicRef: ubicationText,
+      bussinesUnit,
+      user: auth._id,
+    };
+
+    try {
+      fetch(`${API.base}device/${deviceData._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(messageUpdate),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      setUpdate(true);
+      setMessage("Cambios guardados");
+      setIsFlipped(false);
+      setOpen(true);
+    } catch (error) {
+      setMessage("Error", error);
+      setOpen(true);
+    }
+  };
+
   const handleCancelClick = () => {
     setMessage("Cambios cancelados");
     setFormState(initialState);
     setIsFlipped(false);
     setOpen(true);
   };
+
+  const getStatus = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return false;
+      }
+
+      const request = await fetch(`${API.base}settings/statusDevice`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      if (!request.ok) {
+        if (request.status === 404) {
+          console.warn("Endpoint not found (404)");
+        } else {
+          console.error(`API error: ${request.status}`);
+        }
+        return;
+      }
+
+      const response = await request.json();
+      const { data } = response;
+      setListSettings(data);
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  const getStorages = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData) {
+        return false;
+      }
+
+      const request = await fetch(`${API.base}storages/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+
+      if (request.ok) {
+        setStorages(response.data);
+      }
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  const loadSelection = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token || !deviceData) {
+        return false;
+      }
+
+      const messageToSend = { complete: deviceData.phisicRef };
+
+      const request = await fetch(`${API.base}storages/ubication/`, {
+        method: "POST",
+        body: JSON.stringify(messageToSend),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const response = await request.json();
+
+      if (request.ok) {
+        setComplex(response.complexId);
+        setBussinesUnit(response.complex);
+        setBuilding(response.buildingId);
+        setUbication(response.ubication.ubicationId);
+        setUbicationText(response.ubication.complete);
+      }
+    } catch (error) {
+      console.log("Error: " + error);
+    }
+  };
+
+  useEffect(() => {
+    getStorages();
+    getStatus();
+    setFormState(initialState);
+  }, [deviceData]);
+
+  useEffect(() => {
+    if (storages.length > 0) {
+      loadSelection();
+    }
+  }, [storages]);
 
   const handleComplexChange = (e) => {
     const [complexId, complexText] = e.target.value.split("|");
@@ -231,7 +375,11 @@ const BackCard = (deviceData, setIsFlipped, setOpen, setMessage, setUpdate) => {
         </form>
       </div>
       <div className="btn-group card-footer">
-        <button className="btn btn-primary" type="button">
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={handleSaveClick}
+        >
           Guardar
         </button>
         <button
