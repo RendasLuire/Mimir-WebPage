@@ -6,6 +6,7 @@ import LoadingCard from "../../components/private/LoadingCard/LoadingCard";
 import DetailsDeviceCard from "../../components/private/DetailsDeviceCard/DetailsDeviceCard";
 import MonitorCard from "../../components/private/MonitorCard/MonitorCard";
 import UserCard from "../../components/private/UserCard/UserCard";
+import NetworkCard from "../../components/private/NetworkCard/NetworkCard";
 
 const DetailsDevice = () => {
   const { id } = useParams();
@@ -29,7 +30,9 @@ const DetailsDevice = () => {
           <div className="grid-item user">
             <UserCard />
           </div>
-          <div className="grid-item network">CardInfoNetwork</div>
+          <div className="grid-item network">
+            <NetworkCard />
+          </div>
           <div className="grid-item office">CardInfoOffice</div>
           <div className="grid-item extras">CardInfoExtras</div>
           <div className="grid-item comments">CardInfoComments</div>
