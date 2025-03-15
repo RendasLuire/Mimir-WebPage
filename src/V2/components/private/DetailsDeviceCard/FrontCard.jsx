@@ -9,6 +9,7 @@ import "./DetailsDeviceCard.css";
 import PropTypes from "prop-types";
 import { API } from "../../../utils/Urls";
 import { useEffect, useState } from "react";
+import ModalChangeDevice from "./ModalChangeDevice";
 
 const iconMap = {
   desktop: <DevicesIcon sx={{ width: 50, height: 50 }} />,
@@ -128,6 +129,7 @@ const FrontCard = ({
   }, []);
 
   const handleEditClick = () => setIsFlipped(true);
+  const handleModalToggle = () => setIsModalOpen(!isModalOpen);
 
   const icon = iconMap[deviceData.typeDevice] || null;
   return (
@@ -178,7 +180,11 @@ const FrontCard = ({
                 <PrintIcon />
               </Tooltip>
             </button>
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleModalToggle}
+            >
               <Tooltip title="Cambiar equipo" placement="top">
                 <ChangeCircleIcon />
               </Tooltip>
@@ -194,6 +200,12 @@ const FrontCard = ({
             </button>
           </div>
         </div>
+        <ModalChangeDevice
+          isOpen={isModalOpen}
+          onClose={handleModalToggle}
+          currenDevice={deviceData._id}
+          setUpdate={setUpdate}
+        />
       </div>
     </div>
   );
