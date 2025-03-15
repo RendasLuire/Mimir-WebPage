@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import LoadingCard from "../../components/private/LoadingCard/LoadingCard";
 import DetailsDeviceCard from "../../components/private/DetailsDeviceCard/DetailsDeviceCard";
 import MonitorCard from "../../components/private/MonitorCard/MonitorCard";
+import UserCard from "../../components/private/UserCard/UserCard";
 
 const DetailsDevice = () => {
   const { id } = useParams();
@@ -25,7 +26,9 @@ const DetailsDevice = () => {
           <div className="grid-item monitor">
             <MonitorCard />
           </div>
-          <div className="grid-item user">CardInfoUser</div>
+          <div className="grid-item user">
+            <UserCard />
+          </div>
           <div className="grid-item network">CardInfoNetwork</div>
           <div className="grid-item office">CardInfoOffice</div>
           <div className="grid-item extras">CardInfoExtras</div>
