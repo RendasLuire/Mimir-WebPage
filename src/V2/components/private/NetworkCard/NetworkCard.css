@@ -3,10 +3,13 @@
 .container-info-network {
   background: var(--secondary-background-color);
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 10pt;
   box-shadow: 0 6px 12px var(--shadow-color);
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-info-network .icon {
@@ -33,8 +36,6 @@
   font-size: 0.6rem;
   margin-left: 0.2rem;
 }
-
-.container-info-network .info label {@import url("../../../styles/colorPalette.css");
 
   .container-info-user {
     background: var(--secondary-background-color);
@@ -74,17 +75,17 @@
   
   .container-info-network .flip-card-front, .flip-card-back {
     min-height: 100%;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 0%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
   }
   
   .container-info-network .flip-card-back {
@@ -156,8 +157,6 @@
     background-color: var(--link-hover-color);
   }
   
-  font-size: 1rem;
-}
 
 .container-info-network .btn-group button {
   background-color: var(--link-color);

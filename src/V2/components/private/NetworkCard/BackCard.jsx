@@ -5,14 +5,14 @@ import useForm from "../../../hooks/useForm";
 import LanIcon from "@mui/icons-material/Lan";
 import TextField from "@mui/material/TextField";
 
-const BackCard = (
+const BackCard = ({
   networkData,
   setIsFlipped,
   setOpen,
   setMessage,
   setUpdate,
-  deviceId
-) => {
+  deviceId,
+}) => {
   const { auth } = useAuth();
   const initialState = {
     ip: networkData?.ip || "000.000.000.000",
@@ -25,8 +25,8 @@ const BackCard = (
   const handleCancelClick = () => {
     setMessage("Cambios cancelados");
     setFormState(initialState);
-    setIsFlipped(false);
     setOpen(true);
+    setIsFlipped(false);
   };
 
   const formatIP = (value) => {
